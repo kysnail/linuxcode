@@ -22,11 +22,19 @@ $ git commit -m "changes to some-file" -a
 $ git commit -m "changes to some-file" some-file
 
 $ git commit -v ch04Notes.txt
-$
-$
-$
-$
-$
+
+Seeing what has changed
+=======================
+$ git status
+
+[working directory] vs [staging area]
+$ git diff
+
+[staging area] vs [repository]
+$ git diff --cached
+
+[working directory] vs [staging area] vs [repository]
+$ git diff HEAD
 $
 $
 $
