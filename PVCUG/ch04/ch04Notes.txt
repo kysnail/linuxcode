@@ -1,0 +1,10 @@
+Adding and Commiting: Git Basics
+================================
+$ git clone git://github.com/tswicegood/mysite.git
+Your company's firewall may block your request, in that case, you can use following command to
+acquire it.
+
+$ git clone https://github.com/tswicegood/mysite.git
+
+
+
