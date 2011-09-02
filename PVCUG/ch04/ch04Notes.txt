@@ -6,5 +6,60 @@ acquire it.
 
 $ git clone https://github.com/tswicegood/mysite.git
 
+Adding Files
+============
+Entering patch mode.
+$ git add -p
+
+Committing Changes
+==================
+There are three ways to committing a file.
+$ git add some-file
+$ git commit -m "changes to some-file"
+
+$ git commit -m "changes to some-file" -a 
+
+$ git commit -m "changes to some-file" some-file
+
+
+$
+$
+$
+$
+$
+$
+$
+$
+$
+$
+$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
