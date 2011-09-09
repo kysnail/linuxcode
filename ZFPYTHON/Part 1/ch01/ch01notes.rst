@@ -1,35 +1,37 @@
-虽然 Python 被称为脚本语言，通常说来，脚本语言都是解释性的语言，不需要编译过程。但 Python 具有编译过程，它会将
-脚本编译成字节码的形式。一般不需要将脚本自己进行编译，Python 会自己根据需要编译。通常情况下，只有作为模块的脚本
-才会被编译成字节码的形式。
+	虽然 Python 被称为脚本语言，通常说来，脚本语言都是解释性的语言，不需要编译过程。但 Python 具有编译过程，它会将
+	脚本编译成字节码的形式。一般不需要将脚本自己进行编译，Python 会自己根据需要编译。通常情况下，只有作为模块的脚本
+	才会被编译成字节码的形式。
 
-Python 最早在 MAC 系统下实现。
+	Python 最早在 MAC 系统下实现。
 
-JPython 可以在 Java 中使用 Python 快速、简便地进行开发，充分利用 Python 的灵活性和快速性。
+	JPython 可以在 Java 中使用 Python 快速、简便地进行开发，充分利用 Python 的灵活性和快速性。
 
-.NET 是 Microsoft XML Web services 平台，是微软公司极力推崇的技术。使用 XML Web services，不同的应用程序可以进行
-通信和数据共享。即使这些应用程序运行在不同的操作系统上，也不会影响它们之间的通信和数据共享。
+	.NET 是 Microsoft XML Web services 平台，是微软公司极力推崇的技术。使用 XML Web services，不同的应用程序可以进行
+	通信和数据共享。即使这些应用程序运行在不同的操作系统上，也不会影响它们之间的通信和数据共享。
 
 使用 Vim 编写 Python 脚本
 =========================
-gVim: 标准的 Vim
-gVim Easy: 无模式的 Vim
-gVim Read only: 制度模式的 Vim
+	gVim: 标准的 Vim
+	gVim Easy: 无模式的 Vim
+	gVim Read only: 制度模式的 Vim
 
-set nubackup 
-不生成备份文件
+	set nubackup 
+	不生成备份文件
 
-V 进入块模式（在 Windows 下需要按 Ctrl+Q 组合键）
+	V 进入块模式（在 Windows 下需要按 Ctrl+Q 组合键）
 
 编辑模式
 ========
-在编辑模式下，有几个对编程非常有用的命令，如 Ctrl+P 组合键或者 Ctrl+N 组合键可以补全当前单词（前提是该单词已经在
-当前 Vim 编辑文件中出现过。）。如果所安装的 Vim 支持 Python，在编辑 Python 脚本时还可以通过 Ctrl+X 组合键，然后按
-Ctrl+O 组合键自动补全 Python 模块中的函数或者属性。如果所安装的 Vim 不支持 Python，即不能使用 Ctrl+X、Ctrl+Q 组合
-键则需要自己编译 Vim。
+	在编辑模式下，有几个对编程非常有用的命令，如 Ctrl+P 组合键或者 Ctrl+N 组合键可以补全当前单词（前提是该单词已经在
+	当前 Vim 编辑文件中出现过。）。如果所安装的 Vim 支持 Python，在编辑 Python 脚本时还可以通过 Ctrl+X 组合键，然后按
+	Ctrl+O 组合键自动补全 Python 模块中的函数或者属性。如果所安装的 Vim 不支持 Python，即不能使用 Ctrl+X、Ctrl+Q 组合
+	键则需要自己编译 Vim。
 
 
 使用 Emacs 编写 Python 脚本
 ===========================
+
+
 Emacs 中常用命令
 ----------------
 
