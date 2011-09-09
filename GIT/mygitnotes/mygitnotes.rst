@@ -15,6 +15,7 @@ Git Notes
 重命名文件
 ----------
     与 Linux 系统保持一致，并不提供诸如 cmd 下的 rename 命令，而是直接用 mv 命令进行操作。::
+
 	git mv part1notes.txt part1notes.rst
 	git commit -m "Changed part1notes from TXT to ReSTructured text."
 
