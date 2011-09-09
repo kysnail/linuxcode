@@ -1,5 +1,4 @@
-:kysnail
-:TracingLife@gmail.com
+:author kysnail
 
 Git Notes
 =========
