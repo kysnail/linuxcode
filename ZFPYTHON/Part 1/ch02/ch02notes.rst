@@ -149,3 +149,89 @@ Semicolon
 		/
 		2)
 
+脚本基本结构
+------------
+
+    Python 中的基本输入语句是 "raw_input" 语句。该语句返回所输入的字符串，如果想要获取数字，可以使用 "int" 函数
+    将字符串转为数字。::
+
+	>>> raw_input('Input your name:')		# 使用 raw_input 提示输入
+	Input your name:kysnail				# kysnail 为用户输入
+	'kysnail'
+	>>> name = raw_input('Input your name:')	# 将用户输入赋值给 name
+	Input your name:kysnail
+	>>> print name					# 输出 name
+	kysnail
+	>>> year = raw_input('The year:')		# 获取输入
+	The year:2007
+	>>> print year
+	2007
+	>>> year + 1					# year 加 1，这里导致错误，因为 year 为字符串型
+	Traceback (most recent call last):
+	  File "<stdin>", line 1, in <module>
+	TypeError: cannot concatenate 'str' and 'int' objects
+	>>> int(year) + 1				# 使用 int 函数将 year 转换成整型
+	2008
+	>>> 
+
+    需要说明的是位于 "**>>>**" 命令提示符之后的为用户输入的语句。如果语句钱没有 ">>>" 命令提示符，则表示该语句
+    为 Python 的输出。但由于使用了 "**raw_input**" 语句，因此在 "raw_input" 语句的提示之后需要用户输入。
+
+类型转换函数
+````````````
+- float: 将字符串或者整数转换为浮点数
+- str: 将数字转换为字符串
+- chr: 将 ASCII 值转换为 ASCII 字符
+- hex: 将整数转换为十六进制的字符串
+- long: 将字符串转换为长整型
+- oct: 将整数转化为八进制的字符串
+- ord: 将 ASCII 字符转化为 ASCII 值
+ 
+print 语句
+----------
+
+    Python 中的基本输出语句是 "print" 语句。使用 "print" 语句可以输出 Python 所有的数据类型，而不需要事先指定要
+    输出的数据类型。
+
+    如果自定义了某一新的类型或者类，可以通过重载 "_repr_" 让 "print" 语句支持。::
+
+	>>> a = 0				# 输出整型
+	>>> print a				# 输出内容
+	0
+	>>> b = 1				
+	>>> print a + b				# 输出表达式的值
+	1
+	>>> print b				# 输出 b 的值
+	1
+	>>> s = "Hello"				# 定义字符串
+	>>> print s				# 输出字符串
+	Hello
+	>>> t = 'World'				# 定义字符串
+	>>> print t				# 输出字符串
+	World
+	>>> l = [1, 2, 3]			# 定义列表
+	>>> print l				# 输出列表
+	[1, 2, 3]
+	>>> t = ('a', 'b', 'c')			# 定义元组
+	>>> print t				# 输出元组
+	('a', 'b', 'c')
+	>>> print l, t				# 同时输出列表和元组
+	[1, 2, 3] ('a', 'b', 'c')
+	>>> print l, '\n', t			# 使用换行符
+	[1, 2, 3] 
+	('a', 'b', 'c')
+	>>> for i in t:				# 循环输出
+	... print i
+	  File "<stdin>", line 2		# 在 Python 自带的交互式命令行下，需要键入缩进值
+	    print i
+		^
+	IndentationError: expected an indented block
+	>>> for i in t:				# 循环输出
+	...     print i
+	...					# 在空格缩进处按一下回车键即表示缩进结束 
+	a
+	b
+	c
+	>>> 
+
+
