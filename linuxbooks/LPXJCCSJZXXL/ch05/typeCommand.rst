@@ -30,4 +30,20 @@ type command
   -a: 列出所有包含指定命令名的命令，也包括别名
   -P: 显示完整的文件名（外部命令），或者为内部命令
 
+example 1:
+----------
+::
 
+	$ type pwd
+	pwd 是一个 shell 内部命令
+	$ type -a pwd
+	pwd 是一个 shell 内部命令
+	pwd 是 /bin/pwd
+	$ type -t pwd
+	builtin
+	$ type -P pwd
+	/bin/pwd
+	$ ll /bin/pwd 
+	-rwxr-xr-x 1 root root 34376 2010-09-22 02:33 /bin/pwd*
+	$ file /bin/pwd 
+	/bin/pwd: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.15, stripped 
