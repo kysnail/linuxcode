@@ -47,7 +47,7 @@ Title level inconsistent
 ----------
 这中细微的差别，需要注意了。 ::
 
-	style 1
+	>style 1
 
 	**Note**
 	 这里是引用的文本。
@@ -55,8 +55,9 @@ Title level inconsistent
 **Note**
  这里是引用的文本。
 
+
 ::
-	style 2
+	>style 2
 
 	**Note**
 
