@@ -22,7 +22,7 @@ mark			description
 [^a-z]			将匹配所有字符但是 a~z 范围内的字符除外
 [xyz]			将匹配方括号中的任意一个字符
 [^xyz]			将匹配不包括方括号中的字符的所有字符	
-========		============================================================
+=========		============================================================
 
 example 1:
 ----------
@@ -33,6 +33,6 @@ example 1:
 	$ ls -F
 	ch05/  README
 
-       -F, --classify
-              append indicator (one of */=>@|) to entries
+	-F, --classify
+		append indicator (one of */=>@|) to entries
 
