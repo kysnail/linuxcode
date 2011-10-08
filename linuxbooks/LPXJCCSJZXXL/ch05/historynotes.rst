@@ -32,4 +32,30 @@ history 命令与操作曾经使用过的命令
 
  在调试网络时，会使用 ping 检测网络中的多台主机的连通情况，这是使用 ^ 进行替换就可以看到优势了。
 
+example 1:
+``````````
+::
+
+	$ ping 192.168.1.27
+	PING 192.168.1.27 (192.168.1.27) 56(84) bytes of data.
+	64 bytes from 192.168.1.27: icmp_seq=1 ttl=64 time=0.053 ms
+	64 bytes from 192.168.1.27: icmp_seq=2 ttl=64 time=0.042 ms
+	64 bytes from 192.168.1.27: icmp_seq=3 ttl=64 time=0.044 ms
+	64 bytes from 192.168.1.27: icmp_seq=4 ttl=64 time=0.040 ms
+	^C
+	--- 192.168.1.27 ping statistics ---
+	4 packets transmitted, 4 received, 0% packet loss, time 2997ms
+	rtt min/avg/max/mdev = 0.040/0.044/0.053/0.009 ms
+	$ ^27^1
+	ping 192.168.1.1
+	PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+	64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=2.09 ms
+	64 bytes from 192.168.1.1: icmp_seq=2 ttl=64 time=0.996 ms
+	64 bytes from 192.168.1.1: icmp_seq=3 ttl=64 time=1.83 ms
+	64 bytes from 192.168.1.1: icmp_seq=4 ttl=64 time=0.983 ms
+	^C
+	--- 192.168.1.1 ping statistics ---
+	4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+	rtt min/avg/max/mdev = 0.983/1.476/2.093/0.497 ms
+
 
