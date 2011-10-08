@@ -55,10 +55,8 @@ Title level inconsistent
 **Note**
  这里是引用的文本。
 
-
-00
---
 ::
+
 	>style 2
 
 	**Note**
