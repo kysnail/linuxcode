@@ -58,4 +58,20 @@ example 1:
 	4 packets transmitted, 4 received, 0% packet loss, time 3004ms
 	rtt min/avg/max/mdev = 0.983/1.476/2.093/0.497 ms
 
+历史功能的快捷键
+================
+- 使用上下键访问历史命令
+- Ctrl+R 在历史命令中搜索需要的命令
+ (reverse-i-search`':)
+- 可以使用如下组合键提取上一个命令的最后一个参数
+ Esc + . (sequence press)
+ Alt + . (simultaneously press)
+
+example 2:
+----------
+:: 
+
+(reverse-i-search)`ok': cd linuxcode/linuxbooks/LPXJCCSJZXXL/ch05/
+
+
 
