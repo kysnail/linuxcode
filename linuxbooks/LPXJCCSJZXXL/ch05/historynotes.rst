@@ -73,5 +73,16 @@ example 2:
 
 (reverse-i-search)`ok': cd linuxcode/linuxbooks/LPXJCCSJZXXL/ch05/
 
+当出现 (reverse-i-search`':) 提示时，如果想直接回到操作系统提示符下，可以直接按 Enter 键。
+
+另外检索词有多个值时，可以连续按 Ctrl+R 进行顺序搜索。
 
 
+example 3:
+----------
+在实际的网络环境中，在连接一台远端计算机时，通常首先会使用 ping 命令测试网络连通状况，之后再使用 telnet 建立连接。
+由于 IP 地址较长，此时使用 Esc+./Alt+. 提取之前的 ping 参数就显得很方便了。
+
+**Note**
+
+ Alt+. 必须是在图形界面中的终端窗口中输入的，如果是在 telnet 的终端端口中使用可能不工作。
