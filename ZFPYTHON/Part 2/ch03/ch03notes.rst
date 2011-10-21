@@ -235,4 +235,88 @@
 	 len(string)		 获取字符串长度
 	=====================	=====================================================
 
+    函数的使用示例：::
+
+	>>> str = 'hi, python!'
+	>>> str.capitalize()		# 将字符串的第一个字母大写	
+	'Hi, python!'
+	>>> str.count('p')		# 获得字符串中 "p" 的数目
+	1
+	>>> str.find('hello')		# 获得字符串中 "p" 的起始位置
+	-1				# -1 表示未找到
+	>>> str.find('p')		# 获得字符串中 "p" 的起始位置
+	4				# 从 0 开始也就是字符串中第 5 个字符
+	>>> str.isalnum()		# 检测字符串是否仅包含 0-9A-Za-z
+	False
+	>>> str.isalpha()		# 检测字符串是否仅包含字母
+	False
+	>>> str.isdigit()
+	False
+	>>> str.islower()
+	True
+	>>> str.isspace()		# 检测字符串中所有字符是否均为空白字符
+	False
+	>>> str.istitle()		# 检测字符串中的单词是否为首字母大写
+	False
+	>>> str.isupper()
+	False
+	>>> str.join('HI')
+	'Hhi, python!I'
+	>>> str.upper()
+	'HI, PYTHON!'
+	>>> str.split()
+	['hi,', 'python!']
+	>>> str.split(',')
+	['hi', ' python!']
+	>>> len(str)
+	11
+	>>> str + 'hello'
+	'hi, python!hello'
+	>>> str * 3			# 使用 "*" 重复字符串，此处重复 3 此
+	'hi, python!hi, python!hi, python!'
+	>>> str * 2
+	'hi, python!hi, python!'
+	>>> str				# 输出 str
+	'hi, python!'			# 仍为原来的字符串
+	>>> 
+
+    以上函数并不改变字符串本身，而是返回修改后的新字符串，这点与 Java 相同。如果像修改原字符串，则可以使用下面的方式：::
+
+	>>> str = str.title()
+	>>> str
+	'Hi, Python!'
+
+    上面最复杂的函数是 string.join()/string.split() ，会随着参数的不同而产生不同的效果。对于 string.join() 
+	- 如果参数字符串中只有一个字符，那么返回参数字符串
+	- 如果参数字符串中拥有多个字符，那么会将原字符串插入参数字符串中的每两个字符之间
+    同样，string.join() 并不改变原字符串，只是返回一个新的字符串。::
+
+	>>> str = 'god'
+	>>> str.join('-><-')
+	'-god>god<god-'
+	>>> str.join('a')
+	'a'
+	>>> str
+	'god'
+
+    string.split() 函数将字符串以指定的字符分割，如果不指定字符，则默认以空格分割字符串。其函数原型 ::
+
+	split([sep [,maxsplit]])
+
+    参数含义
+	- sep -> 可选参数，指定分割字符
+	- maxsplit -> 可选参数，分割次数
+    示例：::
+
+	>>> str = 'Python is wonderful!'
+	>>> str.split()
+	['Python', 'is', 'wonderful!']
+	>>> str.split(None,1)
+	['Python', 'is wonderful!']
+	>>> str.split(None,0)
+	['Python is wonderful!']
+	>>> str.split('o',)
+	['Pyth', 'n is w', 'nderful!']
+	>>> 
+
 
