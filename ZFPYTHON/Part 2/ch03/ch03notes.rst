@@ -384,5 +384,35 @@
 	>>> 'x = %X' % 0xA			# 使用 %X 格式化十六进制数字，其中的字母大写
 	'x = A'
 
+3.2.5 字符串与数字相互转换
+``````````````````````````
+    很多情况下，都会遇到数字与数字字符串的转换问题，比如 C 语言中的 socket 编程中，就会遇到的，使用 atoi 函数进行转换，在
+    Python 中也有类似的函数从事两者之间的转换工作，
+
+    string.atoi() 将字符串转换为整数
+	string.atoi( s[, base])
+	- s: 进行转换的字符串
+	- base: 可选参数，表示将字符转换成的进制类型
+
+    str() 将数字转换为字符串
+
+    示例：::
+
+	>>> '10' + 4						# 两种不同类型对象相加引发异常
+	Traceback (most recent call last):
+	  File "<stdin>", line 1, in <module>
+	TypeError: cannot concatenate 'str' and 'int' objects
+	>>> string.atoi('10') + 4				# 没有 import string 时，会发生 string 未定义的错误
+	Traceback (most recent call last):
+	  File "<stdin>", line 1, in <module>
+	NameError: name 'string' is not defined
+	>>> import string
+	>>> string.atoi('10') + 4				# 将字符串转换为数字
+	14
+	>>> '10' + str(4)					# 将数字转换为字符串
+	'104'
+	>>> string.atoi('13', 16)				# 将字符串转换为十六进制
+	19
+
 
 
