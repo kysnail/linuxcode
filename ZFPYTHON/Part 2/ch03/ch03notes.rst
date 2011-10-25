@@ -415,5 +415,29 @@
 	>>> string.atoi('13', 16)				# 将字符串转换为十六进制
 	19
 
+3.2.6 原始字符串
+````````````````
+原始字符串是 Python 中一类比较特殊的字符串，以大写字母 R 或者小写字母 r 开始。在原始字符串中，“\”不再表示转义字符的含义。
+原始字符串是为正则表达式设计的，但是可以用其来方便地表示 Windows 系统下的路径。但是，如果路径以“\”结尾，那么会出错。
 
+  这个功能同 C# 中 @ 号所引导的字符串。
 
+示例：::
+
+  IDLE 2.6.6      
+  >>> import os
+  >>> path = r'f:\books\javascript'			# 使用原始字符串
+  >>> os.listdir(path)					# 列出目录中的内容
+  ['Eloquent JavaScript.pdf', 'FunnyJS.txt', 'High.Performance.JavaScript.pdf', 'JavaScript DOM \xb1\xe0\xb3\xcc\xd2\xd5\xca\xf5.pdf', 'JavaScript.mm', 'Javascript\xbb\xf9\xb4\xa1\xbd\xcc\xb3\xcc.chm', 'JavaScript\xca\xb5\xd5\xbd\xca\xd6\xb2\xe1.rar', 'jQuery\xbb\xf9\xb4\xa1\xbd\xcc\xb3\xcc.pdf', 'JSON', 'Learn JavaScript and Ajax with w3Schools.pdf', 'Plug-In JavaScript 100 Power Solutions.pdf', 'Pragmatic.Guide+to+JavaScript.rar', 'Pragmatic.Guide.to.JavaScript.Nov.2010', 'SimpleJavaScript', 'SitePoint.The.Art.and.Science.of.JavaScript.Dec.2007.pdf', 'SitePoint.The.Art.and.Science.of.JavaScript.Dec.2007.rar', 'TheArt&ScienceOfJavascript', '\xc9\xee\xc8\xeb\xc7\xb3\xb3\xf6JavaScript.pdf', '\xbe\xab\xcd\xa8JavaScript (1).pdf', '\xbe\xab\xcd\xa8JavaScript.pdf', '\xc1\xe3\xbb\xf9\xb4\xa1\xd1\xa7JavaScript.rar']
+  >>> os.listdir('f:\books\javascript')			# 此处会报错
+  
+  Traceback (most recent call last):
+    File "<pyshell#3>", line 1, in <module>
+      os.listdir('f:\books\javascript')
+  WindowsError: [Error 123] : 'f:\x08ooks\\javascript/*.*'
+  >>> os.listdir(r'f:\books\javascript')		# 这样写就不会报错
+  ['Eloquent JavaScript.pdf', 'FunnyJS.txt', 'High.Performance.JavaScript.pdf', 'JavaScript DOM \xb1\xe0\xb3\xcc\xd2\xd5\xca\xf5.pdf', 'JavaScript.mm', 'Javascript\xbb\xf9\xb4\xa1\xbd\xcc\xb3\xcc.chm', 'JavaScript\xca\xb5\xd5\xbd\xca\xd6\xb2\xe1.rar', 'jQuery\xbb\xf9\xb4\xa1\xbd\xcc\xb3\xcc.pdf', 'JSON', 'Learn JavaScript and Ajax with w3Schools.pdf', 'Plug-In JavaScript 100 Power Solutions.pdf', 'Pragmatic.Guide+to+JavaScript.rar', 'Pragmatic.Guide.to.JavaScript.Nov.2010', 'SimpleJavaScript', 'SitePoint.The.Art.and.Science.of.JavaScript.Dec.2007.pdf', 'SitePoint.The.Art.and.Science.of.JavaScript.Dec.2007.rar', 'TheArt&ScienceOfJavascript', '\xc9\xee\xc8\xeb\xc7\xb3\xb3\xf6JavaScript.pdf', '\xbe\xab\xcd\xa8JavaScript (1).pdf', '\xbe\xab\xcd\xa8JavaScript.pdf', '\xc1\xe3\xbb\xf9\xb4\xa1\xd1\xa7JavaScript.rar']
+  >>> path = r'f:\books\javascript\'			# 原始字符串不能以 "\" 结尾
+  SyntaxError: EOL while scanning string literal
+  >>> path = R'f:\books\javascript\'
+  SyntaxError: EOL while scanning string literal
