@@ -390,7 +390,7 @@
     Python 中也有类似的函数从事两者之间的转换工作，
 
     string.atoi() 将字符串转换为整数
-	string.atoi( s[, base])
+    string.atoi( s[, base])
 	- s: 进行转换的字符串
 	- base: 可选参数，表示将字符转换成的进制类型
 
