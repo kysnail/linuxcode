@@ -93,3 +93,55 @@
 
 此处没有考虑诸如 "com.cn" 这样的形式，读者可以试着自己将其完成。
 
+5.1 re 模块函数应用
+-------------------
+Python 中的 re 模块提供了对正则表达式的支持。虽然 Python 中有一个 string 模块用来对字符串进行处理，但 string 模块
+只能完成简单的操作。而使用 re 模块可以完成对复杂字符串的操作，它提供了以下几类对字符串进行操作的函数。
+
+5.1.3 匹配和搜索
+````````````````
+- re.match() 函数用于在字符串中匹配正则表达式，如果匹配成功，则返回 MatchObject 对象实例。
+- re.search() 函数用于在字符串中查找正则表达式，如果找到，则返回 MatchObject 对象实例。
+- re.findall() 函数用于在字符串中查找所有符合正则表达式的字符串，并返回这些字符串的列表。如果在正则表达式中使用了组，则返回一个元组。
+
+re.match() 函数和 re.search() 函数的作用基本一样。不同的是，re.match() 函数只是从字符串中第一个字符开始匹配。而 re.search 则搜索整个字符串。以上三个函数的原型如下所示。
+
+- re.match( pattern, string[, flags])
+- re.search( pattern, string[, flags])
+- re.findall( pattern, string[, flags])
+
+其参数含义如下。
+
+- pattern：匹配模式。
+- string：要进匹配的字符串。
+- flags：可选参数，进行匹配的标志。
+
+参数 flags 可以是以下选项。
+
+- re.I：忽略大小写。
+- re.L：根据本地设置而更改 \w \W \b \B \s \S 的匹配内容。
+- re.M：多行匹配模式。
+- re.S：使“.”元字符匹配换行符。
+- re.U：匹配 Unicode 字符。
+- re.X：忽略 pattern 中的空格，并且可以使用 “#”注释。
+
+上述的几个编译标志可以同时使用。同时使用几个编译标志时，需要使用 "|" 对并用的编译标志进行运算。以下实例使用上述
+函数进行匹配和搜索。
+::
+
+	>>> import re
+	>>> s = 'Life can be good'
+	>>> print re.match('can', s)
+	None					# 返回 None 的原因是 match 必须从第一个字符开始匹配
+	>>> print re.search('can', s)
+	<_sre.SRE_Match object at 0xb76f3d78>
+	>>> print re.match('l.*', s)
+	None					# 未找到的原因是，这里没有以小写字母 l 开头的字符串
+	>>> print re.match('l.*', s, re.I)
+	<_sre.SRE_Match object at 0xb76f3d78>
+	>>> re.findall('[a-z]{3}', s)		# 查找到所有 3 个字符的字符串，注意这里没有将 ood 返回。
+	['ife', 'can', 'goo']
+	>>> re.findall('[a-z]{1,3}', s)
+	['ife', 'can', 'be', 'goo', 'd']	# 查找所有由 1 到 3 个字母组成的字符串，同样这里可以看到总是从最大值开始切起。而且同样不会产生 ood 字符串。
+
+
