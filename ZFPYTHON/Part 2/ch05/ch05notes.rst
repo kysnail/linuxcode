@@ -144,4 +144,38 @@ re.match() 函数和 re.search() 函数的作用基本一样。不同的是，re
 	>>> re.findall('[a-z]{1,3}', s)
 	['ife', 'can', 'be', 'goo', 'd']	# 查找所有由 1 到 3 个字母组成的字符串，同样这里可以看到总是从最大值开始切起。而且同样不会产生 ood 字符串。
 
+5.1.4 替换函数
+``````````````
+- re.sub() 函数用于替换字符串中符合正则表达式的内容，它返回替换后的字符串。
+- re.subn() 函数与 re.sub() 函数相同，只不过 re.subn() 函数返回一个元组。
 
+其函数原型分别如下所示。
+
+- re.sub( pattern, repl, string[, count])
+- re.subn( pattern, repl, string[, count])
+
+其参数含义如下。
+
+- pattern：正则表达式模式。
+- repl：要替换成的内容。
+- string：进行内容替换的字符串。
+- count：可选参数，最大替换次数。
+
+示例：
+::
+
+	>>> import re
+	>>> s = 'Life can be bad'
+	>>> re.sub('bad', 'good', s)		# 'bad' -> 'good'
+	'Life can be good'
+	>>> re.sub('bad|be', 'good', s)
+	'Life can good good'
+	>>> re.sub('bad|be', 'good', s, 1)	# 'bad' -> 'good' for one time.
+	'Life can good bad'
+	>>> re.subn('bad|be', 'good', s, 1)	
+	('Life can good bad', 1)		# 这里的元组第二项为 1，因为上面定义值为 1.
+	>>> r = re.subn('bad|be', 'good', s)
+	>>> print r[0]
+	Life can good good
+	>>> print r[1]				# 这里的元组第二项为 2，与上面不同的地方就在于没有指定次数的限制。
+	2
