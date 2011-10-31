@@ -1,6 +1,6 @@
 
 
-**Install markdown in vim**
+#Install markdown in vim#
 
 1. download mkd.vim;
 2. put 'mkd.vim' to /usr/share/vim/vim72/syntax;
@@ -27,8 +27,13 @@
 
 5. The the \*.mkd file will automatic syntax highlight.
 
+#Code display#
+Unlike reStructuredText, simply ident every line of the block by at least 4 spaces or 1 tab can not display 
+like a code block. So I use the following way to display code.
 
-
+	<pre><code class="language-xxx">
+		...
+	</pre>
 
 
 
