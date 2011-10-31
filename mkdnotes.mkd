@@ -28,17 +28,18 @@
 #Code display#
 Like reStructuredText, simply ident every line of the block by at least 4 spaces or 1 tab can display 
 like a code block. 
-	<pre><code class="language-xxx">
-		...
-	</pre>
-
-------------------
-We can also use the html tag `<pre><code></code></pre>` to display code block. So I can use the following 
-way to display code.
 
 	" Markdown language syntax settings
 	augroup mkd
 	  autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
 	augroup END
 
+------------------
+We can also use the html tag `<pre><code></code></pre>` to display code block. So I can use the following 
+way to display code.
 
+	<pre><code class="language-xxx">
+		...
+	</pre>
+
+The advantage of this way is we can assign fixed language.
