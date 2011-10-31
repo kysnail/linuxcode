@@ -6,18 +6,6 @@
 2. put 'mkd.vim' to /usr/share/vim/vim72/syntax;
 3. create a file type detect configuration file in *~/.vim/ftdetect/mkd.vim*, add following content:
 
-<pre><code class="language-vim">
-    " markdown filetype file
-    if exists("did_load_filetypes")
-      finish
-    endif
-    augroup markdown
-      au! BufRead,BufNewFile *.mkd setfiletype mkd
-    augroup END
-</code></pre>
-
-------------------------------------
-
 	" markdown filetype file
 	if exists("did_load_filetypes")
 	  finish
@@ -38,14 +26,15 @@
 5. The the \*.mkd file will automatic syntax highlight.
 
 #Code display#
-Unlike reStructuredText, simply ident every line of the block by at least 4 spaces or 1 tab can not display 
-like a code block. So I use the following way to display code.
-
+Like reStructuredText, simply ident every line of the block by at least 4 spaces or 1 tab can display 
+like a code block. 
 	<pre><code class="language-xxx">
 		...
 	</pre>
 
 ------------------
+We can also use the html tag `<pre><code></code></pre>` to display code block. So I can use the following 
+way to display code.
 
 	" Markdown language syntax settings
 	augroup mkd
