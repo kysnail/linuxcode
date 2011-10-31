@@ -6,6 +6,7 @@
 2. put 'mkd.vim' to /usr/share/vim/vim72/syntax;
 3. create a file type detect configuration file in *~/.vim/ftdetect/mkd.vim*, add following content:
 
+<pre><code>
 	" markdown filetype file
 	if exists("did_load_filetypes")
 	  finish
@@ -13,6 +14,7 @@
 	augroup markdown
 	  au! BufRead,BufNewFile *.mkd setfiletype mkd
 	augroup END
+</code></pre>
 
 4. Add contents to the ~/.vimrc file.
 
