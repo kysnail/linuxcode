@@ -6,22 +6,24 @@
 2. put 'mkd.vim' to /usr/share/vim/vim72/syntax;
 3. create a file type detect configuration file in *~/.vim/ftdetect/mkd.vim*, add following content:
 
-<pre><code>
-	" markdown filetype file
-	if exists("did_load_filetypes")
-	  finish
-	endif
-	augroup markdown
-	  au! BufRead,BufNewFile *.mkd setfiletype mkd
-	augroup END
+<pre><code class="language-vim">
+    " markdown filetype file
+    if exists("did_load_filetypes")
+      finish
+    endif
+    augroup markdown
+      au! BufRead,BufNewFile *.mkd setfiletype mkd
+    augroup END
 </code></pre>
 
 4. Add contents to the ~/.vimrc file.
 
+<pre><code class="language-vim">
     " Markdown language syntax settings
     augroup mkd
       autocmd BufRead *.mkd set ai formatoptions=tcroqn2 comments=n:>
     augroup END
+</code></pre>
 
 5. The the \*.mkd file will automatic syntax highlight.
 
