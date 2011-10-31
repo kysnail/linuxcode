@@ -1,0 +1,64 @@
+# Linux 下的基本操作
+
+## 添加用户
+
+    [user]# useradd user01
+
+## 查看所有用户
+
+    [user]# cat /etc/passwd
+
+## 修改用户密码
+
+    [user]# passwd user01
+
+## 删除用户
+
+    [user]# userdel -r user01
+
+使用 "-r" 将主目录及其下面的所有内容都删除。
+
+## 控制文件属性
+
+### 查看文件属性
+
+    [user]# ls -l
+
+### 改变文件拥有着
+
+    [user]# chown user01 test.txt
+
+### 改变文件权限
+1. 以字母方式修改；
+
+    chmod u+/-r filename
+    chmod g+/-r filename
+    chmod o+/-r filename
+
+2. 以数字方式修改；
+
+    chmod 644 filename
+
+## 查看相关命令的帮助：man 命令名
+
+    # man ls
+
+## 显示当前系统中已注册的用户信息：who
+
+    # who
+
+## 显示当前注册的用户信息：whoami
+
+    # whoami
+
+## vi 编辑器的使用
+
+    # vi filename
+
+## 使用 cat 命令查看文档的内容
+
+    # cat filename
+
+
+
+
