@@ -16,6 +16,16 @@
     augroup END
 </code></pre>
 
+------------------------------------
+
+	" markdown filetype file
+	if exists("did_load_filetypes")
+	  finish
+	endif
+	augroup markdown
+	  au! BufRead,BufNewFile *.mkd setfiletype mkd
+	augroup END
+
 4. Add contents to the ~/.vimrc file.
 
 <pre><code class="language-vim">
