@@ -35,7 +35,7 @@ like a code block. So I use the following way to display code.
 		...
 	</pre>
 
-
+------------------
 
 	" Markdown language syntax settings
 	augroup mkd
