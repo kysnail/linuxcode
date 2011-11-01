@@ -19,3 +19,25 @@ Git Notes
 	git mv part1notes.txt part1notes.rst
 	git commit -m "Changed part1notes from TXT to ReSTructured text."
 
+
+重命名文件夹
+------------
+    下面是重命名文件夹的过程。 ::
+
+	$ git mv TA\&SOJS/ TASOJS
+	$ git status
+	# On branch master
+	# Changes to be committed:
+	#   (use "git reset HEAD <file>..." to unstage)
+	#
+	#	renamed:    TA&SOJS/README -> TASOJS/README
+	#	renamed:    TA&SOJS/ch01/ch01notes.mkd -> TASOJS/ch01/ch01notes.mkd
+	#	renamed:    TA&SOJS/ch05/ch05notes.mkd -> TASOJS/ch05/ch05notes.mkd
+	#
+
+	[master d8c1f16] Rename folder name TA&SOJS to TASOJS.
+	 3 files changed, 0 insertions(+), 0 deletions(-)
+	 rename javascriptbooks/{TA&SOJS => TASOJS}/README (100%)
+	 rename javascriptbooks/{TA&SOJS => TASOJS}/ch01/ch01notes.mkd (100%)
+	 rename javascriptbooks/{TA&SOJS => TASOJS}/ch05/ch05notes.mkd (100%)
+
