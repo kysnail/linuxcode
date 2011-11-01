@@ -5,6 +5,7 @@ Chapter 01 - JUnit Intro
 JUnit 是用来做单元测试的，而单元测试，则是由编写代码的人所负责的，这点需要注意。
 
 目前主要有 JUnit 3 和 JUnit 4 两个版本，它们分别对应不同版本的 JDK ，这也是为什么二者的实现机制差别很大的原因。
+::
 
     JUnit3 -> JDK4
     JUnit4 -> JDK5
