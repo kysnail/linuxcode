@@ -1,4 +1,3 @@
-
 #Install markdown in vim#
 
 1. download mkd.vim;
@@ -47,9 +46,9 @@ The advantage of this way is we can assign fixed language.
 Using `#` symbol to indicate which level you want to display.
 
     # level one
-    # level two
-    # level three
-    # level four
-    # level five
-    # level six
+    ## level two
+    ### level three
+    #### level four
+    ##### level five
+    ###### level six
     
