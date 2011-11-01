@@ -1,2 +1,380 @@
 # Metaprogramming with JavaScript
 
+Wikipedia 给元编程做了如下定义：
+
+    一种计算机程序编写方式，它可以将其他程序（或者它们本身）作为数据进行编写和操作，或者在编译时做一部分工作，
+    在运行时做另外一部分工作。
+
+不过，在现代脚本语言中，元编程通常指对语言本身的工作机理进行操作。例如，Ruby on Rails 框架中很多易用性及对程序员的友好性都来自于元编程。其中最好的例子是关于 **ActiveRecord** 模式的实现，它根据数据库的标准自动建立对应的类定义（包括方法和属性）。所以当表 people 包含一个字段 name 时，ActiveRecord 能保证对应的 Person 类中会有个叫做 name 的方法——事实上它为你把代码写好了。当然，本章并不是讨论 Ruby 中的元编程——那个话题已经在 Ruby 圈子里讨论的太多了。本章会介绍如何在 JavaScript 中使用元编程技巧。
+
+JavaScript 一直都没被认为是一种强大的或是聪明的语言。其实，直到最近，它还是被大多数程序员看作是一个为网页浏览器设计的“笨”语言。不过，待会儿你会看到，JavaScript 其实带有一些强大的特性，使它成为一个非常适合实现元编程技巧的语言。虽然可以通过网页找到这些技巧的相关代码，但是本章的目的是搜集所有这些技巧，并将它们放在一起展现给你。我希望通过展示如何使用元编程让代码更加可用（从开发的角度）、灵活和优化。还将详细介绍 JavaScript 的内部工作机理及一些不为人知的重要特性。
+
+首先探索 JavaScript 元编程中的一些基本语言特性。然后，我们会向你展示如何利用这些基石组建实用的技巧，并提供一些来自真实项目的示例。最后，会看看这些技巧是如何用在现有项目和类库中的。
+
+    对着示例做点什么
+    在你阅读示例时，最好可以打开带有 Firebug 的 Firefox，这样可以尝试其中的技巧。对任意一个网页打开 Firebug，
+    点击 Console，然后一行行地输入示例，看看会发生什么。这是理解我们讨论的技巧关键点的最好方法。
+
+## 5.1 The Building Blocks
+虽然 JavaScript 是个带有少量内建对象和方法的相对简单的语言，但其巧妙的构建方式使它非常灵活。因此，JavaScript 元编程其实就是了解语言本身的一些基本知识。在这些知识当中，有些已被大部分有经验的 JavaScript 程序员所熟知，还有一些则不是。不过，如果将这些概念孤立开来，大部分都是很容易理解的。先让我们将 JavaScript 元编程拆解成一些基石。
+
+### 5.1.1 (Nearly)Everything Is a Hash
+JavaScript 中所有对象（除了基本类型 **string** **number** **boolean**）都继承自 Object。 **Object** 是一个哈希 (hash) ——一组含键（key）的任意类型属性，而且可以包含任意类型的数据。你可以随意往 JavaScript 对象中添加属性。
+
+启动 Firefox ，加载任意一个页面，然后使用 Firebug 控制台，试试下面几个示例：
+
+    var myObj = new Object;
+    myObj['myProperty'] = 454;  		// => 454
+    myObj[45435] = true;			// => true
+    myObj[true] = 'hello';			// => hello
+    console.log(myObj['myProperty']);		// => 454
+    console.log(myObj['true']);			// => 'hello'
+    var myDate = new Date;			
+    myDate['a'] = 'You can use any type of object as a hash';	// => You can use any type of object as a hash
+    location['bingo'] = 'Yes, I mean _any_object';		// => Yes, I mean _any_object
+    console.log(location['bingo']);		// => 'Yes, I mean _any_object'
+
+注意这里有个针对 **字符串键属性** 的特殊语法——这些属性可以通过 **点表达式** 或 **方括号** 访问。因为这样的能力，这些属性叫做 **扩展属性**。
+
+紧接着，试试下面的代码：
+
+    console.log(myObj.myProperty);			// => 454
+    console.log(myDate.a);				// => 'You can use any type of object as a hash'
+    myDate.fluffyMonster = 'Expando!';			// => "Expando!"
+
+唯一的限制是， **键/属性** 的名字必须是一个有效的变量名并且不是预留的关键字。例如，设置 `myObj.bad-var-name` 或 `myObj.class` 是没用的，因为 `-` 字符不允许作为变量名的一部分，而 class 是一个预留的关键字（虽然目前还没用到它）。
+
+现在我们知道可以通过 **字符串键** 或 **点语法** 对属性进行读写，那就能创建具有动态属性名的对象：
+
+    var myObj = {};
+    for (var i = 0; i < 5; i++) { 
+    	myObj['prop_' + i] = i; 
+    }
+    myObj.prop_3;			// => 3
+
+这是元编程军火库里非常强大的武器。
+
+### 5.1.2 Finding and Iterating through Properties in an Object
+现在我们知道 JavaScript 中几乎所有的东西都是一个包含 **键/值** 属性的哈希。但是，如果给定一个对象，如何确定它包含那些属性呢？这里，需要用到 JavaScript 的一个内建结构——for-in 循环：
+
+    var person = {
+    	name:'Bob', 
+    	email:'bob@bob.com', 
+    	tel:'0258305964'
+    };
+
+    for (var key in person) {
+    	console.log(key);
+    }	// => 'name', 'email', 'tel'
+
+这里我们看到如何用 **for-in** 循环遍历一个对象中所有的 **键**。当然也可以使用 for-in 遍历一个对象中的所有 **属性**。
+
+    var person = {
+    	person.name = 'kysnail';
+    	person.email = 'TracingLife@gmail.com'
+    	person.tel = '13786866868'
+    };
+
+    for (var key in person) { 
+    	console.log(key); 
+    }	// => 'name', 'email', 'tel'
+
+可以用这个技巧 **检查** 或 **寻找** 与对象内容有关的信息。不过，关键字 **in** 还有另外一个用处： **它可以在一个条件语句中判断一个对象是否拥有一个特定的属性：**
+
+    // 使用上面示例中的 person 对象
+    if ("tel" in person) alert(person.tel);
+
+### 5.1.3 Detecting Types
+JavaScript 是一种 **动态类型语言** ， 这意味着可以把任意类型的值都塞到 **对象** 或 **属性** 里。因此，你希望有一些可靠的方法来检测变量中的数据类型，但其实 JavaScript 在这方面 **很弱** —— 唯一能用到的是 **typeof** 和 **instanceof** 操作符。
+
+先试试 typeof，它可以告诉你一个**对象的基本类型**。
+
+    var a = 5;
+    console.log(typeof a);		// => 'number'
+    number
+    var name = 'Sam';
+    console.log(typeof name);		// => 'string'
+    string
+    console.log(typeof aVariableThagDoesntExist);	// => 'undefined'
+    undefined
+    
+    function doSomething() { 
+    	console.log('yay!');
+    }
+    
+    console.log(typeof doSomething);			// => 'function'
+    function
+    
+    console.log(typeof doSomething());
+    yay!
+    undefined
+    
+    var anObject = {};
+    console.log(typeof anObject);			// => 'object'
+    object
+    
+    console.log(typeof anObject());
+    TypeError: object is not a function
+    console.log(typeof anObject{});
+    SyntaxError: Unexpected token {
+    
+    var anArray = [1,2,3,4,5,6];
+    console.log(typeof anArray);			// => 'object' (not 'array', unfortunately)
+    object
+
+正如看到的，typeof 操作符会告诉你对象的类型是：
+
+* string
+* number
+* function
+* boolean
+* undefined
+
+不过对于其他变量，typeof 变量只会告诉你 object。不是很有用，对吧？
+
+当然，typeof 并没有撒谎——所以那些不是之前提到的基本类型的变量都是对象（object）——但是这个信息对我们来说没有任何帮助。我们必须要确定这些对象是什么类型。这时 **instanceof** 就派上用场了：
+
+    var anArray = [1,2,3,4,5,6];
+
+    console.log
+    function log() { [native code] }
+
+    console.log(typeof anArray);		// => 'object'
+    object
+
+    console.log(anArray instanceof Array);	// => 'true'
+    true
+
+    var anObject = {};
+    console.log(typeof anObject);		// => 'object'
+    object
+
+    console.log(anObject instanceof Array);	// => 'false'
+    false
+
+这两个操作符同时适用于**属性**或**变量**。
+
+现在拥有检查一个对象所有**属性**和**类型**所必须的方法。由于 JavaScript 中几乎所有的东西都是对象，所以我们已经拥有 JavaScript 元编程需要的大部分知识。
+
+不过，在进行下一步之前，还需要理解 JavaScript 语言的另一个基本特性。
+
+### 5.1.4 There Are No Classes in JavaScript
+对的： JavaScript 里面没有类！虽然很多人把 JavaScript 的构造函数叫做类，但其实 JavaScript 是一个无类的语言。构造函数和基于类的语言（如 Java）的构造函数类似，但它们是不一样的。因此，我觉得最好忘掉它们进行比较这回事。
+
+其实，我认为构造函数更像是**点心切割器**。一个函数用在 new 操作符后面，它会以一种特殊方式执行：**它会生成一个空对象，而不是简单地执行函数并返回结果。当函数被调用时，this 操作符会指向刚刚创建的空对象**。此外，该对象的 **constructor** 属性会指向这个构造函数。
+
+试试下面的示例以便更好的理解这些概念：
+
+    function Coord(x, y) {
+        // 调用此方法时，首先会生成一个空对象，然后使用 this 指向内部的局部变量。
+        this.x = x;
+        this.y = y;
+    }
+    
+    var home = new Coord(132, 223);
+    console.log(home.x);
+    console.log(home.y);
+    console.log(home.constructor);
+    
+    var myArray = [];
+    console.log(myArray.constructor);
+
+    132
+    223
+    function Coord(x, y) {
+      // 调用此方法时，首先会生成一个空对象，然后使用 this 指向内部的局部变量。
+      this.x = x;
+      this.y = y;
+    }
+    function Array() { [native code] }
+
+#### Hacks
+    使用 Chrome 的 JavaScript Console 时，默认情况下是不允许输入多行的，但可以 `Shift+Enter` 以这样的方式输入多行指令。
+
+上面的 Coord 和其他函数没什么两样——只是 new 操作符改变了函数被调用的方式。另外注意，如果想把一个函数当作构造函数，JavaScript 的规范要求函数名的第一个字母是大写。
+
+如果构造函数有 **prototype** 属性，所有被它创建的对象都会继承 prototype 对象的属性。当查找属性时，解释器首先检查对象的属性。如果没有，解释器会检查构造函数的 prototype 对象是否含有该属性。如果还没有，并且 prototype 对象的构造函数有 prototype 属性，解释器就会检查这个 prototype 对象，以此类推。解释器会一直沿着 constructor 和 prototype 这条链找下去，直到无法继续为止，这是才能确认这个属性不存在。
+
+**这个 prototype 链，提供了非常原始的继承机制，你不应当从这个简单的形式中期待太多**。不过，待会儿会看到，它提供了一个良好的基础，我们可以在上面构建各种各样的继承模型。可以通过尝试以下代码来切身体会 prototype 属性（接着上一个示例）：
+
+    Coord.prototype.units = 'cm';
+    var a = new Coord, b = new Coord;
+    console.log(a.units);	// => 'cm'
+    console.log(b.units);	// => 'cm'
+
+    // 为了证明每个实例都指向该 prototype ，而不是一个拷贝，考虑下面的例子
+    Coord.prototype.units = 'mm';
+    console.log(a.units);	// => 'mm'
+    console.log(b.units);	// => 'mm'
+
+    // 为了展示 prototype 链...
+    function Coord3D(x, y, z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    // 需要注意这里创建对象时，没有加括号，也是允许的。
+    Coord3D.prototype = new Coord;
+    var home3D = new Coord3D(323, 2323, 4435);
+    console.log(home3D.units);	// => 'mm' inherited from Coord
+
+prototype 属性在 JavaScript 的面向对象特性中太重要了，以至于有个类库借用了它的名字——**Prototype JavaScript**类库。我们会在本章稍后详细探讨 Prototype 类库。
+
+#### Hacks
+定义一个对象可以有如下几种书写方式。
+
+    var varNoParentheses = new Coord;
+    varNoParentheses.x	// => 'undefined'
+    varNoParentheses.y	// => 'undefined'
+    
+    var varWithParentheses = new Coord();
+    varWithParentheses.x	// => 'undefined'
+    varWithParentheses.y	// => 'undefined'
+    
+    var varWithParameter = new Coord(300);
+    undefined
+    varWithParameter.x	// => '300'
+    varWithParameter.y	// => 'undefined'
+    
+    var varWithParameters = new Coord(600, 800);
+    varWithParameters.x	// => '600'
+    varWithParameters.y	// => '800'
+
+### 5.1.5 Detecting whether a Function Was Called with new
+之前提到，构造函数只是标准、普通的函数——根本没有什么特殊之处。真正特殊的地方在于一个函数是否以 new 调用，它在行为上的变化就如之前提到的点心切割器。不过在某些情况下，可能需要同时以构造函数或普通函数的方式使用一个函数。
+
+JavaScript 本身就包含一些这样的函数——如 Boolean、String 和 Number 。然我们看看示例：
+
+    // 当作为函数调用时，下面的代码用来执行类型转换：
+    String(46546);		// => "46546"
+    Number('46546');	// => 46546
+
+    // 不过，当以 new 调用时，它们会组建对象：    
+    a = new String;		// => "[object Object]"
+    a = new String();	// => "[object Object]"
+    
+    b = new Number;		// => 0
+    b = new Number();	// => 0
+
+仿照这些行为有时会很有用，但是在函数里面执行的时候如何判断该函数是以普通调用，还是 new 调用呢？
+
+技巧在于检查 this 的值。如果一个函数以 new 进行调用，this 会指向一个空对象；如果不是，this 要么指向 window 对象（一直是 this 的默认值），要么指向包含该函数为属性的对象。
+
+下面的代码用来执行这样的检查：
+
+
+    function Element() {
+        if (this == window || 'Element' in this) {
+            // alert('call as a normal function');
+            console.log('call as a normal function');
+        } else {
+            // alert('call as constructor');
+            console.log('call as constructor');
+        }
+    }
+    
+    Element()	// => 'call as a normal function'    +     'undefined'
+    
+    new Element()	// => 'call as constructor'     +     'Element'
+
+这样的检查允许我们创建自己的构造方法，这是根据自身需要扩展和自定义 JavaScript 语言非常重要的一步。
+
+### 5.1.6 Functions Are Objects
+我们已经看了如何用函数创建对象，但是你知道么，函数本身也是对象。这个事实会产生如下几个推断。
+
+首先，函数可以被赋值到一个对象的变量或属性上，并且可以作为参数传递给其他函数——如果用过类库如 Prototype 或 jQuery，你一定遇到过这样的情况。
+
+JavaScript 中有三种创建函数形式：
+
+    // 基本形式
+    function myFunc(my, args) {
+        // 这里有些代码
+    }
+
+    // 匿名形式
+    var myFunc = function(my, args) {
+        // 这里有些代码
+    }
+    
+    // 通过 new 关键字；不要在家里尝试它，孩子！
+    var myFunc = new Function("my, args", "// code as string here");
+
+每种创建函数的形式都是用于不同的场合，而且各有各的特点。
+
+#### 基本形式
+基本形式在当前作用域创建了一个命名函数，类似于用 var 创建变量。
+
+#### 匿名形式
+在第二种形式里，创建了一个匿名函数，并用 var 存放到一个变量中，这样得到一个和基本形式创建的函数完全等价的函数。匿名函数的好处在于可以将函数赋值到某个对象的某个属性上（稍后会用到这个技巧）。值得注意的是，这种形式只是将一个类型为 Function 的对象赋值到另一个对象的属性上，很像给对象的属性设置其他类型的值。
+
+#### new 形式
+第三种形式估计是最强大的，但其实就是一个美化了的 eval —— 有类似的安全陷阱——所以使用它的时候要格外小心。
+
+目前主要使用匿名形式的函数创建。这种形式给我们足够多的灵活性来对 JavaScript 进行一些有趣的扩展。
+
+首先，它允许将函数赋值到一个对象的属性上，以此模拟面向对象中对象方法的概念。不过，这种实现意味着一个不同之处，即便对于有经验的 JavaScript 程序员来说也搞不清楚：**函数和它赋到的对象之间没有任何绑定。其实，在函数体内引用的关键字 this 指向的是调用该函数的对象**。
+
+下面的代码演示了这种行为：
+
+    var a = {
+        counter : 5
+    }
+
+    var b = {
+        counter : 10
+    }
+
+    a.increment = function(amount) {
+        this.counter += amount;
+    };
+
+
+    a.increment(3);
+    console.log(a.counter);	// => 8
+
+    b.increment = a.increment;
+    b.increment(15);
+    console.log(b.counter);	// => 25 当在 b 上调用时，this 属性指向 b 而不是 a
+
+匿名函数带来的第二个好处是可以使用两个内建方法：**call** 和 **apply**。这些方法允许通过修改 this 的值改变函数被调用时的上下文。两个方法产生的效果一样；唯一的区别在于传递给它的参数不同。
+
+试试下面这段基于之前示例修改的代码，体会一下如何用 call 和 apply **修改作用域**：
+
+    var a = {
+        counter : 5
+    }
+
+    var b = {
+        counter : 10
+    }
+
+    a.increment = function(amount) {
+        this.counter += amount;
+    };
+
+    a.increment(3);
+    console.log(a.counter);	// => 8
+
+    // 在 b 的上下文中执行 a.increment:
+    a.increment.call(b, 15);
+    console.log(b.counter);	// => 25
+
+    // 或者，以数组而不是列表形式传递参数
+    a.increment.apply(b, [15]);
+    console.log(b.counter);	// => 40
+
+    // 这里如果不是数组的形式则会报错
+    a.increment.apply(b, 15);
+    TypeError: Function.prototype.apply: Arguments list has wrong type
+
+    // 这里如果不是以列表的形式，则解释器对于参数的解释不同。
+    a.increment.call(b, [15])
+    console.log(b.counter);	// => 4015
+
+值得注意的是可以检查任何函数的 length 属性来确定预期的参数个数。
+
+    a.increment.length;		// => 1 函数的参数个数为 1
+
+此外，虽然不是 ECMAScript 标准，很多浏览器实现了 caller 属性，给你一个指向调用该函数的函数的引用。
+    
