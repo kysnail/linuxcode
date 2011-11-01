@@ -41,3 +41,11 @@ Git Notes
 	 rename javascriptbooks/{TA&SOJS => TASOJS}/ch01/ch01notes.mkd (100%)
 	 rename javascriptbooks/{TA&SOJS => TASOJS}/ch05/ch05notes.mkd (100%)
 
+日常操作流程
+------------
+1. 不论在哪里，开始进行工作的第一步，应该首先 pull 操作。
+::
+
+    git pull
+
+获取最新的版本后，才开始下一步的工作。
