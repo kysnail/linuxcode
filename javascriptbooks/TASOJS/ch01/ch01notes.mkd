@@ -97,4 +97,315 @@
 同时，我们注意到这些行通过 `<thead>` 和 `<tbody>` 组织在一起。这样做不仅提供了更清晰的语义结构，还可以让 JavaScript 操作表
 格更加容易，稍后我们会讲到这点。
 
-  
+### 1.1.1 Accessing Table Elements with getElementById
+当浏览器渲染页面的时候，会为其创建一棵 DOM 树。有了这棵 DOM 树，我们便能够使用一些原生的 DOM 方法访问表格里的元素。
+
+getElementById 是本章中使用最多的方法。下面的例子展示了如何用它访问表格中的一行：
+
+    <script type="text/javascript" charset="utf-8">
+		window.onload = function() {
+			var sales = document.getElementById("sales");
+			var rows = sales.rows;
+
+			for (var i = 0; i < rows.length; i++) {
+				alert(rows[i]);
+			}
+		}
+    </script>
+
+在上述代码中，我们先用 DOM 方法 getElementById 获取表格的引用，存放于变量 sales 。然后用该变量获取表格中的所有行，存
+放于 rows 变量中。
+
+这个例子没什么问题，不过如果我们只想获取元素 thead 或 tbody 中的行呢？其实，这两个行的集合在 DOM 树中也有所反映，我们
+可以通过如下代码访问它们：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+    		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    		<title>A Simple Table</title>
+    		<script type="text/javascript" charset="utf-8">
+    			window.onload = function() {
+    				var sales = document.getElementById("sales");
+    				// The tHead property returns a reference to the thead element of a table
+    				var headRow = sales.tHead.rows;
+    				// The tBodies collection returns a collection of all <tbody> elements in a table.
+    				// Note: The elements in the collection are sorted as they appear in the source code.
+    				var bodyRows = sales.tBodies[0].rows;
+    
+    				// The innerHTML property sets or returns the inner HTML of an element.
+    				document.getElementById("output").innerHTML = "Table header has " + headRow.length + " line; Table body have " + bodyRows.length + " lines";
+    			}
+    		</script>		
+    	</head>
+    	<body id="simpleTable">
+    		<table id="sales" summary="Quarterly Sales figures for competing companys. The figures are stated in millions of dollars.">
+    			<!--The <caption> tag defines a table caption. The <caption> tag must be inserted immediately after the 
+    				<table> tag. You can specify only on caption per table. Usually the caption will be centered above the table.-->
+    			<caption>Quarterly Sales*</caption>
+    			<!-- The <thead> tag is used to group the header content in an HTML table.. The thead element should be used in 
+    				conjunction with the tbody and tfoot elements. -->
+    			<thead>
+    				<tr>
+    					<!-- The <col> tag defines attribute values for one or more columns in a table. -->
+    					<!-- The <col> tag is useful for applying styles to entire columns, instead of repeating
+    						the styles for each cell, for each row. -->
+    					<!-- The <col> tag can only be used inside a table or a colgroup element. -->
+    					<th scope="col">Companies</th>
+    					<th scope="col">Q1</th>
+    					<th scope="col">Q2</th>
+    					<th scope="col">Q3</th>
+    					<th scope="col">Q4</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<tr>
+    					<!-- The scope attribute defines a way to associate header cells and data in a table.-->
+    					<!-- The scope attribute identifies whether a cell is header for a column, row, or group
+    						of columns or rows. -->
+    					<th scope="row">Company A</th>
+    					<td>$621</td>
+    					<td>$942</td>
+    					<td>$224</td>
+    					<td>$486</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company B</th>
+    					<td>$147</td>
+    					<td>$1,325</td>
+    					<td>$683</td>
+    					<td>$524</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company C</th>
+    					<td>$135</td>
+    					<td>$2,342</td>
+    					<td>$33</td>
+    					<td>$464</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company D</th>
+    					<td>$164</td>
+    					<td>$332</td>
+    					<td>$331</td>
+    					<td>$438</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company E</th>
+    					<td>$199</td>
+    					<td>$902</td>
+    					<td>$336</td>
+    					<td>$1,427</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    		<p class="footnote">*Stated in millions of dollars</p>
+    		<p id="output" style="background:yellow; font-family:sans-serif"></p>
+    	</body>
+    </html>
+
+如其所示，访问 thead 中的行集合直接明了。不过，访问 tbody 中的行集合稍有不同，因为一个表格可能包含多个 tbody。我们
+在这里获取的是 bBodies 中第一个 tbody 所包含的行集合。由于 tBodies 中的元素个数从 0 开始，就像数组一样，所以其中的
+第一项就是 0 项，可以通过 tBodies[0] 获得。
+
+#### 什么是 DOM ？
+    
+    Document Object Model (DOM) 是一个标准化的用于操作如 HTML 和 XML 标记语言的编程接口。
+    简单地说，DOM 是文档的面向对象表示。DOM 树中的一个对象代表了 HTML 文档中的一个元素。这些对象——通常叫做节点——按照
+    其对应的 HTML 元素及嵌套关系组织在一起，就像一棵树。
+    DOM 树还包含一些其他对象，以方便我们访问和操作文档：比如示例代码中的 rows 对象，在源 HTML 文档中并不存在。DOM 中
+    的每个对戏那个还包含一些补充信息，比如位置、内容及物理尺寸。
+    
+按照同样的原理可以访问特定的一行。让我们从第一个 tbody 中获取第一行：
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+    		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    		<title>A Simple Table</title>
+    		<script type="text/javascript" charset="utf-8">
+    			window.onload = function() {
+    				var sales = document.getElementById("sales");
+    				// The tBodies collection returns a collection of all <tbody> elements in a table.
+    				// Note: The elements in the collection are sorted as they appear in the source code.
+    				var bodyRows = sales.tBodies[0].rows;
+    				var row = bodyRows[0];
+    
+    				// Print how many cells in cells collection, length is a property
+    				alert(row.cells.length);
+    				for (var i = 0; i != row.cells.length; i++) {
+    					// 注意这里的 innerHTML 和 tagName 都属于 HTMLElement Properties，也即所有的 HTML 元素都拥有的属性。
+    					document.getElementById("output").innerHTML += row.cells[i].innerHTML + " -> " + row.cells[i].tagName + "</br>";
+    				}
+    
+    				// The innerHTML property sets or returns the inner HTML of an element.
+    	//			document.getElementById("output").innerHTML = "Table header has " + headRow.length + " line; Table body have " + bodyRows.length + " lines";
+    			}
+    		</script>		
+    	</head>
+    	<body id="simpleTable">
+    		<table id="sales" summary="Quarterly Sales figures for competing companys. The figures are stated in millions of dollars.">
+    			<!--The <caption> tag defines a table caption. The <caption> tag must be inserted immediately after the 
+    				<table> tag. You can specify only on caption per table. Usually the caption will be centered above the table.-->
+    			<caption>Quarterly Sales*</caption>
+    			<!-- The <thead> tag is used to group the header content in an HTML table.. The thead element should be used in 
+    				conjunction with the tbody and tfoot elements. -->
+    			<thead>
+    				<tr>
+    					<!-- The <col> tag defines attribute values for one or more columns in a table. -->
+    					<!-- The <col> tag is useful for applying styles to entire columns, instead of repeating
+    						the styles for each cell, for each row. -->
+    					<!-- The <col> tag can only be used inside a table or a colgroup element. -->
+    					<th scope="col">Companies</th>
+    					<th scope="col">Q1</th>
+    					<th scope="col">Q2</th>
+    							<th scope="col">Q3</th>
+    					<th scope="col">Q4</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<tr>
+    					<!-- The scope attribute defines a way to associate header cells and data in a table.-->
+    					<!-- The scope attribute identifies whether a cell is header for a column, row, or group
+    						of columns or rows. -->
+    					<th scope="row">Company A</th>
+    					<td>$621</td>
+    					<td>$942</td>
+    					<td>$224</td>
+    					<td>$486</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company B</th>
+    					<td>$147</td>
+    					<td>$1,325</td>
+    					<td>$683</td>
+    					<td>$524</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company C</th>
+    					<td>$135</td>
+    					<td>$2,342</td>
+    					<td>$33</td>
+    					<td>$464</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company D</th>
+    					<td>$164</td>
+    					<td>$332</td>
+    					<td>$331</td>
+    					<td>$438</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company E</th>
+    					<td>$199</td>
+    					<td>$902</td>
+    					<td>$336</td>
+    					<td>$1,427</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    		<p class="footnote">*Stated in millions of dollars</p>
+    		<p id="output" style="background:yellow; font-family:sans-serif"></p>
+    	</body>
+    </html>
+
+当然，条条大路通罗马，看看下面这个例子：
+
+    <script type="text/javascript" charset="utf-8">
+        window.onload = function() {
+    		var sales = document.getElementById("sales");
+    		// The tBodies collection returns a collection of all <tbody> elements in a table.
+    		// Note: The elements in the collection are sorted as they appear in the source code.
+    		var tBody = sales.tBodies[0];
+    		var rows = tBody.rows;
+    		var row = rows[0];
+    
+    		// Print how many cells in cells collection, length is a property
+    		alert(row.cells.length);
+    		for (var i = 0; i != row.cells.length; i++) {
+    			// 注意这里的 innerHTML 和 tagName 都属于 HTMLElement Properties，也即所有的 HTML 元素都拥有的属性。
+    			document.getElementById("output").innerHTML += row.cells[i].innerHTML + " -> " + row.cells[i].tagName + "</br>";
+    		}
+    
+    		// The innerHTML property sets or returns the inner HTML of an element.
+    //			document.getElementById("output").innerHTML = "Table header has " + headRow.length + " line; Table body have " + bodyRows.length + " lines";
+    	}
+    </script>
+    
+下面的一行代码也可以得到同样的结果：
+
+    <script type="text/javascript" charset="utf-8">
+        window.onload = function() {
+    		// The tBodies collection returns a collection of all <tbody> elements in a table.
+    		// Note: The elements in the collection are sorted as they appear in the source code.
+    		var row = document.getElementById("sales").tBodies[0].rows[0];
+    
+    		// Print how many cells in cells collection, length is a property
+    		alert(row.cells.length);
+    		for (var i = 0; i != row.cells.length; i++) {
+    			// 注意这里的 innerHTML 和 tagName 都属于 HTMLElement Properties，也即所有的 HTML 元素都拥有的属性。
+    			document.getElementById("output").innerHTML += row.cells[i].innerHTML + " -> " + row.cells[i].tagName + "</br>";
+    		}
+    
+    		// The innerHTML property sets or returns the inner HTML of an element.
+    //			document.getElementById("output").innerHTML = "Table header has " + headRow.length + " line; Table body have " + bodyRows.length + " lines";
+    	}
+    </script>
+    
+当你选择具体的方法时应当兼顾**效率**和**可读性**。用四行代码访问表格的某一行可能太冗长了，但是只写一行读起来很费力。
+**上面例子中的单行代码的容错能力不如四行代码，因为我们没有办法在访问某个对象的子节点之前检查该对象是否存在**。
+
+当然，你可以走向另一个极端：
+
+    <script type="text/javascript" charset="utf-8">
+        window.onload = function() {
+    		var sales = document.getElementById("sales");
+    		// The tBodies collection returns a collection of all <tbody> elements in a table.
+    		// Note: The elements in the collection are sorted as they appear in the source code.
+    		if (sales) {
+    			var tBody = sales.tBodies[0];
+    			if (tBody) {
+    				var rows = tBody.rows;
+    				if (rows) {
+    					var row = rows[0];
+    				}
+    			}
+    		}
+    
+    		// Print how many cells in cells collection, length is a property
+    		alert(row.cells.length);
+    		for (var i = 0; i != row.cells.length; i++) {
+    			// 注意这里的 innerHTML 和 tagName 都属于 HTMLElement Properties，也即所有的 HTML 元素都拥有的属性。
+    			document.getElementById("output").innerHTML += row.cells[i].innerHTML + " -> " + row.cells[i].tagName + "</br>";
+    		}
+    
+    		// The innerHTML property sets or returns the inner HTML of an element.
+    //			document.getElementById("output").innerHTML = "Table header has " + headRow.length + " line; Table body have " + bodyRows.length + " lines";
+    	}
+    </script>
+    
+这段代码在执行每一步之前都检查结果的正确性，使它成为上述四个示例中最鲁棒的。毕竟，你所访问的表格可能不包含 tbody 元素，
+或者连一行都没有。**通常，在鲁棒和简洁之间，我更看重鲁棒。如果像之前的单行代码那样，不检查 tbody 是否存在就直接获取它
+的第一行，在某些用户那里可能会导致未捕获的错误。在后面几节中，我们会探讨一些准则，用于选择合适的编码策略**。
+
+我们采用同样的方法访问表格中的格子：**每行包含一个 cells 集合，如你所料，它包含指向每个格子的应用。因此，我们可以用如下
+代码访问表格第一行的第一个格子**：
+
+    <script type="text/javascript" charset="utf-8">
+        window.onload = function() {
+    		var sales = document.getElementById("sales");
+    		// The tBodies collection returns a collection of all <tbody> elements in a table.
+    		// Note: The elements in the collection are sorted as they appear in the source code.
+    		var cell = sales.rows[0].cells[0];
+    
+    			// 注意这里的 innerHTML 和 tagName 都属于 HTMLElement Properties，也即所有的 HTML 元素都拥有的属性。
+    		document.getElementById("output").innerHTML += cell.innerHTML + " -> " + cell.tagName + "</br>";
+    
+    		// The innerHTML property sets or returns the inner HTML of an element.
+    //			document.getElementById("output").innerHTML = "Table header has " + headRow.length + " line; Table body have " + bodyRows.length + " lines";
+    	}
+    </script>
+    
+这里，忽略了其中可能包含 `tHead` 或 `tBodies` 集合的事实，所以我们访问的所谓第一行，其实就是 `tHead` 的第一行。
