@@ -1,3 +1,100 @@
 # Chapter One - Fun with Tables
 
+在很长一段时间，当网页设计师需要以非线性的方式来布局网页内容时，会选择表格作为工具。虽然表格不应该被这样使用，但是这种 
+**行-列** 结构提供了一种自然的网格系统，对设计师来说诱惑难当。这种对表格的误用，转移了许多设计师的注意力，他们不再关注
+表格最初被设计的用途：**标记表格数据**。
 
+虽然表格最初诞生于 HTML ，但并不局限于此。有了 JavaScript ，我们可以为原本静态的 HTML 表格增加交互功能。本章的目的是让
+你充分理解如何使用 JavaScript 操作表格，一旦你掌握了基本的知识，便能够从容地处理那些狂野的、超越本章示例的情况。
+
+如果你是个 DOM 新手，会发现本章也介绍了 DOM 的操作技巧，这些我都会尽可能解释清楚。
+
+## 1.1 Anatomy of a Table
+在体验表格的乐趣之前，我们先要掌握一些基本知识。在我们对表格的结构有了很好的理解之后，才能用 JavaScript 对它进行简单、
+搞笑的操作。
+
+在开头我提到了 **行-列** 结构。事实上，表格并没有 **列** 这样的实体——至少在 HTML 表格里没有。**列只是一个假象**。从结
+构上看，一个表格是一组行的集合，其中每行又是一组格子的集合。没有一个实实在在的 HTML 元素用来表示一列格子——最接近的元素
+只是 **colgroup** 和 **col** ，但是它们的存在仅仅是为了更好地描述表格样式。从实际结构上来说，是没有列的。
+
+**simple.html**
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    
+    <html xmlns="http://www.w3.org/1999/xhtml">
+      <head>
+    		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    		<title>A Simple Table</title>    		
+    	</head>
+    	<body id="simpleTable" onload="">
+    		<table id="sales" summary="Quarterly Sales figures for competing companys. The figures are stated in millions of dollars.">
+    			<!--The <caption> tag defines a table caption. The <caption> tag must be inserted immediately after the 
+    				<table> tag. You can specify only on caption per table. Usually the caption will be centered above the table.-->
+    			<caption>Quarterly Sales*</caption>
+    			<!-- The <thead> tag is used to group the header content in an HTML table.. The thead element should be used in 
+    				conjunction with the tbody and tfoot elements. -->
+    			<thead>
+    				<tr>
+    					<!-- The <col> tag defines attribute values for one or more columns in a table. -->
+    					<!-- The <col> tag is useful for applying styles to entire columns, instead of repeating
+    						the styles for each cell, for each row. -->
+    					<!-- The <col> tag can only be used inside a table or a colgroup element. -->
+    					<th scope="col">Companies</th>
+    					<th scope="col">Q1</th>
+    					<th scope="col">Q2</th>
+    					<th scope="col">Q3</th>
+    					<th scope="col">Q4</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<tr>
+    					<!-- The scope attribute defines a way to associate header cells and data in a table.-->
+    					<!-- The scope attribute identifies whether a cell is header for a column, row, or group
+    						of columns or rows. -->
+    					<th scope="row">Company A</th>
+    					<td>$621</td>
+    					<td>$942</td>
+    					<td>$224</td>
+    					<td>$486</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company B</th>
+    					<td>$147</td>
+    					<td>$1,325</td>
+    					<td>$683</td>
+    					<td>$524</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company C</th>
+    					<td>$135</td>
+    					<td>$2,342</td>
+    					<td>$33</td>
+    					<td>$464</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company D</th>
+    					<td>$164</td>
+    					<td>$332</td>
+    					<td>$331</td>
+    					<td>$438</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company E</th>
+    					<td>$199</td>
+    					<td>$902</td>
+    					<td>$336</td>
+    					<td>$1,427</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    		<p class="footnote">*Stated in millions of dollars</p>
+    	</body>
+    </html
+
+每组 <hr></hr> 标签告诉浏览器在表格中开始新的一行。其中 <th> 和 <td> 标签表示标题格和数据格。虽然这些格子在 HTML 里是
+垂直排列的，很像数据列，但实际它们是作为行的一部分以水平方式排列的。
+
+同时，我们注意到这些行通过 <thead> 和 <tbody> 组织在一起。这样做不仅提供了更清晰的语义结构，还可以让 JavaScript 操作表
+格更加容易，稍后我们会讲到这点。
+
+  
