@@ -1,2 +1,14 @@
 # Chapter 1 - Emacs Basics
 
+## 1.1 Introducing Emacs!
+The finger-habits approach also implies a different way of reading this book. Intellectually, it's possible
+to absorb a lot from one reading, but you can from only a few habits each day. (Unless of course, they're 
+bad habits.)**Chapter 2** covers most of basic editing techniques you'll use. You may need to read it several
+times, with a slightly different focus each time. For example, Emacs gives you different ways to move forward:
+you can move forward one character, one word, one line, one sentence, one paragraph, one page and so on. All
+of these techniques are covered in Chapter 2. Start by learning how to move forward and backward, then gradually
+add more complex commands. Similarly, Emacs provides many different techniques for searching through a file, 
+covered in **Chapter 3**. Don't feel obliged to learn them all at once; pick something, practice it, and move
+on to the next topic. No one will complain if you have to work through the first three chapters of our book
+several times before you comfortable. Time spent developing good habits is time well spent.
+
