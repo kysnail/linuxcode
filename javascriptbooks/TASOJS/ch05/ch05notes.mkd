@@ -585,3 +585,44 @@ arguments 数组中另外一个有用的属性是 **callee** ，它包含一个�
 
 为了说明为什么闭包如此有用，让我们看一些具体的用例。
 
+#### 偏函数应用
+闭包可以用来创建预先填写了某些参数的函数。闭包的这种用法叫做偏函数应用。让我们看看示例：
+
+    function joinWords(a, b) {
+        
+    	// => array.join(separator)
+    	// => The join() method joins all elements of an array into a string, and return the string.
+    	// => The elements will be separated by a specified separator. The default separator is comma (,).
+    	// => separator - Optional, The separator to be used. If omitted, the elements
+    	// => are separated with a comma.
+        return[a, b].join(' ');
+    }
+    
+    console.log(joinWords('Love', 'JavaScript'));	// => 'Love JavaScript'
+    
+    function prefixer(word) {
+    
+    	// 初次接触，可能对于这种 return 泛滥的方式不太习惯。函数 prefixer 的真正内容实际是 function(b) 。
+        return function(b) {
+            return joinWords(word, b);
+        }
+    }
+    
+    // => 难以理解的地方就在这里，首先要清楚，这里将返回一个函数，也即 prefixWithHate 为函数类型
+    // => prefixWithHate 实际上就是指代的 function(b) 。
+    // => 返回一个函数，可以在它参数前增加 "hate"， 其实就是为你预先填写好需要连接的词的第一个参数。
+    var prefixWithHate = prefixer('Hate');
+    console.log(typeof prefixWithHate);		// => function
+    
+    console.log(prefixWithHate('Java'));	// => 'Hate Java'
+    console.log(prefixWithHate('PHP'));		// => 'Hate PHP'
+    
+在这个示例中，创建了一个简单的函数 joinWords ，它接受两个字符串然后将它们连接在一起。然后我们创建了另外一个函数
+prefixer，**它返回偏应用版本的 joinWords **。
+
+    现在再来看这个所谓的偏函数，实际上就是说，我可以对某一函数的参数列表进行自定义定制。相当于对函数的多态化。
+    
+prefixer 接受一个词作为参数，返回一个函数并预先填入这个词作为参数。这是因为通过闭包，word 对于内部函数来说还是可以
+访问的。我们创建的最后一个函数 prefixWithHate，只接受一个参数并追加到词 "Hate" 的后面。
+
+本章稍后会看到，偏函数应用可以用来创建动态函数。
