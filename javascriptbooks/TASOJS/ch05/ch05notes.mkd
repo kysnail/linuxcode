@@ -528,3 +528,60 @@ arguments 数组中另外一个有用的属性是 **callee** ，它包含一个�
     newId();    // => 2
     newId();    // => 3
     
+### 5.1.8 Comprehending Closures
+闭包这个概念往往被很多程序员忽视——很大程度上是因为闭包的用途很难解释。不过，一旦理解了这个概念，会发现闭包是一个相当
+强大的语言特性——它是很多元编程技巧的支柱。因此，很值得花些时间学习闭包！最好的方法是实验本节的代码示例，自己亲自玩一
+玩。网上也有非常丰富的关于 JavaScript 闭包的信息，不过，读完下面几页清晰明了且通俗易懂的解释后，应该不需要再去找更多
+的解释了。让我们开始吧。
+
+#### 什么是闭包
+闭包的概念很简单：**一个闭包是一个函数及定义它的环境的组合**。
+
+就是这样。看到没，它不复杂，是不是？
+
+在 JavaScript 里，当一个函数被定义在另一个函数里面时，会创建一个闭包。**如果内部函数在包含它的函数外面被访问，它依然可
+以访问最初被定义时的作用域——即使作用域内的变量对于其他函数或变量来说是不可访问的。我有点罗曼蒂克，觉得闭包就像一个魔
+法的、被遗忘的世界。即使外部函数完成执行，闭包也允许我们打探过去并访问通常不可用的变量。**
+
+下面有个示例：
+
+    function createFunc() {
+    
+        var aValue = 15;    // => ①
+        // 下面的没有通过 var 进行赋值，所以它是全局的（因此等价于 window.returnValue=...）
+        returnAValue = function() {     // => ②
+            return aValue;
+        }
+    }
+    
+    // 函数 createFunc 创建完成，并不会让 returnAValue 函数也自动创建，这点需要注意。
+    console.log(returnAValue);
+    ReferenceError
+    console.log(returnAValue());
+    ReferenceError
+    
+    // 调用 createFunc ，创建 returnAValue 函数。
+    createFunc();
+    console.log(returnAValue());    // => 15 因为它是在 createFunc 作用域中创建的，并仍然可以访问该作用域   => ③
+    console.log(aValue);			// => ReferenceError => undefined 因为它在 createFunc 的作用域内
+    
+    console.log(returnAValue);
+    function () {
+            return aValue;
+        }
+    
+    console.log(typeof returnAValue);	// => function
+    console.log(typeof returnAValue()); // => number
+    
+让我们一起读这段代码：
+
+① 在 createFunc 函数里，定义了局部变量 aValue。
+
+②  创建了一个全局函数 returnAValue ，并引用 aValue ，所以创建了一个闭包。
+
+③ **当在定义 returnAValue 的函数外面调用它的时候，returnAValue 依然可以访问创建它的作用域中的局部变量。**
+
+乍一看，这有点不自然。先花些时间实验它，并好好理解发生了什么。
+
+为了说明为什么闭包如此有用，让我们看一些具体的用例。
+
