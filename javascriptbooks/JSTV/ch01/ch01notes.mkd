@@ -92,4 +92,12 @@ JavaScript 支持多次声明的同名函数，但只使用最后声明的版本
 
     Prototype 中的 $(); 方法类似于 getElementById() 。
 
+## 完善我们的 JS 库
+我们编写 2 个自己的方法：
 
+* $() 方法
+这个方法类似于 getElementById() ，Prototype 中也有类似的方法。默认的 getElementById 方法只能获取一个参数，而我们自己
+编写的方法，可以获取任意多个 ID 值。
+
+* getElementsByClassName() 方法
+此方法获取节点的 class 属性。
