@@ -1,0 +1,88 @@
+# onload event
+onload 通常用来等待页面加载完成后执行某事件处理函数。但是使用时要小心，比如下面的这个问题。
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    	<head>
+    		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    		<title>A Simple Table</title>
+    		<script type="text/javascript" charset="utf-8">
+    			window.onload = function() {
+    				var sales = document.getElementById("sales");
+    				var rows = sales.rows;
+    
+    				alert(rows.length);
+    
+    				for (var i = 0; i < rows.length; i++) {
+    					alert(rows[i]);
+    				}
+    			}
+    		</script>		
+    	</head>
+    	<body id="simpleTable" onload="">
+    		<table id="sales" summary="Quarterly Sales figures for competing companys. The figures are stated in millions of dollars.">
+    			<!--The <caption> tag defines a table caption. The <caption> tag must be inserted immediately after the 
+    				<table> tag. You can specify only on caption per table. Usually the caption will be centered above the table.-->
+    			<caption>Quarterly Sales*</caption>
+    			<!-- The <thead> tag is used to group the header content in an HTML table.. The thead element should be used in 
+    				conjunction with the tbody and tfoot elements. -->
+    			<thead>
+    				<tr>
+    					<!-- The <col> tag defines attribute values for one or more columns in a table. -->
+    					<!-- The <col> tag is useful for applying styles to entire columns, instead of repeating
+    						the styles for each cell, for each row. -->
+    					<!-- The <col> tag can only be used inside a table or a colgroup element. -->
+    					<th scope="col">Companies</th>
+    					<th scope="col">Q1</th>
+    					<th scope="col">Q2</th>
+    					<th scope="col">Q3</th>
+    					<th scope="col">Q4</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<tr>
+    					<!-- The scope attribute defines a way to associate header cells and data in a table.-->
+    					<!-- The scope attribute identifies whether a cell is header for a column, row, or group
+    						of columns or rows. -->
+    					<th scope="row">Company A</th>
+    					<td>$621</td>
+    					<td>$942</td>
+    					<td>$224</td>
+    					<td>$486</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company B</th>
+    					<td>$147</td>
+    					<td>$1,325</td>
+    					<td>$683</td>
+    					<td>$524</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company C</th>
+    					<td>$135</td>
+    					<td>$2,342</td>
+    					<td>$33</td>
+    					<td>$464</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company D</th>
+    					<td>$164</td>
+    					<td>$332</td>
+    					<td>$331</td>
+    					<td>$438</td>
+    				</tr>
+    				<tr>
+    					<th scope="row">Company E</th>
+    					<td>$199</td>
+    					<td>$902</td>
+    					<td>$336</td>
+    					<td>$1,427</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    		<p class="footnote">*Stated in millions of dollars</p>
+    	</body>
+    </html>
+
+window.onload 对应的事件处理函数并不会执行，原因是， body 标签中也有 onload 事件的处理函数，并且置为了空， 那么当顺序执行下去后，会将 head 标签中的处理函数覆盖到，从而无法获得想要的效果。
