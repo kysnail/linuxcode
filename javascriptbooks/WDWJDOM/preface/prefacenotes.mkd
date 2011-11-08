@@ -1,0 +1,49 @@
+# DOM 编程技术背后的思路和原则
+1. 预留退路
+2. 循序渐进
+3. 以用户为中心
+
+W3C 推出的标准化 DOM 已经一统江湖，目前市场上常见的浏览器可以说没有不支持的。这对网页设计者来说意味着可以用
+简单的“对象检测”代码来取代那些繁复的浏览器“嗅探代码”，而按照 DOM 编写出来的 JavaScript 页面不像过去那样
+容易出问题。
+
+本书并不是一本参考大全类型的图书，作者只重点介绍了几种最有用的 DOM 方法和属性。本书的精华在于作者在书中提到
+的关于 JavaScript 和 DOM 脚本编程工作的基本原则、良好习惯和正确思路。
+
+是抛开“浏览器嗅探”(browser sniffing) 技术而拥抱 “对象检测”(object detection) 技术的时候了。再也不用假设
+你们网站的访问者都已经激活了 JavaScript 支持功能了。让我们舍弃那些内嵌在 HTML 文档里的事件处理函数吧，因为
+我们再也不需要那样做了。
+
+这是一本讲述一种程序设计语言的书，但它也适合 Web 设计师阅读。具体地说，本书是为那些喜欢使用 CSS 和 XHTML 并
+愿意遵守编程规范的 Web 设计师们编写的。
+
+本书由代码和概念两大部分构成。不要被那些代码吓到：我知道它们乍看起来很唬人，可一旦抓住了代码背后的概念，你们
+就会发现用一种新语言去阅读和编写代码并没有多么困难。学习一种新的程序设计语言看起来很难，但事实却并非如此。DOM
+脚本看起来似乎比 CSS 更复杂，可一旦领悟了它的语法，你们就会发现自己又多掌握了一样功能强大的 Web 开发工具。
+
+归根到底，代码都是思想和概念的体现。我们在这里要告诉大家一个秘密：其实没人能把一种程序设计语言的所有语法和关键
+字都记住。如果有拿不准的地方，查阅参考书就全解决了。
+
+    http://www.friendsofed.com/
+    http://www.ituring.com.cn/
+    http://www.domscripting.com/
+
+Andy Budd
+www.andybudd.com
+
+Richard Rutter 
+www.clagnut.com
+
+Skillswap
+www.skillswap.org
+
+friends of ED
+
+    JavaScript Master
+    Scott Andrew
+    Aaron Boodman
+    Steve Champeon
+    Peter-Paul Koch
+    Stuat Langridge
+    Simon Willison
+
