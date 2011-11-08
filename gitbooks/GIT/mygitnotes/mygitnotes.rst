@@ -94,8 +94,8 @@ Git Notes
 	To https://kysnail@github.com/kysnail/linuxcode.git
 	   d0cee28..1633ba5  master -> master
 
-git add -A** 命令 
-`````````````````
+git add -A
+``````````
 
 	$ git add -a
 	error: unknown switch `a'
