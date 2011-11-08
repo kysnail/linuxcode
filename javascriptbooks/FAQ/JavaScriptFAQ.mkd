@@ -1,0 +1,41 @@
+# 函数的引用与调用
+函数的调用是指让函数执行的过程，强调返回的结果，函数的引用是将指针指向函数的过程。可以看下面的两个例子：
+
+    function init() {
+    
+        alert('Hello, World!');
+    }
+
+    // 从执行的结果可以看出，当 onload 事件完成后，指针指向了 init 函数。
+    window.onload=init;
+    function init() {
+    
+        alert('Hello, World!');
+    }
+
+    // 产生弹出窗口，init(); 的含义是返回函数的执行结果，这点需要注意。
+    window.onload=init();
+
+# 括号的作用
+在 JavaScript 中函数的括号起了两个作用：
+## 分隔符
+作用类似于常见语言中的括号
+
+    // 比如这里的括号，起到的就是分隔符的作用。
+    function init() {
+    
+        alert('Hello, World!');
+    }
+
+## 运算符
+在创建自己的 JavaScript 库时，通常会使用 `(function myfunc() {})();` 的形式进行封装。
+
+    (function myinit() {
+     	alert('Hello, World! - myinit');
+    })();
+
+# 函数和变量的命名习惯
+
+# 单双引号的使用
+
+
