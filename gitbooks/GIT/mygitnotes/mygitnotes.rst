@@ -96,6 +96,7 @@ Git Notes
 
 git add -A
 ``````````
+::
 
 	$ git add -a
 	error: unknown switch `a'
