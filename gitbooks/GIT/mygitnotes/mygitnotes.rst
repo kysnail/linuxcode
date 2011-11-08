@@ -49,3 +49,67 @@ Git Notes
     git pull
 
 获取最新的版本后，才开始下一步的工作。
+
+
+批量提交文件
+------------
+有时需要批量提交文件，可以使用如下的操作步骤完成： ::
+
+	$ git add -A
+	$ git status
+	# On branch master
+	# Changes to be committed:
+	#   (use "git reset HEAD <file>..." to unstage)
+	#
+	#	new file:   ch01/ch01notes.mkd
+	#	new file:   ch02/ch02notes.mkd
+	#	new file:   ch03/ch03notes.mkd
+	#	new file:   ch04/ch04notes.mkd
+	#	new file:   ch05/ch05notes.mkd
+	#	new file:   ch06/ch06notes.mkd
+	#	new file:   ch07/ch07notes.mkd
+	#	new file:   ch08/ch08notes.mkd
+	#	new file:   ch09/ch09notes.mkd
+	#
+
+	$ git commit -m "Add new book - Simply JavaScript"
+	[master 1633ba5] Add new book - Simply JavaScript
+	 0 files changed, 0 insertions(+), 0 deletions(-)
+	 create mode 100644 javascriptbooks/SJ/ch01/ch01notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch02/ch02notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch03/ch03notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch04/ch04notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch05/ch05notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch06/ch06notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch07/ch07notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch08/ch08notes.mkd
+	 create mode 100644 javascriptbooks/SJ/ch09/ch09notes.mkd
+	$ git push
+	Password: 
+	Counting objects: 16, done.
+	Delta compression using up to 2 threads.
+	Compressing objects: 100% (4/4), done.
+	Writing objects: 100% (14/14), 1.09 KiB, done.
+	Total 14 (delta 1), reused 0 (delta 0)
+	To https://kysnail@github.com/kysnail/linuxcode.git
+	   d0cee28..1633ba5  master -> master
+
+**git add -A** 命令 ::
+
+	$ git add -a
+	error: unknown switch `a'
+	usage: git add [options] [--] <filepattern>...
+
+	    -n, --dry-run         dry run
+	    -v, --verbose         be verbose
+
+	    -i, --interactive     interactive picking
+	    -p, --patch           interactive patching
+	    -e, --edit            edit current diff and apply
+	    -f, --force           allow adding otherwise ignored files
+	    -u, --update          update tracked files
+	    -N, --intent-to-add   record only the fact that the path will be added later
+	    -A, --all             add all, noticing removal of tracked files
+	    --refresh             don't add, only refresh the index
+	    --ignore-errors       just skip files which cannot be added because of errors
+
