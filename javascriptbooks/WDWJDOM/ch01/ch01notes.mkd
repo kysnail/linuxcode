@@ -1,0 +1,79 @@
+# Chapter 01 JavaScript 
+
+JavaScript 还向程序员提供了一种操控 Web 浏览器的手段。例如，JavaScript 语言可以用来调整 Web 浏览器窗口的
+高度、宽度和屏显位置等属性。以这种办法给出 Web 浏览器本身的属性可以看做是 BOM （浏览器对象模型）。JavaScript
+的早期版本还提供了一种初级的 DOM 。
+
+## 什么是 DOM
+简单地说，DOM 是一套对文档的内容进行抽象和概念化的方法。
+
+### 1.2.1 DHTML
+DHTML 是 "dynamic HTML" 的简称。严格地说，DHTML 并不是一项单一的新技术，而是 HTML、CSS 和 JavaScript 这三种
+技术相结合的产物。DHTML 背后的含义是：
+
+* 利用 HTML 把网页标记为各种元素；
+* 利用 CSS 设计各有关元素的排版样式并确定它们在窗口中的显示位置；
+* 利用 JavaScript 实时地操控和改变各有关样式。
+
+DHTML 指的是上述三项技术的相互结合。利用 DHTML，复杂的动画效果一下子变得非常容易实现。例如：
+
+    <html>
+    	<head>
+    		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    	
+    		<title>Demo01</title>
+    		<style type="text/css" media="screen">
+    			#myelement {
+    				position: absolute;
+    				left: 50px;
+    				top: 100px;
+    			}
+    		</style>
+    		<script type="text/javascript" charset="utf-8">
+    			function myclick() {
+    				var obj = document.getElementById('myelement');
+    				// Change font size.
+    				obj.style.fontSize = '50px';
+    				// 这里想改变文本的颜色，需要在获取节点后，修改 style 属性。
+    				obj.style.color = obj.style.color == 'blue' ? 'red':'blue';
+    				// alert(document.getElementById('myelement').position);
+    			}
+    		</script>
+    	</head>
+    	<body>
+    		<div id="myelement" onclick="myclick()">
+    			This is my elemnet.
+    		</div>
+    	</body>
+    </html>
+
+接下来，只需要利用 JavaScript 改变 myelement 元素的 left 和 top 样式，就可以让它在页面上随意移动。
+
+### 1.3.1 浏览器以外的考虑
+在软件编程领域中，虽然存在着多种不同的语言，但很多任务确实相同或相似的。这也正是人么需要 API 的原因。一旦掌握了
+某个标准，就可以把它应用在许多不同的环境中。虽然有关的语法会因为使用的程序设计语言而有所变化，但这些约定却总是
+保持不变的。
+
+因此，在学完这本关于如何通过 JavaScript 使用 DOM 的书之后，你们获得的关于 DOM 的新知识对你们今后的工作 — 例如，
+需要使用诸如 PHP 或 Python 之类的程序设计语言去解析一份 XML 文档的时候，也会有很大的帮助。
+
+W3C 对 DOM 的定义是：“一个与系统平台和编程语言无关的接口，程序和脚本可以通过这个接口动态地对文档的内容、结构
+和样式进行访问和修改。”
+
+W3C 推出的标准化 DOM，在独立性和适用范围等诸多方面，都远远超出了各自为战的浏览器制造商们推出的各种专有 DOM。
+
+### 1.3.2 浏览器之争的结局
+为了打破浏览器制造商们筑起的专利壁垒，一群志同道合的程序员建立了名为 Web 标准计划（简称 WaSP， http://webstandards.org/）
+的小组。WaSP 小组采取的第一个行动就是，鼓励浏览器制造商们接受 W3C 制定和推荐的各项标准 — 也就是在浏览器制造商们的
+帮助下得以起草和完善那些标准。
+
+## 1.4 小结
+DHTML 是 HTML/XHTML、CSS 和 JavaScript 相结合的产物，但把这些东西真正凝聚在一起的是 DOM。如果真的需要有个词汇来
+描述这一过程的话，我们就应该使用一个更精确的词汇。用 DHTML 来称呼与浏览器有关的编程工作并不是不可以，但用它来描
+述基于有关标准的代码编写工作就不那么恰当了。在探讨如何使用 W3C DOM 来处理文档和样式表时，我们认为“DOM 脚本程序
+设计”是一种更精确的说法。
+
+DHTML 只适用于 Web 文档，“DOM 脚本程序设计”则涵盖了使用任何一种支持 DOM API 的程序设计语言去处理任何一种标记
+文档的所有情况。具体到 Web 文档，JavaScript 语言的特点使它成为了 DOM 脚本程序设计的最佳选择。
+
+
