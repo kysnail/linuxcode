@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+        <title>ClosureSimpleDemo01</title>
+        <style type="text/css" media="screen">
+            #htmlcode {
+                background: #2B2B2B;
+                color: white;
+                display: block;
+                white-space: pre;
+                border: 1px solid #1C1C1C;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                margin: 15px 0px;
+                padding: 0px 15px;
+            }
+        </style>
+        <script type="text/javascript" charset="utf-8">
+            window.onload = function() {
+                var LiObjects = document.getElementsByTagName('li');
+
+                for (var i = 0; i != LiObjects.length; i++) {
+                    LiObjects[i].onclick = function() {
+                        alert(i);
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+Click the node, prompt window will display.
+        <ul>
+            <li id="idA">Node A</li>
+            <li id="idB">Node B</li>
+            <li id="idC">Node C</li>
+        </ul>
+
+        <code id="htmlcode">
+// No matter which node you click, prompt answer is '3'.
+window.onload = function() {
+    var LiObjects = document.getElementsByTagName('li');
+
+    for (var i = 0; i != LiObjects.length; i++) {
+        LiObjects[i].onclick = function() {
+            alert(i);
+        }
+    }
+}
+        </code>
+上面的这种写法，不论点击那个 node 弹出的窗体提示都为 3。因为在发生点击事件时，系统会在当前作用域中查找 i
+的值，如果没有则向上查找。这里在查找时变量 i 的值为 3，所以弹出的结果总为 3。         
+    </body>
+</html>
