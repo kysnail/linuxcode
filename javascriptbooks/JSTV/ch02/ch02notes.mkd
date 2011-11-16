@@ -22,3 +22,188 @@ JavaScript 中常见的问题包含以下几个方面，我们将对每个问题
 * 重载
 * 作用域、闭包
 
+### 区分大小写
+JavaScript 中方法和变量是区分大小写的，因此，下面两个方法是不同的。
+
+    function myFunction() {
+    }
+
+    function MyFunction() {
+    }
+
+这一规则也适用于 JavaScript 核心对象例如：
+
+    Array & Object
+
+`Array()` 实际上是 JavaScript 的一个核心函数。
+
+    var array = new Array();
+
+### 单引号、双引号
+单引号、双引号在 JavaScript 中没有特殊的区别，都可以用来创建字符串。但作为一般性规则，大多数 JavaScript 开发人员喜欢使用
+单引号而不是双引号，这是因为 `XHTML` 规范要求所有属性值都必须使用双引号括起来。这样在 JavaScript 中使用单引号，而对
+`XHTML` 属性使用双引号会使混合两者代码更方便也更清晰。
+
+另外，单引号中可以包含双引号，反之双引号也可以包含单引号。
+
+    JavaScript 中使用 \ 符进行转义
+
+### 括号
+首先需要说明的是，JavaScript 中括号包含两种语义：
+
+1. 分隔符
+2. 表达式
+
+#### 作为分隔符
+这个大家很清楚
+
+    (1 + 3) * 3 = 12
+
+#### 作为表达式
+在专题一中进行了说明
+
+    (function(){})();
+
+function 之前的一对括号作为分隔符，后面的括号表示立刻执行这个方法。
+
+只有当清晰的知道（括号`()`）的语义才能明确的知道函数引用与函数调用关系。
+
+    window.onload=init;		// 指向 onload 的事件处理函数 init
+    window.onload=init();	// 调用 init 函数，并将返回值作为时间处理函数
+
+另外，`window.onload` 会在页面完全加载完毕后执行，包括所有的图片，这种情况就会造成页面载入缓慢的问题。dangran:j
+
+同样的，看下面的实例代码：
+
+    var foo = example();	// 上面的 foo 表示函数的返回值
+    var foo1 = example;		// 另一个将函数的引用赋给一个值 foo1
+
+### 换行
+换行符在浏览器上是不可见的。
+
+#### 字符串中间不能有强制换行符
+无论使用那种引号创建字符串，字符串中间都不能包含强制换行符。
+
+    var temp = '<h2 class="a"> A list </h2>
+        <ol>
+	</ol>
+    ';
+
+上面的代码将导致解析错误。想按上面的方式添加换行符则要通过反斜杠来转义换行符以告知浏览器该行是连续的：
+
+    var temp = '<h2 class="a"> A list </h2>\
+        <ol>\
+	</ol>\
+    ';
+
+另一种方式就是使用字符串连接符 `+` 。
+
+### 分号、大括号可选
+在 JavaScript 中每行语句的最后并不是必须使用分号结尾。因此：
+
+    alert();	<==>   alert()
+
+没有区别。但是下面的代码：
+
+    if (a == b)
+        alert(b)
+	alert(a)
+
+不会被翻译为：
+
+    if (a == b);
+    	alert(b);
+	alert(a);
+
+### 重载
+JavaScript 中不支持重载，因此这里所说的重载其实更类似于**替换**。
+
+    function myFunction(a, b) {}
+    function myFunction(a) {}
+
+也就是说在 JavaScript 中，函数仅靠函数名进行标示。JavaScript 中函数的区别只在于名字的不同，与参数没有任何关系，类似
+与 VB 中的动态参数。
+
+由于没有重载，所以上面的声明将导致下面的 `myFunction` 函数覆盖上面的函数。
+
+比如，如果在你的代码中出现：
+
+    function alert() {
+    
+    }
+
+将导致你的代码覆盖 JavaScript 核心函数。
+
+### 作用域、闭包
+作用域指对某一属性或方法具有访问权限的代码空间。如：
+
+    function myFunction() {
+    	var temp = "abc";
+    }
+
+上面的 temp 在函数外面无法访问。
+
+闭包是与作用域相关的一个概念，它指的是内部函数即使在外部函数执行完成后并终止后仍然可以访问其外部函数的属性。
+
+    function newInit() {
+    	for (var i = 1; i <= 3; i++) {
+	    var anchor = document.getElementById("anchor");
+	    anchor.onclick = function() {
+	    	// 输出结果始终为 anchor4
+		alert("My anchor id is anchor" + i);
+	    }
+	}
+    }
+    
+    <a id="anchor1" href="#">abc</a>
+    <a id="anchor2" href="#">abc</a>
+    <a id="anchor3" href="#">abc</a>
+
+所有的点击效果，输出结果都是 4 。
+
+为了解决这个问题，必须使用 `Closure` 来解决。
+
+    function newInit() {
+    	for (var i = 1; i <= 3; i++) {
+		var anchor = document.getElementById("anchor" + i);
+		registerListener(anchor, i);
+	}
+    }
+
+    function registerListener(ahchor, i) {
+    	anchor.onclick = function() {
+	    // 输出结果始终为 anchor + i
+	    alert("My anchor id is anchor" + i);
+	}
+    }
+
+出现上面问题的原因在于，当在 registerListener 函数中调用 alert 时，会查找 i，由于本作用域中包含 i，所以不需要到上一层
+作用域进行查找。正是由于这个原因，所以在上面的情况，调用 alert 方法时，会查找 i 变量，结果发现本作用于中有一个变量 i，
+这样只能返回 4.
+
+更详细的源代码展示可以查看 `src` 目录。
+
+## 小结
+通过本讲的学习你应该已经掌握了
+
+* 区分大小写
+* 单引号、双引号
+* 括号
+* 函数调用和引用
+* 换行
+* 分号、大括号可选
+* 重载
+* 作用域、闭包
+
+## 作业
+* 在课后希望大家继续学习 JavaScript 相关知识找出更多类似问题。
+
+* 找出不同浏览器造成的其他问题，例如：
+
+`getElementByName()` 方法在 `IE` 中只能获取 `<input>` 对象。
+
+    <!--不能获取该对象-->
+    <td name="a"></td>
+
+    <!--可以获取该对象-->
+    <input name="a"></input>
