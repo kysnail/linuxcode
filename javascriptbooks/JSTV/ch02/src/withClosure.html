@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+        <title>ClosureSimpleDemo02</title>
+        <style type="text/css" media="screen">
+            #htmlcode {
+                background: #2B2B2B;
+                display: block;
+                color: white;
+                white-space: pre;
+                border: 1px solid #2C2C2C;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                padding: 0px 15px;
+                margin: 15px 0px;
+            }
+        </style>
+        <script type="text/javascript" charset="utf-8">
+            window.onload = function() {
+                var LiObjects = document.getElementsByTagName('li');
+
+//  When create a function in JavaScript, 'var' is not needed in parameter list.
+//  function addClick(Obj) {
+//      for (var i = 0; i != Obj.length; i++) {
+//          Obj.onclick = function() {
+//              alert(i);
+//          }
+//      }
+//  };
+
+
+//  var addClick = function(Obj) {
+//      alert(Obj);
+//      for (var i = 0; i != Obj.length; i++) {
+//          alert(i + Obj[i].innerHTML);
+//          Obj[i].onclick = function() {
+//                  alert(i);
+//              }
+//          }
+//          
+//  };
+//  addClick(LiObjects);
+
+                // Using this way to define a function, you need to put definition before you use it.
+                var addClick = function(Obj, i) {
+                    // alert(Obj.innerHTML);
+                    // Cause you wanna to add a 'function' object, so the symbol 'function()' is needed.
+                    Obj.onclick = function() {
+                        alert(i);
+                    }
+                };
+
+                for (var i = 0; i != LiObjects.length; i++) {
+                    addClick(LiObjects[i], i);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <ul>
+            <li id="idA">Node A</li>
+            <li id="idB">Node B</li>
+            <li id="idC">Node C</li>
+        </ul>
+    </body>
+    <code id="htmlcode">
+// Using this way to define a function, you need to put definition before you use it.
+var addClick = function(Obj, i) {
+    // alert(Obj.innerHTML);
+    // Cause you wanna to add a 'function' object, so the symbol 'function()' is needed.
+    Obj.onclick = function() {
+        alert(i);
+    }
+};
+
+for (var i = 0; i != LiObjects.length; i++) {
+    addClick(LiObjects[i], i);
+}
+    </code>
+下面的两种写法都不会创建闭包，从而无法获取外部函数的局部变量值。
+
+    <code id="htmlcode">
+//  When create a function in JavaScript, 'var' is not needed in parameter list.
+//  function addClick(Obj) {
+//      for (var i = 0; i != Obj.length; i++) {
+//          Obj.onclick = function() {
+//              alert(i);
+//          }
+//      }
+//  };
+
+
+//  var addClick = function(Obj) {
+//      alert(Obj);
+//      for (var i = 0; i != Obj.length; i++) {
+//          alert(i + Obj[i].innerHTML);
+//          Obj[i].onclick = function() {
+//                  alert(i);
+//              }
+//          }
+//          
+//  };
+//  addClick(LiObjects);
+    </code>
+</html>
