@@ -35,9 +35,35 @@ JavaScript 自身存在几个相对的弊端，即
 * 复杂的文档对象模型（DOM）
 * 不一致的浏览器实现和缺乏便捷的开发工具，调试工具
 
-## head 区域 JavaScript 代码片段
+## body 区域 JavaScript 代码片段
 具体查看 src 目录
 
 
+## 外部文件引用的 JavaScript 代码
+具体查看 src 目录
 
+
+## head 区域 JavaScript 代码片段
+具体查看 src 目录
+
+## CDATA 避免解析 html 实体
+具体查看 src 目录
+
+## JavaScript 注释
+具体查看 src 目录
+
+# JavaScript 实现
+实际应用 JavaScript 时，会涉及到三个方面的知识。
+
+1. ECMAScript -> JavaScript 标准规范
+
+    ECMAScript 描述了该语言的语法和基本对象
+
+2. BOM -> 浏览器对象模型
+
+    BOM 描述了与浏览器进行交互的方法和接口
+
+3. DOM -> 文档对象模型
+
+    DOM 描述了处理网页内容的方法和接口
 
