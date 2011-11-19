@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	
+		<style type="text/css" media="screen">
+			#htmlcode {
+				background: #2B2B2B;
+				color: white;
+				display: block;
+				height: 400px;
+				width: 1000px;
+				border-top-left-radius: 10px;
+				border-top-right-radius: 10px;
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
+			}
+		</style>
+		<title>JavaScript -> xhtml 文档中使用 CDATA 避免解析 html 实体</title>
+		
+	</head>
+	<body>
+		<script type="text/javascript" charset="utf-8">
+			//<!CDATA[
+				for (var i = 1; i <= 10; i++) {
+					document.write(i);
+				}
+			//]]>
+		</script>
+为了避免不支持 xhmtl 的浏览器显示错误，可以使用下面的语法避免解析 html 实体。
+<textarea id="htmlcode">
+	<script type="text/javascript" charset="utf-8">
+		//<!CDATA[
+			for (var i = 1; i <= 10; i++) {
+				document.write(i);
+			}
+		//]]>
+	</script>
+</textarea>
+	</body>
+</html>
+
