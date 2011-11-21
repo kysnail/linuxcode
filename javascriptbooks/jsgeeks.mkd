@@ -11,12 +11,15 @@ http://themaninblue.com/
     Simply JavaScript
 
 # Rob Hawkes
+http://rawkes.com
+
+    Foundation HTML5 Canvas
+    
 Rob Hawkes，现任Mozilla技术布道师，国际知名的HTML5开发专家，被誉为“HTML5的化身”（Person of HTML5），
 是名噪一时的“Google弹跳球”图标的HTML5 Canvas实现者。Rob可以说是写着代码长大的，他对设计交互程序如醉如痴，
 对HTML5及其他Web新技术有着浓厚的兴趣。他曾在伯恩茅斯大学（Bournemouth University）学习交互媒体制
 作（Interactive Media Production）。大学未毕业，就已经获得了Mozilla公司的工作机会。他经常活跃在HTML5和游
 戏开发的各种会议上。
 
-要想了解Rob和他经常参加的会议，可以访问他的网站（http://rawkes.com），或者加他的Twitter（@robhawkes）。
+要想了解Rob和他经常参加的会议，可以访问他的网站（http://rawkes.com ），或者加他的Twitter（@robhawkes）。
 
-    Foundation HTML5 Canvas
