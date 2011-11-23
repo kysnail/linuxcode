@@ -1,0 +1,211 @@
+# Java 常用集合类
+`java.util` 包中提供了一些集合类，常用的有
+
+* List
+* Set 
+* Map
+
+其中 `List` & `Set` 继承 `Collection` 接口。这些集合类又称为 `容器` ，它们与数组不同
+
+1. 数组的长度是固定的，集合的长度是可变的；
+2. 数组用来存放基本类型的数据，集合用来存放类对象的引用。
+
+# List/Set/Map/Collection Interface 主要特征
+List 接口、Set 接口、Map 接口及 Collection 接口的主要特征如下：
+
+* `Collection` 接口是 `List` 接口和 `Set` 接口的父接口，通常情况下不被直接使用。
+* `List` 接口继承自 `Collection` 接口，`List` 接口允许存放重复的对象，排序方式按照对象的插入顺序。
+* `Set` 接口继承自 `Collection` 接口，`Set` 接口不允许存放重复的对象，排序方式按照自身内部的排序规则。
+* `Map` 接口以 `键值对（key-value）` 的形式存放对象，其中 `键(key)` 对象不可以重复，`值（value）`对象
+可以重复，排序方式按照自身内部的排序规则。
+
+## Collection Interface
+`Collection Interface` 是 List 接口和 Set 接口的父接口，通常情况下不被直接使用，不过 Collection 接口定义
+了一些通用的方法，通过这些方法可以实现对集合的基本操作，因为 List 接口和 Set 接口继承自 Collection 接口，
+所以这些方法对 List 集合和 Set 集合是通用的。
+
+下面介绍 Collection 接口中常用的方法。
+
+### addAll() method
+`addAll()` 方法将指定 Collection 中的所有元素都添加到此 Collection 中。如果在进行此操作的同时修改了指定
+的 Collection ，那么将不能保证此操作的正确性。
+
+    import java.util.Collection;
+    import java.util.ArrayList;
+    import java.util.Iterator;
+    
+    public class AddAllMethod {
+    
+    	public static void main(String[] args) {
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		
+    		// 由于 Collection 是接口，不能对其实例化，而 ArrayList 类是 Collection 接口的间接实现类，所以通过 ArrayList 类实例化。
+    		Collection<String> List1 = new ArrayList<String>();
+    		List1.add(java);
+    		List1.add(lisp);
+    		List1.add(csharp);
+    		
+    		Collection<String> List2 = new ArrayList<String>();
+    		// 通过使用 addAll() 方法添加指定集合中的所有对象到该集合中
+    		List2.addAll(List1);
+    		List2.add(cpp);
+    		
+    		// 通过 iterator() 方法序列化集合中的所有对象
+    		Iterator<String> it = List2.iterator();
+    		while (it.hasNext()) {
+    			String str = it.next().toString();
+    			System.out.println(str);
+    		}
+    	}
+    }
+
+### removeAll method
+`removeAll` 方法从指定的集合中移除包含在另一个集合中的元素，返回值为 `boolean` 类型，如果包含有要删除的对象，则
+返回 `true`，否则返回 `false` 。
+
+    import java.util.Collection;
+    import java.util.ArrayList;
+    import java.util.Iterator;
+    
+    public class RemoveAllMethod {
+    
+    	public static void main(String[] args) {
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		
+    		Collection<String> List1 = new ArrayList<String>();
+    		List1.add(java);
+    		List1.add(lisp);
+    		List1.add(csharp);
+    		List1.add(cpp);
+    		
+    		Collection<String> List2 = new ArrayList<String>();
+    		List2.add(java);
+    		List2.add(csharp);
+    		List2.add(cpp);
+    		
+    		// 从 List1 中移除 List2 中包含的元素
+    		boolean isContain = List1.removeAll(List2);
+    		System.out.println("List1 中是否包含有 List2 中的元素？ Answer = " + isContain); 
+    		
+    		Iterator<String> it = List1.iterator();
+    		System.out.print("删除 List2 中重复的元素后，List1 中含有的元素 ");
+    		while (it.hasNext()) {
+    			String str = it.next();
+    			System.out.println(str);
+    		}
+    		
+    		System.out.println("removeAll 方法类似于集合运算的 【集合A - 集合B】");
+    	}
+    }
+
+### retainAll() method
+`retainAll()` 方法仅保留该集合中同时包含在指定几何中的对象，其它全部移除，与 `removeAll()` 方法正好相反，返回
+值为 `boolean` 型，如果存在符合移除条件的对象则返回 `true` ，否则返回 `false`。
+
+    import java.util.Collection;
+    import java.util.ArrayList;
+    import java.util.Iterator;
+    
+    public class RetainAllMethod {
+    
+    	public static void main(String[] args) {
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		
+    		Collection<String> List1 = new ArrayList<String>();
+    		List1.add(java);
+    		List1.add(csharp);
+    		List1.add(lisp);
+    		System.out.println("List1 中的元素为 -> Java C# Lisp");
+    		Collection<String> List2 = new ArrayList<String>();
+    		List2.add(lisp);
+    		List2.add(cpp);
+    		System.out.println("List2 中的元素为 -> Lisp C++");
+    		
+    		// 保留 List1 中同时存在于 List2 中的数据
+    		boolean isContain = List1.retainAll(List2);
+    		System.out.println("集合 List1 和集合 List2 是否有交集？ Answer = " + isContain);
+    		
+    		Iterator<String> it = List1.iterator();
+    		System.out.print("执行 retainAll 方法后，List1 中的元素为 ");
+    		while (it.hasNext()) {
+    			String str = it.next();
+    			System.out.println(str);
+    		}
+    	}
+    }
+
+### containsAll method
+`containsAll()` 方法用来查看在该集合中是否存在指定集合中的所有对象，返回值为 `boolean` 型，如果存在则为
+`true`，否则为 `false`。
+
+    import java.util.Collection;
+    import java.util.ArrayList;
+    
+    
+    public class ContainsAllMethod {
+    
+    	public static void main(String[] args) {
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		
+    		Collection<String>List1 = new ArrayList<String>();
+    		List1.add(java);
+    		List1.add(csharp);
+    		List1.add(lisp);
+    		System.out.println("List1 中的元素为 -> Java C# Lisp");
+    		
+    		Collection<String>List2 = new ArrayList<String>();
+    		List2.add(java);
+    		List2.add(lisp);
+    		List2.add(cpp);
+    		System.out.println("List1 中的元素为 -> Java Lisp C++");
+    		
+    		boolean isContain = List1.containsAll(List2);
+    		System.out.println("集合对象 List1 中是否存在集合对象 List2 中的所有对象？ Answer = " + isContain);
+    	}
+    }
+
+### toArray(T[] t) method
+如果要将一个集合转变为数组形式，可以使用 Collection 接口的 `toArray()` ff , `toArray(T[] t)` 方法用来获得一个包含
+所有对象的指定类型的数组。 `toArray(T[] t)` 方法的入口参数必须为数组类型的实例，必须已经被初始化，它的作用是用来
+指定欲获得数组的类型。
+
+    import java.util.Collection;
+    import java.util.ArrayList;
+    
+    public class ToArrayMethod {
+    
+    	public static void main(String[] args) {
+    		// 定义 字符串对象
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		
+    		Collection<String> List1 = new ArrayList<String>();
+    		List1.add(java);
+    		List1.add(csharp);
+    		List1.add(lisp);
+    		List1.add(cpp);
+    		
+    		// 这里需要使用 Object 数组，以防止类型错误。
+    		Object[] obj = List1.toArray();
+    		System.out.println("List1 集合中的元素有 ");
+    		for (int i = 0; i != obj.length; i++) {
+    			System.out.println(obj[i]);
+    		}
+    	}
+    }
+
+
