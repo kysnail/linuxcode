@@ -52,7 +52,7 @@ List 接口的常用实现类型有 `ArrayList` 和 `LinkedList` ，在使用 Li
     import java.util.LinkedList;
     import java.util.Iterator;
     
-    public class AddAddSetMethod {
+    public class AddAndSetMethod {
     
     	public static void main(String[] args) {
     		// 定义 字符串对象
