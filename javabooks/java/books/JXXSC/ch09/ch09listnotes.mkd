@@ -1,0 +1,238 @@
+# List Collection
+List 集合包括 List 接口及 List 接口的所有实现类。List 集合中的元素允许重复，各元素的顺序就是对象
+插入的顺序。类似 Java 数组，用户可通过使用索引（元素在集合中的位置）来访问集合中的元素。
+
+## List 接口的实现类
+List 接口的常用实现类有 `ArrayList` 与 `LinkedList` 。
+
+* `ArrayList` 类实现了可变的数组，允许所有元素，包括 null ，可以根据索引位置对集合进行快速的随机访问，
+缺点是向指定的索引位置插入对象或删除对象的速度较慢。
+
+* `LinkedList` 类采用链表结构保存对象。这种结构的优点是便于向集合中插入和删除对象。若经常需要向集合中
+插入、删除对象，使用 `LinkedList` 类实现的 List 集合的效率更高，但对于要随机访问集合中的对象，使用 
+`LinkedList` 类实现的 List 集合的效率较低。
+
+使用 `List` 集合时，通常声明为 `List` 类型，可通过不同的实现类来实例化集合。下面分别通过 `ArrayList` 
+`LinkedList` 类实例化 `List` 集合，实例代码如下：
+
+    List List1 = new ArrayList();
+    List List2 = new LinkedList();
+
+## List 的用法
+List 接口继承了 Collection 接口，所以 List 接口拥有 Collection 接口提供的所有常用方法，又因为 List 是
+列表类型，所以 List 接口还提供了一些适合于自身的常用方法，如下所示：
+
+| 方法名称 | 功能简介 |
+|:-----------|:------------|
+|add(int index, Object obj)       |用来向集合的指定索引位置添加对象，其他对象的索引位置相应后移一位。索引位置从 0 开始。|
+|addAll(int, Connection coll)|用来向集合的指定索引位置添加指定集合中的所有对象。|
+|remove(int index)|用来清除集合中指定索引位置的对象。|
+|set(int index, Object obj)|用来将集合中指定索引位置的对象修改为指定的对象。|
+|get(int index)|用来获得指定索引位置的对象。|
+|indexOf(Object obj)|用来获得指定对象的索引位置。当存在多个时，返回第一个的索引位置；当不存在时，返回 -1。|
+|lastIndexOf(Object obj)|用来获得指定对象的索引位置。当存在多个时，返回最后一个的索引位置；当不存在时，返回 -1。|
+|listIterator()|用来获得一个包含所有对象的 `ListIterator` 型实例。|
+|listIterator(int index)|用来获得一个包含从指定索引位置到最后的 `ListIterator` 型实例。|
+|subList(int fromIndex, int to Index)|通过截取从起始索引位置 `fromIndex` （包含）到终止索引位置 `toIndex`（不包含）的对象，重新生成一个 List 集合并返回。|
+
+从上表可以看出，List 接口提供的适合于自身的常用方法均与索引有关。这是因为 List 集合为列表类型，以线性方式
+存储对象，可以通过对象的索引操作对象。
+
+List 接口的常用实现类型有 `ArrayList` 和 `LinkedList` ，在使用 List 集合时，通常情况下声明为 List 类型，实
+例化时根据实际情况的需要，实例化为 `ArrayList` 或 `LinkedList` 。例如：
+
+    List<String> list1 = new ArrayList<String>();	// 利用 ArrayList 类实例化 List 集合
+    List<String> list2 = new LinkedList<String>();	// 利用 LinkedList 类实例化 List 集合
+
+### add(int index, Object obj) vs set(int index, Object obj) 
+在使用 List 集合时，需要注意区分 `add(int index, Object obj)` 和 `set(int index, Object obj)` 方法，
+前者是向指定索引位置添加对象，后者是修改指定索引位置的对象。
+
+    import java.util.List;
+    import java.util.LinkedList;
+    import java.util.Iterator;
+    
+    public class AddAddSetMethod {
+    
+    	public static void main(String[] args) {
+    		// 定义 字符串对象
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		String haskell = "Haskell";
+    		String erlang = "Erlang";
+    		
+    		List<String> List1 = new LinkedList<String>();
+    		List1.add(java);
+    		List1.add(lisp);
+    		List1.add(cpp);
+    		Iterator<String> it = List1.iterator();
+    		System.out.println("集合 List1 中的对象为： ");
+    		while (it.hasNext()) {
+    			System.out.print(" " + it.next() + " ");
+    		}
+    		
+    		System.out.println("修改集合 List1 中的对象： ");
+    		List1.set(1, haskell);
+    		List1.add(2, erlang);
+    		
+    		it = List1.iterator();
+    		while (it.hasNext()) {
+    			System.out.print(" " + it.next() + " ");
+    		}
+    import java.util.List;
+    import java.util.ArrayList;
+    import java.util.Iterator;
+    
+    public class IndexOfAndLastIndexOfMethod {
+    
+    	public static void main(String[] args) {
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		String haskell = "Haskell";
+    		
+    		List<String> list = new ArrayList<String>();
+    		list.add(java);
+    		list.add(lisp);
+    		list.add(csharp);
+    		list.add(lisp);
+    		list.add(cpp);
+    		list.add(lisp);
+    		list.add(haskell);
+    		list.add(lisp);
+    		
+    		Iterator<String> it = list.iterator();
+    		System.out.println("List 集合中的元素为： ");
+    		while (it.hasNext()) {
+    			System.out.print(" " + it.next());
+    		}
+    		
+    		System.out.println("\n");
+    		System.out.println("第一次出现 Lisp 的索引位置： " + list.indexOf(lisp));
+    		System.out.println("最后一次出现 Lisp 的索引位置： " + list.lastIndexOf(lisp));
+    	}
+    }
+    	}
+    }
+
+### indexOf(Object obj) vs lastIndexOf(Object obj)
+在使用 List 集合时，需要注意区分 `indexOf(Object obj)` 方法和 `lastIndexOf(Object obj)` 方法，前者是指获得指定对象
+的最小的索引位置，而后者是指获得指定对象的最大的索引位置。前提条件是指定的对象在 List 集合中具有重复的对象，否则
+如果在 List 集合中有且仅有一个指定的对象，则通过这两个方法获得的索引位置是相同的。
+
+    import java.util.List;
+    import java.util.ArrayList;
+    import java.util.Iterator;
+    
+    public class IndexOfAndLastIndexOfMethod {
+    
+    	public static void main(String[] args) {
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		String haskell = "Haskell";
+    		
+    		List<String> list = new ArrayList<String>();
+    		list.add(java);
+    		list.add(lisp);
+    		list.add(csharp);
+    		list.add(lisp);
+    		list.add(cpp);
+    		list.add(lisp);
+    		list.add(haskell);
+    		list.add(lisp);
+    		
+    		Iterator<String> it = list.iterator();
+    		System.out.println("List 集合中的元素为： ");
+    		while (it.hasNext()) {
+    			System.out.print(" " + it.next());
+    		}
+    		
+    		System.out.println("\n");
+    		System.out.println("第一次出现 Lisp 的索引位置： " + list.indexOf(lisp));
+    		System.out.println("最后一次出现 Lisp 的索引位置： " + list.lastIndexOf(lisp));
+    	}
+    }
+
+### subList(int fromIndex, int toIndex) method
+在使用 `subList(int fromIndex, int toIndex)` 方法截取现有 List 集合中的部分对象生成新的 List 集合时，需要注意的是，新
+生成的集合中包含起始索引位置代表的对象，但是不包含终止索引位置代表的对象。
+
+    也就是说满足 `[a, b)` 的模式。这样区间的个数可以直接通过 `b-a`，计算，而不需要以 `b-a+1`的方式计算区间长度。
+
+演示代码如下：
+
+    import java.util.List;
+    import java.util.ArrayList;
+    import java.util.Iterator;
+    
+    public class SubListMethod {
+    
+    	public static void main(String[] args) {
+    		String java = "Java";
+    		String csharp = "C#";
+    		String lisp = "Lisp";
+    		String cpp = "C++";
+    		String haskell = "Haskell";
+    		
+    		List<String> list = new ArrayList<String>();
+    		list.add(java);
+    		list.add(csharp);
+    		list.add(lisp);
+    		list.add(cpp);
+    		list.add(haskell);
+    		
+    		Iterator<String> it = list.iterator();
+    		System.out.println("list 集合中的元素为： ");
+    		while (it.hasNext()) {
+    			System.out.println(" " + it.next() + " ");
+    		}
+    		
+    		list = list.subList(2, 4);
+    		System.out.println("截取后的 list 集合中元素为： ");
+    		// 这里不使用迭代器完成遍历，而使用 List 的列表性质，直接寻址查找。
+    		for (int i = 0; i < list.size(); i++) {
+    			System.out.println(list.get(i));
+    		}
+    	}
+    }
+
+### 情景应用： List 集合传递学生信息
+List 集合在程序开发中经常用到，比如在业务方法中，将学生信息、商品信息等存储到集合中后作为方法的返回值返回
+给调用者，以此传递大量有序的数据。下面的实例使用了 List 集合传递学生信息。
+
+    import java.util.List;
+    import java.util.ArrayList;
+    
+    public class StudentList {
+    
+    	// 定义 getStudents() 方法，使用 List 集合保存学生信息，返回集合，在主方法中遍历该集合，输出信息。
+    	private List<String> getStudent() {
+    		List<String> list = new ArrayList<String>();
+    		// 这里这种写法很有意思，写成了 `csv` 的格式，这样便于进行数据处理，同样也不需要将每个字段分开写，值得记忆。
+    		list.add("李哥,男,1984-10-6");
+    		list.add("小陈,女,1982-5-10");
+    		list.add("小刘,男,1983-10-5");
+    		list.add("小张,男,1981-1-1");
+    		list.add("小董,男,1980-7-19");
+    		list.add("小吕,男,1984-11-3");
+    		
+    		return list;
+    	}
+    	public static void main(String[] args) {
+    		StudentList slist = new StudentList();
+    		List list = slist.getStudent();
+    		
+    		for (int i = 0; i < list.size(); i++) {
+    			String str = (String)list.get(i);
+    			String[] sList = str.split(",");
+    			System.out.println("姓名： " + sList[0] + "， 性别： " + sList[1] + "， 出生日期： " + sList[2]);
+    		}
+    	}
+    }
+    
+
