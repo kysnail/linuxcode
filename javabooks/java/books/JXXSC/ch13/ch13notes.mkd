@@ -1,0 +1,189 @@
+# 枚举与泛型
+JDK1.5 中新增了**枚举类型与泛型**。
+
+枚举类型可以取代以往常量的定义方式**（以往通常将常量封装在类或接口中）**。此外，还提供了**安全检查功能**。
+
+    枚举类型本质上还是以类的形式存在的。
+
+泛型的出现不仅仅可以让程序员少写某些代码，更在于解决类型安全问题，它提供编译时的安全检查，不会因为将对象置于
+某个容器中而失去其类型。
+
+## 使用枚举类型
+J2SE 5.0 中新增了枚举类型，可以使用该功能
+
+1. 取代以往定义常量的方式；
+2. 同时枚举类型还赋予程序在编译时检查的功能。
+
+### 使用枚举类型设置常量
+在以往设置常量时，通常将常量放置在接口中，这样，在程序中就可以直接使用，并且该常量不能被修改，因为在接口中
+定义该常量时，该常量的修饰符为 `final` 与 `static`。
+
+常规定义常量的代码的方式如下：
+
+	public interface Constants {
+		public static final int Constants_A = 1;
+		public static final int Constants_B = 2;
+	}
+
+自 JDK 1.5 版本新增枚举类型后，枚举类型就逐渐取代了这种常量定义方式。使用枚举类型定义常量的语法如下：
+
+	public enum Constants {
+		Constants_A,
+		Constants_B,
+		Constants_C
+	}
+
+其中，`enum` 是定义枚举类型的关键字。当需要在程序中使用该常量时，可以使用 `Contants.Contants_A` 来表示。
+
+#### 下面举例介绍使用枚举类型定义常量的方式。
+
+    // 将常量放置在接口中
+    public interface ConstantsInterface {
+    	public static final int Constants_A = 1;
+    	public static final int Constants_B = 2;
+    }
+
+    public class ConstantsInterfaceDemo {
+    
+    	// 将常量放置在枚举类型中
+    	enum ConstantsEnum {
+    		Constants_A,
+    		Constants_B,
+    		Constants_C;
+    	}
+    	
+    	// 使用接口定义的常量
+    	public static void usingContantsInterface(int i) {
+    		switch (i) {
+    		case ConstantsInterface.Constants_A: 
+    			System.out.println("calling usingConstantsInterface() method, pass parameter ConstantsInterface.Constants_A");
+    			break;
+    		case ConstantsInterface.Constants_B:
+    			System.out.println("calling usingConstantsInterface() method, pass parameter ConstantsInterface.Constants_B");
+    			break;
+    		}
+    	}
+    	
+    	// 使用枚举类型定义的常量作为参数对象
+    	public static void usingConstantsEnum(ConstantsEnum i) {
+    		switch (i) {
+    		case Constants_A:
+    			System.out.println("calling usingConstantsEnum() method, pass parameter ConstantsEnum.Constants_A");
+    			break;
+    		case Constants_B:
+    			System.out.println("calling usingConstantsEnum() method, pass parameter ConstantsEnum.Constants_B");
+    			break;
+    		}
+    	}
+    	
+    	public static void main(String[] args) {
+    		// 使用接口方式定义的常量
+    		usingContantsInterface(ConstantsInterface.Constants_A);
+    		// 使用枚举类型方式定义的常量
+    		usingConstantsEnum(ConstantsEnum.Constants_A);
+    		
+    		// 使用接口方式并不进行编译时的类型检查。
+    		// 这里的 3 并不存在，但编译不会报错，并且允许也没有错误。
+    		usingContantsInterface(3);	
+    		
+    		// 使用枚举方式定义的常量会在编译时进行类型检查，这样直接传递一个不存在的值时无法通过的 。
+    		// The method usingConstantsEnum(ConstantsInterfaceDemo.ConstantsEnum) in the type ConstantsInterfaceDemo is not applicable for the arguments (int)
+    		// usingConstantsEnum(3);
+    	}
+    }
+
+在上述代码中，当用户调用 `usingContantsInterface()` 方法时，即使不接受在接口中定义的常量参数，编译器也不会报错。
+但是调用 `usingConstantsEnum()` 方法时，任意传递参数，编译器就会报错，因为这个方法只接受枚举类型的常量作为参数。
+
+#### 内部类中定义枚举类型的常量
+枚举类型也可以在类的内部定义，下面就介绍如何在类的内部进行枚举类型的定义。
+
+    public class ConstantsInterfaceDemo {
+    
+    	// 将常量放置在枚举类型中
+    	enum ConstantsEnum {
+    		Constants_A,
+    		Constants_B,
+    		Constants_C;
+    	}
+    	....
+    }
+
+这种形式类似于 `内部类形式`，当编译该类时，会生成如下两个类文件：
+
+    ConstantsInterfaceDemo$ConstantsEnum.class
+	ConstantsInterfaceDemo.class
+
+这里有一个有趣的地方需要记住，在使用 switch 语句时，`case` 条件不要加限定符(`qualified`)。而在命令行输出时，又必须
+加上对应的限定符。
+居然报不需要限制符的错误
+	public static void usingConstantsEnum(ConstantsEnum i) {
+		switch (i) {
+		case ConstantsEnum.Constants_A:
+			System.out.println("calling usingConstantsEnum() method, pass parameter " + ConstantsEnum.Constants_A);
+		}
+	}
+
+The qualified case label ConstantsInterfaceDemo.ConstantsEnum.Constants_A must be replaced with the unqualified enum constant Constants_A
+
+
+
+
+
+
+
+
+下面的这种方式无法编译通过
+	public static void usingConstantsEnum(ConstantsEnum i) {
+		switch (i) {
+		case Constants_A:
+			System.out.println("calling usingConstantsEnum() method, pass parameter " + Constants_A);
+		}
+	}
+
+
+
+下面的方式才可以编译通过
+	public static void usingConstantsEnum(ConstantsEnum i) {
+		switch (i) {
+		case Constants_A:
+			System.out.println("calling usingConstantsEnum() method, pass parameter " + ConstantsEnum.Constants_A);
+		}
+	}
+
+
+### 深入了解枚举类型
+
+#### 1. 操作枚举类型成员的方法
+枚举类型较传统定义常量的方式，除了具有参数类型检测的优势之外，还具有一些其他方面的优势。
+
+我们可以将一个枚举类型看做是一个类，他继承于 `java.lang.Enum` 类，当定义一个枚举类型时，每一个枚举类型成员
+都可以看做是枚举类型的一个实例，这些枚举类型成员默认都被 `final`、`static`、`public` 所修饰，所以当使用枚举
+类型成员时，直接使用枚举类型名称调用枚举类型成员即可。
+
+由于枚举类型对象对象继承与 `java.lang.Enum` 类，所以该类中一些操作枚举类型的方法都可以应用到枚举类型中。
+
+|方法名称|具体含义|使用方法|举例|
+|:---------------|:---------------|:---------------|:---------------|
+|values()|该方法可以将枚举类型成员以数组的形式返回|枚举类型名称.values()|Constants2.values()|
+|valueOf()|该方法可以实现将普通字符串转换为枚举实例|枚举类型名称.valueOf("abc")|Constants2.valueOf("abc")|
+|compareTo()|该方法用于比较两个枚举对象在定义时的顺序|枚举对象.compareTo()|Constant_A.compareTo(Constants_B)|
+|ordinal()|该方法用于得到枚举成员的位置索引|枚举对象.ordinal()|Constants_A.ordinal()|
+
+##### (1) vlaues()
+枚举类型实例包含一个 `values()` 方法，该方法将枚举类型的成员变量实例以数组的形式返回，也可以通过该方法获取枚举类型
+的成员。
+
+	public class ShowEnumDemo {
+
+		enum ConstantsEnum {
+			Constants_A,
+			Constants_B;
+		}
+		
+		public static void main(String[] args) {
+			for (int i = 0; i < ConstantsEnum.values().length; i++) {
+				out.println("枚举类型成员变量为： " + ConstantsEnum.values()[i]);
+			}
+		}
+	}
