@@ -1,0 +1,66 @@
+# Chapter 2 -> 如何学习 Linux
+
+## 2.1 Linux 的应用
+1. 网络服务器
+2. 工作站计算机
+3. 台式计算机
+
+	X Window System 是以 XFree86 计划发布的 X11 窗口软件为管理显示核心的一套窗口界面软件，我们常常称它为用户
+	图形界面（Graphical User Interface）。这个 XFree86 只是 Linux 核心上的一套软件，当管理图形界面输出的时候，
+	几乎所有显示相关硬件的控制，例如显卡、屏幕、键盘、鼠标，等等，都是 XFree86 管理的。或者，我们可以称 XFree86 
+	为 X-Window System 的服务器，简称为 X Server。
+	我们所看到的窗口画面，则是利用 X Server 提供的显示相关硬件的功能，来达到图形化显示的窗口管理器（Window Manager， MW）
+	的功能。也就是说，WM 是挂载在 X Server 上运行的一套显示窗口界面的软件，例如常见的 KDE、GNOME 等都是 WM。
+
+4. 嵌入式系统
+
+## 2.2 基础学习
+[杨老师的图解桌面](http://apt.nc.hcc.edu.tw/docs/FC3_X/)
+
+### 2.2.1 从头学习
+基础知识的推荐书籍 Net满 主编的 Study-Area 中的基础文章，相当实用。
+
+[计算机基础](http://www.study-area.org/compu/compu.htm)
+[网路基础](http://www.study-area.org/network/network.htm)
+
+### 2.2.2 选择工具书
+
+### 2.2.3 实践再实践
+
+[Study-Area](http://www.study-area.org)
+[鸟哥的私房菜馆](http://linux.vbird.org)
+[狼主的网络实验室](http://netlab.kh.edu.tw/index.htm)
+[卧龙大师的网络技术文件](http://linux.tnc.edu.tw/techdoc/)
+[大南小国（林克敏主任文集）](http://freebsd.lab.mlc.edu.tw/)
+[张毓麟先生的小文章](http://www.se.ntou.edu.tw/~ylchang/MyDocuments/index.html)
+[台湾 Linux 团体](http://www.linux.org.tw/)
+[吴仁智的文件集](http://www.cses.tcc.edu.tw/~chihwu)
+
+## 2.3 学习方法
+
+### 2.3.1 X Window 还是命令行
+
+### 2.3.2 主机/网络数据查询
+[Linux 的文件数据](/usr/share/doc)
+[CLDP 中文文件计划](http://www.linux.org.tw/CLDP/)
+[Unix 的一般常见问题](http://www.csie.nctu.edu.tw/document/unixfaq/)
+[The Linux Documentation Project](http://www.tldp.org/)
+
+### 2.3.3 向别人提问
+
+	学习编写脚本没有设置服务器那么有意思，不过，我自己的感觉是：关键是会”偷“，偷了会改，改了会变，变则通。
+
+### 2.3.4 笔者的建议
+
+* 成就感
+* 兴趣
+* 协助回答问题
+* 参与讨论
+
+**总体解决方案** -> Total Solution
+
+一般来说，公司主机发生问题时，他们绝不会只要求您”单独解决一台主机的问题“，他们需要的是整体环境的总体解决方案（
+Total Solution）。
+
+
+
