@@ -109,3 +109,21 @@ PCI Express （简称 PCI-E）接口出现。这个接口的速度比 AGP 更快
 	那家公司，可以查看该硬件上的信息。举例来说，主板上都会列出这个主板的开发商与主板型号，知道这两个信息，就可以找
 	到驱动程序了。如果显卡上有个小芯片，上面也会列出显卡厂商与芯片信息。
 
+### 3.1.2 选择合适 Linux 系统的主机配置
+通常，Linux 开发商在发布 Linux 之前，都会针对该版本预设可支持的硬件的说明，因此，除了可以在 Linux 的 Howto 去查询外，也可以到
+各个相关的 Linux 版本网站去查询。
+
+* [Linux 的硬件中文支持](http://www.linux.org.tw/CLDP/HOWTO/hardware.html#hardware)
+* [Mandriva 的硬件支持](http://www.linux-mandrake.com/en/hardware.php3)
+* [Red Hat 的硬件支持](http://hardware.redhat.com/hcl/?pagename=hcl)
+* [SuSE 的硬件支持](http://hardwaredb.suse.de/index.php?LANG=en_UK)
+* [Linux 对 Printer 的支持](http://www.linuxprinting.org)
+* [Linux 对 Notebook 计算机的支持](http://www.linux-laptop.net/)
+* [显卡对 XFree86/Xorg 的支持](http://www.linuxhardware.org/)
+
+假设一台 Linux 主机的主要功能是用来作为 NAT 主机，也就是具有类似 "IP 共享" 的功能，而且这台 NAT 主机的 PC 数并不多，那么只需要
+Pentium-166、32 MB RAM 以及一块普通显卡及网卡即可。
+
+不同规模的服务器，其硬件要求等级也会不同。除此之外，不同的 Linux 版本对硬件的要求也不一样。举例来说，Open Linux 的 server 3.1.1 就
+"严格要求"系统必须是 **i686** (也就是 Pentium-II 等级以上的 CPU)。
+
