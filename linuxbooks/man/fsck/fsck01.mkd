@@ -1,0 +1,71 @@
+# fsck
+The system utility **fsck** (for "**f**ile **s**ystem **c**hec**k**") is a tool for checking the consistency of a 
+file system in Unix and Unix-like operating systems such as Linux.
+
+## 功能说明
+检查文件系统并尝试修复错误。
+
+在Linux系统中，为了增加系统性能，通常系统默认一些数据写在内存中，并不会直接将数据写入硬盘，
+这是因为内存速度要比硬盘快若干倍。但是有个问题，万一由于“断电”或者其他未知原因，造成系统
+死机，怎么办？系统就崩溃了。所以，我们需要在特定的时候让数据直接回存到硬盘中。这里提供几个
+常用的命令，其中，fsck命令最重要. 当文件系统发生错误时，可用fsck命令尝试加以修复.直接采用
+分区编号(如/dev/had3),或使用挂载点(Mount Point,如/、/usr等)指定文件系统皆可。假设一次指定
+多个文件系统，而这些系统分别位于不同的物理磁盘上，则fsck将会尝试同步的方式去检查他们，以节
+省操作时间。　　
+
+## 语法
+
+    fsck [-sACVRP] [-t fstype] [--] [fsck-options] filesys [...]
+    fsck [-aANPrRsTV][-t <文件系统类型>][文件系统...]
+
+## 补充说明
+当文件系统发生错误，可用fsck指令尝试加以修复。检查与修复 Linux 档案系统，可以同时检查一个或多个 Linux 档案系统。
+
+## 参数
+
+`filesys` ： device 名称(eg./dev/sda1)，mount 点 (eg. / 或 /usr)
+`-t` : 给定档案系统的型式，若在 /etc/fstab 中已有定义或 kernel 本身已支援的则不需加上此参数
+`-s` : 依序一个一个地执行 fsck 的指令来检查
+`-A` : 对/etc/fstab 中所有列出来的 partition 做检查
+`-C` : 显示完整的检查进度
+`-d` : 列印 e2fsck 的 debug 结果
+`-p` : 同时有 -A 条件时，同时有多个 fsck 的检查一起执行
+`-R` : 同时有 -A 条件时，省略 / 不检查
+`-V` : 详细显示模式
+`-a` : 如果检查有错则自动修复
+`-r` : 如果检查有错则由使用者回答是否修复
+
+## 例子一
+检查 msdos 档案系统的 /dev/hda5 是否正常，如果有异常便自动修复 :
+
+    fsck -t msdos -a /dev/hda5
+
+## 例子二
+
+    [root@localhost ~]# fsck -C -t ext3 /dev/sda3fsck 1.39 (29-May-2006)e2fsck 1.39 (29-May-2006)/dev/sda3 is mounted.
+    WARNING!!! Running e2fsck on a mounted filesystem may causeSEVERE filesystem damage.
+    Do you really want to continue (y/n)? yes
+    /home: recovering journal/home: clean, 11/524288 files, 25399/524120 blocks#一切正常就会出现上述信息
+
+## 注意
+注意通常只有ROOT且系统有问题的时候才用这个命令，否则在正常状态下使用此命令可能会损坏文件。
+
+此指令可与 /etc/fstab 相互参考操作来加以了解。
+
+运行fsck命令后产生的文件有什么用？
+
+当执行fsck命令时，fsck命令如果发现存在孤立的文件或目录，这些孤立的文件或目录对于系统管理员或用户来说，无法访问到它，
+因为它与它的上级目录失去了关联，如果用户允许fsck重新把它们找回来的话，fsck命令就会把这些孤立的文件或目录放在文件系统
+的/lost+found目录下，并用各自的i-node号来命名，以便用户查找自己需要的文件。Lost+found目录通过它的英文含义我们都可以
+知道，它是一个失物认领处。
+
+因此当某个用户发现自己丢失了某个文件，可以在执行fsck之后到/lost+found目录下去查找，这时通过文件名已无法辨认出文件的
+作用，只能用file之类的命令来确定文件的类型，如果是数据文件，可以用more或vi命令来查看，如果是二进制文件，可以用dbx命
+令来调试或者试着执行它(注意它可能是一个具有破坏性的程序)，知道文件或目录的作用之后，可以对其进行改名。
+
+如果用户不允许fsck把这些孤立的文件或目录找回来，那么fsck命令就会破坏这些文件或目录，彻底丢失这些文件或目录，用户或
+系统管理员永远也无法找回它们。
+
+## 参考
+[Checking and Repairing Unix File system with fsck](http://adminschoice.com/repairing-unix-file-system-fsck)
+
