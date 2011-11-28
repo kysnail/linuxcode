@@ -51,4 +51,43 @@ Using `#` symbol to indicate which level you want to display.
     #### level four
     ##### level five
     ###### level six
-    
+ 
+# Table 
+`markdown` 默认没有便捷的表格标记方式，仍使用传统的 html 标记。网上的便捷版本通常都是一些修改版，下面的这种修改版可以在 github 上显示表格。
+
+| Left align | Right align | Center align |
+|:-----------|------------:|:------------:|
+| This       |        This |     This     |
+| column     |      column |    column    |
+| will       |        will |     will     |
+| be         |          be |      be      |
+| left       |       right |    center    |
+| aligned    |     aligned |   aligned    |
+
+代码格式如下：
+
+    | Left align | Right align | Center align |
+    |:-----------|------------:|:------------:|
+    | This       |        This |     This     |
+    | column     |      column |    column    |
+    | will       |        will |     will     |
+    | be         |          be |      be      |
+    | left       |       right |    center    |
+    | aligned    |     aligned |   aligned    |
+
+上面的书写方式是比较费时的，可以直接写成下面的格式：
+
+
+    |Left align|Right align|Center align|
+    |:---------|----------:|:----------:|
+    |This|This|This|
+    |column|column|column|
+    |will|will|will|
+    |be|be|be|
+    |left|right|center|
+    |aligned|aligned|aligned|
+
+* [is there any markdown to create tables](http://meta.stackoverflow.com/questions/73566/is-there-any-markdown-to-create-tablesj)
+* [table syntax](http://daringfireball.net/projects/markdown/syntax#link)
+* [Tables for Markdown and TextMate](http://www.leancrew.com/all-this/2008/08/tables-for-markdown-and-textmate/)
+
