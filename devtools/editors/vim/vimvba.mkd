@@ -1,0 +1,12 @@
+# vba plugin install
+新发行的 vim 提供了一种新的发行方式，通过 vba 脚本自动安装。相较原先的方式确实还是比较简单的。它将所有的内容集成到一个文件中，然后通过相应的配置，自动将对应的文件存放到相应的目录中。
+
+    Easy! Just open `markdown.vba` file with vim (of course!) and use command `:source %`.
+    All files will be extracted in your vim home directory.
+    $ vim markdown-<version>.vba.gz +":source % | quit!"
+
+# markdown.vba demo
+比如 `markdown.vba` 在 Windows 上的安装。
+
+1. 使用 vim 打开 markdown.vba 文件；
+2. 执行 `:so %` 命令，然后退出 `:q` 即可。
