@@ -7,14 +7,15 @@ A snippet is a piece of often-typed text that you can insert into your document 
 followed by a `<tab`>.
 
 # snipMate 目录结构
-├─after
-│  └─plugin
-├─autoload
-├─doc
-├─ftplugin
-├─plugin
-├─snippets
-└─syntax
+
+    ├─after
+    │  └─plugin
+    ├  ─autoload
+    ├─doc
+    ├─ftplugin
+    ├─plugin
+    ├─snippets
+    └─syntax
 
 # install details
 In unix-like system
