@@ -1,0 +1,32 @@
+# snipMate: TextMate-style snippets for Vim
+**snipMate.vim** aims to be an unobstrusive, concise vim script that implements some of TextMate's 
+snippets features in Vim.
+
+# snippet
+A snippet is a piece of often-typed text that you can insert into your document using a trigger word
+followed by a `<tab`>.
+
+# snipMate 目录结构
+├─after
+│  └─plugin
+├─autoload
+├─doc
+├─ftplugin
+├─plugin
+├─snippets
+└─syntax
+
+# install details
+In unix-like system
+
+    unzip snipMate.zip -d ~/.vim
+
+在 Linux 中，只需要解压到用户主目录下的 `.vim` 目录即可，非常方便。这里的 `-d` 参数表示解压到文件夹中。
+
+In Windows system
+
+    $HOME\vimfiles
+
+在 Windows 系统中只需要将对应的文件拷贝到 `vimfiles` 中，如果 vimfiles 中没有对应的文件夹，直接拷贝即可，否则
+将其中的文件拷贝到其中。
+
