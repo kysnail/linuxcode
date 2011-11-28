@@ -1,0 +1,3 @@
+# snipMate
+snipMate.vim aims to ba an unobstrusive, consice vim script that implements some of TextMates's snippets features in Vim.
+
