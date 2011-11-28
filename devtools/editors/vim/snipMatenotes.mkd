@@ -9,8 +9,8 @@ followed by a `<tab`>.
 # snipMate 目录结构
 
     ├─after
-    │  └─plugin
-    ├  ─autoload
+    │  └─plugingin
+    ├─autoload
     ├─doc
     ├─ftplugin
     ├─plugin
