@@ -122,3 +122,49 @@
 * [x86 memory segmentation -> DS](http://en.wikipedia.org/wiki/X86_memory_segmentation)
 * [X86 Assembly/X86 Architecture](http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture)
 * [Memory data register](http://en.wikipedia.org/wiki/Memory_data_register)
+
+### 2.2.2 段寄存器 -> (Segment Register)
+为了运用所有的内存空间，`8086/8088` CPU 设定了 4 个段寄存器，分别为：
+
+* CS
+* DS
+* ES
+* SS
+
+专门用于保存段首地址。
+
+#### CS (Code Segment) -> 代码段寄存器
+该寄存器用于存放正在或者正待执行的程序的段首址，其值为代码段的段值。
+
+#### DS (Data Segment) -> 数据段寄存器
+该寄存器用于存放正在或正待执行的数据段的段首址，其值为数据段的段值。
+
+#### ES (Extra Segment) -> 附加段寄存器
+该寄存器用于存放正在或正待执行的附加段的段首址，其值为附加数据段的段值。
+
+#### SS (Stack Segment) -> 堆栈段寄存器
+该寄存器用于存放正在或正待执行的堆栈段的段首址，其值为堆栈段的段值。
+
+通常情况下
+
+1. `CS` 划定并控制当前程序区；
+2. `DS` 和 `ES` 划定并控制数据区；
+3. `SS` 划定并控制堆栈区；
+
+#### 段寄存器使用约定
+|访问存储区类型    	|缺省段寄存器	|可指定段寄存器	|段内偏移地址来源	|
+|:----				|:----			|:----			|:----				|
+|取指令码			|CS				|无				|IP					|
+|堆栈操作			|SS				|无				|SP					|
+|串操作源地址		|DS				|CS ES SS		|SI					|
+|串操作目的地址		|ES				|无				|DI					|
+|BP 用作基址寄存器	|SS				|CS DS ES		|依寻址方式寻找有效地址|
+|一般数据存取		|DS				|CS ES SS		|依寻址方式寻找有效地址|
+
+由上表可知，
+
+1. 当取指令时，代码段的首地址必须存放到 `CS` 寄存器中，不允许使用其他段寄存器取代 `CS`；
+2. 访问堆栈时，堆栈段的首地址必须存放到 `SS` 寄存器中，也不允许使用其他段寄存器取代 `SS`；
+3. 当执行串操作指令时，源串缺省使用段寄存器 `DS`，也可选用 `CS` `ES` `SS`，而目的串只能使用 `ES` 段寄存器；
+4. 当使用 `BP` 作为基址寄存器时，缺省的段寄存器为 `SS`，也可选用 `CS` `DS` `ES`；
+5. 而对于一般数据的存取，缺省的段寄存器为 `DS`，也可选用 `CS` `ES` `SS`。
