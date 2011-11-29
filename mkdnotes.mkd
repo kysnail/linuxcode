@@ -91,3 +91,10 @@ Using `#` symbol to indicate which level you want to display.
 * [table syntax](http://daringfireball.net/projects/markdown/syntax#link)
 * [Tables for Markdown and TextMate](http://www.leancrew.com/all-this/2008/08/tables-for-markdown-and-textmate/)
 
+# `->` Symbol
+Do not use `>` symbol, it will cause display error on following `###` title.
+
+    1. pointer -> point to something;
+    
+    ### Title Two
+    
