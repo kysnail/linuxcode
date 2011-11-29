@@ -651,3 +651,126 @@ MASM5.0 版本的汇编器内部包含 `MASM.EXE` `LINK.EXE` `LIB.EXE` `DEBUG.EX
 2. 使用 DEBUG 命令观察程序结果，这种方法适用于汇编语言程序执行后，必须深入观察机器的各个寄存器内容或者存储单元的值。
 
 下面给出两个汇编语言程序上机调试过程实例。其中，例 2-5 采用直接输入文件名观察结果，例 2-6 采用 DEBUG 命令调试法观察结果。
+
+#### 例 2-5 
+编写一个汇编语言程序，在屏幕上显示 10 行“This is a Assembly Language Programe.”，并且每行向右缩进一个空格。
+
+**解** 
+
+    该例题属于直接运行程序即可观察结果，所以直接输入其可执行文件名即可。
+
+程序代码如下：
+
+	DSEG SEGMENT
+		MESS	DB "This is a Assembly Language Programe.", 0DH, 0AH, "$"		; 显示的字符串
+		SPACE	DB " ", "$"						; 显示空格字符，注意 " " 之间有一个空格字符
+	DSEG ENDS
+	CSEG SEGMENT
+		ASSUME CS:CSEG, DS:DSEG
+		START:
+			MOV AX, DSEG			; 取 DSEG 段首址赋予 AX 寄存器
+			MOV DS, AX				; DS <- AX
+			MOV BX, 01H				; BX 设置初始化值为 1
+		AGAIN:
+			MOV DX, OFFSET MESS		; 取显示的字符偏移量赋予 DX
+			MOV AH, 09H				; 调用 9 号（显示）DOS 功能子程序
+			INT 21H
+			MOV CX, BX				; CX <- BX
+			INC BX					; BX <- BX + 1
+		NEXT:
+			MOV DX, OFFSET SPACE	; 取空格字符偏移量赋予 DX
+			MOV AH, 09H				; 调用 9 号 DOS 功能子程序，显示空格字符
+			INT 21H
+			LOOP NEXT				; 继续显示空格字符，直到 CX 为 0
+			CMP BX, 10				; BX 与 10 比较
+			JBE AGAIN				; 如果没有显示 10 次，则转移到 AGAIN 标号继续执行程序
+			MOV AH, 4CH
+			INT 21H
+	CSEG ENDS
+	END START
+
+**汇编源文件**
+
+	Microsoft (R) KKCFUNC ﾊﾞｰｼﾞｮﾝ 1.10
+	Copyright (C) Microsoft Corp. 1991,1993. All rights reserved.
+
+	KKCFUNC が組み込まれました.
+
+	マイクロソフトかな漢字変換  ﾊﾞｰｼﾞｮﾝ 2.51
+	(C)Copyright Microsoft Corp. 1992-1993
+	Microsoft (R) Macro Assembler Version 5.00
+	Copyright (C) Microsoft Corp 1981-1985, 1987.  All rights reserved.
+
+	Object filename [2-5.OBJ]:
+	Source listing  [NUL.LST]:
+	Cross-reference [NUL.CRF]:
+
+	  50016 + 349472 Bytes symbol space free
+
+		  0 Warning Errors
+		  0 Severe  Errors
+
+	F:\Books\Assembly\MASM5~1.0>
+
+说明：
+
+* `*.OBJ` -- 这是汇编的主要目的，所以这个文件是我们需要的。当系统询问 `*.OBJ` 文件的文件名时，可直接用回车键回
+答，这样就在磁盘上建立了一个 `2-5.OBJ` 的目标文件。
+* `*.LST` -- 这个文件列出了源程序和机器语言程序清单，并给出符号列表，因而可使程序调试更加方便。该文件可有、可无。
+如果需要，则可输入一个文件名，如输入 `2-5` ，可在磁盘上生成一个 `2-5.LST` 的列表文件；如果不需要生成该文件，则直
+接回车即可。
+
+**链接目标文件**
+
+	F:\Books\Assembly\MASM5~1.0>LINK.EXE 2-5.OBJ
+
+	Microsoft (R) Overlay Linker  Version 3.60
+	Copyright (C) Microsoft Corp 1983-1987.  All rights reserved.
+
+	Run File [2-5.EXE]:
+	List File [NUL.MAP]: 2-5
+	Libraries [.LIB]:
+	LINK : warning L4021: no stack segment
+
+	F:\Books\Assembly\MASM5~1.0>
+
+由上可知，链接 `2-5.OBJ` 文件后生成两个输出文件，扩展名分别为 `.EXE` 和 `.MAP`，即可执行文件和链接映像文件。如果要将
+`2-5.OBJ` 和其他库文件一起链接成可执行文件，则必须输入库文件的文件名。
+
+说明：
+
+* `*.EXE` -- 这是链接的主要目的，所以这个文件是我们需要的。当系统询问 `*.EXE` 文件的文件名时，可直接用回车键回答，这样
+就在磁盘上建立了一个 `2-5.EXE` 的目标文件。
+* `*.MAP` -- 这个文件列出了每个段在存储器中的分配情况。该文件可有、可无。如果需要，则可输入一个文件名，如输入 `2-5` ，
+可在磁盘上生成一个 `2-5.MAP` 的映像文件；如果不需要生成该文件，则直接回车即可。
+* `*.LIB` -- 库文件。这个文件是作为 `LINK` 程序的输入文件。如果目标文件 `2-5.OBJ` 需要和某个库文件一起生成可执行文件，
+则需要输入库文件的文件名；如果特殊需要，则在 `[.LIB]:` 处直接回车即可。
+
+上面生成的 `2-5.MAP` 文件。
+
+	LINK : warning L4021: no stack segment
+
+	 Start  Stop   Length Name                   Class
+	 00000H 00029H 0002AH DSEG                   
+	 00030H 00053H 00024H CSEG                   
+
+	Program entry point at 0003:0000
+
+**注意：**
+
+    在源程序代码中，如果没有定义堆栈段，则 LINK 程序在链接过程中会给出一个 "no stack segment" 的提示警告。该警告可忽略。
+
+**运行程序**
+
+	F:\Books\Assembly\MASM5~1.0>2-5
+	This is a Assembly Language Programe.
+	 This is a Assembly Language Programe.
+	  This is a Assembly Language Programe.
+	   This is a Assembly Language Programe.
+		This is a Assembly Language Programe.
+		 This is a Assembly Language Programe.
+		  This is a Assembly Language Programe.
+		   This is a Assembly Language Programe.
+			This is a Assembly Language Programe.
+			 This is a Assembly Language Programe.
+
