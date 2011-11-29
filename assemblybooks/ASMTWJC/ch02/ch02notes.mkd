@@ -774,3 +774,79 @@ MASM5.0 版本的汇编器内部包含 `MASM.EXE` `LINK.EXE` `LIB.EXE` `DEBUG.EX
 			This is a Assembly Language Programe.
 			 This is a Assembly Language Programe.
 
+#### 例 2-6
+编写一个汇编程序，实现 `AX` `BX` 内容求和（和为 16 位），并将结果存放于当前数据段的 `SUM` 字单元中（`高地址存储高字节和
+低地址存储低字节和`）。
+
+**解析**
+
+    在编写程序之前，设 AX=1234H BX=5678H，它们的和很显然是 68ACH。但该程序运行后用户无法从屏幕直接观察结果。所以
+    必须使用 DEBUG 测试改程序，以便观察结果。
+
+程序代码如下：
+
+	DSEG SEGMENT
+		SUM DB 2 DUP(?)
+	DSEG ENDS
+	CSEG SEGMENT
+		ASSUME CS:CSEG, DS:DSEG
+		START:
+			MOV AX, DSEG			; 取 DSEG 段首址赋予 AX 寄存器
+			MOV DS, AX				; DS <- AX
+			MOV AX, 1234H			; 被加数赋予 AX
+			MOV BX, 5678H			; 加数赋予 BX
+			ADD AX, BX				; AX <- AX + BX
+			MOV SI, OFFSET SUM		; SI <- SUM 单元的偏移量
+			MOV [SI], AX			; (SI) <- AX
+			MOV AH, 4CH
+			INT 21H					; 返回 DOS
+	CSEG ENDS
+	END START
+
+编译后的 `2-6.MAP` 文件
+
+	LINK : warning L4021: no stack segment
+
+	 Start  Stop   Length Name                   Class
+	 00000H 00001H 00002H DSEG                   
+	 00010H 00025H 00016H CSEG                   
+
+	Program entry point at 0001:0000
+
+可以看到 `DS` `CS` 相差 16 个字节。在程序载入内存后，也应该呈现此种效果。就是说，当程序被加载到内存中后，如果
+数据段`DSEG`被加载到`259D:0000`，那么代码段`CSEG`一定被加载到`259E:0000`。这在下面的调试过程中可以观察到。
+
+**调试过程**
+
+链接成功后，使用 `DEBUG` 命令载入待调试文件。
+
+	F:\Books\Assembly\MASM5~1.0>debug 2-6.EXE
+	-u
+	259E:0000 B89D25        MOV     AX,259D(数据段地址)
+	259E:0003 8ED8          MOV     DS,AX
+	259E:0005 B83412        MOV     AX,1234
+	259E:0008 BB7856        MOV     BX,5678
+	259E:000B 03C3          ADD     AX,BX
+	259E:000D BE0000        MOV     SI,0000(SUM 偏移地址)
+	259E:0010 8904          MOV     [SI],AX
+	259E:0012 B44C          MOV     AH,4C
+	259E:0014 CD21          INT     21(程序结束地址)
+	259E:0016 7C1C          JL      0034
+	259E:0018 7FC6          JG      FFE0
+	259E:001A 837E0800      CMP     WORD PTR [BP+08],+00
+	259E:001E EBBE          JMP     FFDE
+	-G 0014(执行到 0014H)
+
+	AX=4CAC  BX=5678  CX=0026  DX=0000  SP=0000  BP=0000  SI=0000  DI=0000
+	DS=259D  ES=258D  SS=259D  CS=259E(可以看到与数据段只差 16 个字节)  IP=0014   NV UP EI PL NZ NA PE NC
+	259E:0014 CD21          INT     21
+	-D 259D:0000
+	259D:0000  AC 68(结果正确) 00 00 00 00 00 00-00 00 00 00 00 00 00 00   .h..............
+	259D:0010  B8 9D 25 8E D8 B8 34 12-BB 78 56 03 C3 BE 00 00   ..%...4..xV.....
+	259D:0020  89 04 B4 4C CD 21 7C 1C-7F C6 83 7E 08 00 EB BE   ...L.!|....~....
+	259D:0030  C4 5E 04 8B 46 0C 26 39-47 0C 74 08 FF 76 0E B8   .^..F.&9G.t..v..
+	259D:0040  DC 07 EB B2 C4 5E 04 8B-46 08 8B 56 0A 26 39 57   .....^..F..V.&9W
+	259D:0050  0A 7F 19 7C 06 26 39 47-08 73 11 8B 5E 04 8B 46   ...|.&9G.s..^..F
+	259D:0060  08 8B 56 0A 26 89 47 08-26 89 57 0A 5D C3 55 8B   ..V.&.G.&.W.].U.
+	259D:0070  EC 81 EC 8E 00 56 E9 B0-01 90 A1 22 21 FF 06 22   .....V....."!.."
+	-
