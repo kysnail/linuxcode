@@ -60,3 +60,65 @@ Shell 在 Linux 操作系统中担当着重要的角色，是一个交互式命�
     Please input the password: 201111301118          
     Failed, please try again and you can input 'q' to stop this test.:201111301133
     Success!
+
+### 计算用户期望时间与系统时间的差值 countdown.sh
+
+    [Source Code]
+    #!/bin/bash
+    #program
+    #User can get days to his expected date
+    #History:
+    #2011/11/30 First Version
+    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+    export PATH
+    
+    echo "You can get the days to your expected date. The date must be later than 19710101"
+    read -p "Please input the year of your expected date:" mydate
+    
+    #Using regex to check the string
+    # 这里的写法实际上有漏洞，只要字符串中有连续的 8 个数字符合即可，下面这种写法就无法正常执行
+    # ss20111129 
+    # 但有趣的是 s20111129 可以正常通过。
+    date_test=`echo $mydate | grep '[0-9]\{8\}'`
+    if [ "$date_test" == "" ]; then
+            echo "You input the wrong form of date"
+            exit 1
+    fi
+    
+    # 生成当前时间相对 19710101 的秒数。
+    date_now=`date +%s`
+    # 通过 date --date=STRING +%s 的方式，求出输入日期相对与 19710101 的秒数。
+    date_exp=`date --date="$mydate" +%s`
+    
+    # 计算距离 19710101 的秒数
+    date_dif_s=$((date_exp - date_now))
+    # 计算距离 19710101 的天数
+    date_dif=$(($date_dif_s/60/60/24))
+    
+    if [ "$date_dif" -gt "0" ]; then
+            echo "$date_dif day(s) to your expected date."
+    elif [ "$date_dif" -lt "0" ]; then
+            echo "Your expected date is $(( -1 * $date_dif )) day(s) before."
+    else
+            echo "Your expected day is today."
+    fi
+    
+    # echo $date_dif_s
+    # echo $date_dif
+    # echo $date_now
+    # echo $date_exp
+
+运行结果：
+
+    [root@sim50ptst01 src]# ./countdown.sh 
+    You can get the days to your expected date. The date must be later than 19710101
+    Please input the year of your expected date:20111130
+    Your expected day is today.
+    [root@sim50ptst01 src]# ./countdown.sh 
+    You can get the days to your expected date. The date must be later than 19710101
+    Please input the year of your expected date:20111129
+    Your expected date is 1 day(s) before.
+    [root@sim50ptst01 src]# ./countdown.sh 
+    You can get the days to your expected date. The date must be later than 19710101
+    Please input the year of your expected date:20120808
+    251 day(s) to your expected date.
