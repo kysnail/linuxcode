@@ -17,3 +17,46 @@ Shell 在 Linux 操作系统中担当着重要的角色，是一个交互式命�
 
 ### 利用 Shell 编程，实现时间密码的验证
 
+    [Source Code]
+    
+    #!/bin/bash
+    #Program:
+    #User can test the timepassword.
+    #History:
+    #2011/11/30 First release
+    PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+    export PATH
+    
+    #Using Date Function to get current date.
+    #There must be a " " space between date and "+".
+    Date=`date +%Y%m%d%H%M`
+    echo $Date
+    #Syntax $((...)) used for integer calculation.
+    #Time=$(($Date/100*100))
+    #echo $Time
+    #Time=$(($(($Date%100 + 15))%60))
+    #echo $Time
+    Time=$(($(($Date/100*100)) + $(($(($Date%100 + 15))%60))))
+    echo $Time
+    
+    #[-p prompt] -> Display prompt on standard error, without a trailing newline, before attempting to read any input.
+    #The prompt is displayed only if input is coming from a terminal.
+    read -p "Please input the password: " password
+    while [ "$password" != "$Time" ] && [ "$password" != "q" ]
+    do
+            read -p "Failed, please try again and you can input 'q' to stop this test.:" password
+    done
+    
+    if [ "$password" == "$Time" ]; then
+            echo "Success!"
+            exit 0
+    fi
+
+运行结果：
+
+    [root@sim50ptst01 src]# ./timepasword.sh 
+    201111301118
+    201111301133
+    Please input the password: 201111301118          
+    Failed, please try again and you can input 'q' to stop this test.:201111301133
+    Success!
