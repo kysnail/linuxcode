@@ -145,6 +145,7 @@
 4. `currentpid` 表示当前执行的进程号。
 
 有了以上说明，就不难理解输出结果中每行的含义了。
+
 1. 第一行父进程 pid 为 3486 ，同时创建了两个子进程 3487 3488 ，并在最后的 getpid() 调用中表明了自己的身份；
 2. 第二行父进程不变，最后的 `currentpid` 则表明了进程的身份，它代表了进程 pid1 ，正是因为这样，所以在子进程的运行空间中，pid1 的输出为 0，而由于
 在子进程中的再次 `fork()` 生成了 pid2 这个子进程，3489 表明它是由进程 pid1 子进程生成的子进程，并在此显示。
@@ -155,6 +156,7 @@
 
 
 Ref:
+
 * [关于FORK（）创建多个进程的方法](http://bbs.sunplusedu.com/space/viewspacepost.aspx?postid=2057)(★)
 * [Linux下用fork()派生的子进程通过pipe管道通讯的实例详解生产者-消费者问题](http://www.haogongju.net/art/592469)
 * [ 一个fork的问题](http://4develop.in/page/Linux_SpecialTopic/20111029_20_7ca11e69-3d28-4c5d-971f-076df09c668b/%E4%B8%80%E4%B8%AAfork%E7%9A%84%E9%97%AE%E9%A2%98.html)
