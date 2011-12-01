@@ -1,0 +1,182 @@
+# Multiple fork() 
+当出现多个 `fork()` 顺序执行时，会产生复杂的运行情况。
+
+## double fork()
+下面的例子演示顺序执行两个 `fork()` 时，系统提示的信息：
+
+### demo -> 1
+使用 `getid()` 获取当前进程的 `id` 号。
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <sys/wait.h>
+    #include <unistd.h>
+
+    int main(void)
+    {
+        int status;
+        // `pid_t` defined in `include\sys\types.h`
+        pid_t currentpid;
+        // get parent process pid.
+        currentpid = getpid();
+
+        printf("%d\n", currentpid);
+    }
+
+运行结果如下：
+
+    $ ./a.out 
+    2829
+    $ ./a.out 
+    2830
+    $ ./a.out 
+    2831
+    $ ./a.out 
+    2832
+
+### demo -> 2
+使用 `fork()` 创建子进程，并查看当前的 pid 。
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <sys/wait.h>
+    #include <unistd.h>
+
+    int main(void)
+    {
+            int status;
+            // `pid_t` defined in `include\sys\types.h`
+            pid_t currentpid, pid1;
+            // get parent process pid.
+            currentpid = getpid();
+            // create child process.
+            pid = fork();
+
+            printf("%d\n", currentpid);
+    }
+
+运行结果如下：
+
+    $ ./a.out 
+    3124
+    3124
+    $ ./a.out 
+    3126
+    3126
+
+可以看到，父子进程都会执行到 `printf("%d\n", currentpid);` 此条指令。
+
+### demo -> 3
+分别查看父子进程的 pid 值。
+
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <sys/wait.h>
+	#include <unistd.h>
+
+	int main(void)
+	{
+		int status;
+		// `pid_t` defined in `include\sys\types.h`
+		pid_t currentpid, pid1;
+		// create child process.
+		pid1 = fork();
+		// get process pid.
+		currentpid = getpid();
+
+		printf("%d\n", currentpid);
+	}
+
+运行结果如下：
+
+    $ ./a.out 
+    3241
+    3242
+    $ ./a.out 
+    3243
+    3244
+    $ ./a.out 
+    3245
+    3246
+
+`getpid()` 方法位于 `fork()` 语句之后，所以，父子进程调用时，会分别显示对应的 ID 值。
+
+### demo -> 4
+演示顺序执行两个 `fork()` 方法时，各 pid value 之间的关系。
+
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <sys/wait.h>
+	#include <unistd.h>
+
+	int main(void)
+	{
+		int status;
+		// `pid_t` defined in `include\sys\types.h`
+		pid_t currentparentpid, currentpid, pid1, pid2;
+		// get parent pid
+		currentparentpid = getpid();
+		// create child process 1.
+		pid1 = fork();
+		// create child process 2.
+		pid2 = fork();
+		// get process pid.
+		currentpid = getpid();
+
+		printf("currentparentpid = %9d  pid1 = %9d  pid2 = %9d  currentpid = %9d \n", currentparentpid, pid1, pid2, currentpid);
+	}
+
+运行结果如下：
+
+	$ ./a.out 
+	currentparentpid =      3486  pid1 =      3487  pid2 =      3488  currentpid =      3486 
+	currentparentpid =      3486  pid1 =         0  pid2 =      3489  currentpid =      3487 
+	currentparentpid =      3486  pid1 =         0  pid2 =         0  currentpid =      3489 
+	currentparentpid =      3486  pid1 =      3487  pid2 =         0  currentpid =      3488 
+	$./a.out 
+	currentparentpid =      3494  pid1 =      3495  pid2 =      3496  currentpid =      3494 
+	currentparentpid =      3494  pid1 =         0  pid2 =      3497  currentpid =      3495 
+	currentparentpid =      3494  pid1 =         0  pid2 =         0  currentpid =      3497 
+	currentparentpid =      3494  pid1 =      3495  pid2 =         0  currentpid =      3496 
+
+1. `currentparentpid` 表示程序执行过程中的父进程，在整个执行过程中不会改变；
+2. `pid1` 创建的第一个进程；
+3. `pid2` 创建的第二个进程；
+4. `currentpid` 表示当前执行的进程号。
+
+有了以上说明，就不难理解输出结果中每行的含义了。
+1. 第一行父进程 pid 为 3486 ，同时创建了两个子进程 3487 3488 ，并在最后的 getpid() 调用中表明了自己的身份；
+2. 第二行父进程不变，最后的 `currentpid` 则表明了进程的身份，它代表了进程 pid1 ，正是因为这样，所以在子进程的运行空间中，pid1 的输出为 0，而由于
+在子进程中的再次 `fork()` 生成了 pid2 这个子进程，3489 表明它是由进程 pid1 子进程生成的子进程，并在此显示。
+3. 第三行，同样的父进程，由于拷贝了父进程 pid1 中的 pid1 的值（fork 会复制程序计数器，所以，在此之前的代码不会被执行，只会拷贝父进程的资料，这时
+子进程 pid1 在创建子进程的过程中将 pid1 的值赋为 0 ）0，所以，这里 pid1 显示为 0。又由于，子进程 pid1 在第二个 fork() ，即生成 3489 子进程时发生
+了分裂，所以对于 3489 本身而言，pid2 将被置 0 。
+4. 最后的也就好理解了，在生成 3488 子进程的时候，显示继承了 pid1 的值，然后独立运行，自身返回 0。
+
+
+Ref:
+* [关于FORK（）创建多个进程的方法](http://bbs.sunplusedu.com/space/viewspacepost.aspx?postid=2057)(★)
+* [Linux下用fork()派生的子进程通过pipe管道通讯的实例详解生产者-消费者问题](http://www.haogongju.net/art/592469)
+* [ 一个fork的问题](http://4develop.in/page/Linux_SpecialTopic/20111029_20_7ca11e69-3d28-4c5d-971f-076df09c668b/%E4%B8%80%E4%B8%AAfork%E7%9A%84%E9%97%AE%E9%A2%98.html)
+* [Small fork problem](http://www.groupsrv.com/linux/about113428.html)
+* [进程fork分析](http://blog.csdn.net/yuwenliang/article/details/5209239)
+* [count processes](http://cboard.cprogramming.com/linux-programming/139567-count-processes.html)(★)
+* [System Call : int fork()](http://www.cs.cityu.edu.hk/~lwang/fork)
+* [The Open Group Base Specifications Issue 7 - fork](http://pubs.opengroup.org/onlinepubs/9699919799/functions/fork.html)(★)
+* [fork() within a fork()](http://stackoverflow.com/questions/2401510/fork-within-a-fork)
+* [multiple forks and pritf question](http://www.unix.com/programming/34250-multiple-forks-printf-question.html)
+* [C - Something Weird Using printf() with fork().](http://www.linuxforums.org/forum/programming-scripting/26022-c-something-weird-using-printf-fork.html)
+* [Linux fork与vfork的深入剖析](http://www.cxybl.com/html/czxt/linux/2011_0906_3071.html)(★)
+* [Problem using multiple forks](http://www.daniweb.com/software-development/c/threads/161345)
+* [从一道面试题谈linux下fork的运行机制](http://www.cnblogs.com/leoo2sk/archive/2011/10/10/1622212.html)(★★)
+* [fork问题](http://blog.csdn.net/sdustliyang/article/details/6834339)
+* [系统调用跟我学](http://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/index.html)
+* [Linux 编程基础-fork()](http://www.360doc.com/content/11/0325/09/6599669_104418107.shtml)
+* [fork()两次如何避免僵尸进程](http://www.360doc.com/content/09/0702/11/26398_4109679.shtml)
+* [Linux 下的进程](http://www.360doc.com/content/09/0804/14/198845_4663015.shtml)
+* [关于子进程和父进程--fork函数](http://www.cppblog.com/willcao/archive/2008/07/06/55490.html)
+* [关于fork创建子进程的疑问](http://www.cnblogs.com/beauty/archive/2011/06/22/2086630.html)
+* [csdn](http://topic.csdn.net/u/20090530/13/5759d8dd-e580-4189-9205-310c55ef0987.html)
+* [linux下fork后为何子进程先执行了呢？](http://zhidao.baidu.com/question/210110600.html)
+* [Linux fork与vfork的深入分析](http://www.xxlinux.com/newxxlinux/development/gui/2010-10-28/136.html)
+* [如何用C语言清空特定文件夹中的所有文件](如何用C语言清空特定文件夹中的所有文件)
