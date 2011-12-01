@@ -144,4 +144,62 @@ Ref:
 .. _undo: http://progit.org/book/zh/ch2-4.html
 
 
+修改最后一次提交
+----------------
+有时提交完才发现，有些文件没有加，或是提交信息写错了，想要撤销，就可以使用 --amend 选项重新提交。
+
+::
+
+        $ git add mygitnotes/
+        $ git commit -m "撤销对文件的修.
+        $ git commit --amend
+        $ git status
+        # On branch master
+        # Your branch is ahead of 'origin/master' by 2 commits.
+        #
+        # Changes to be committed:
+        #   (use "git reset HEAD <file>..." to unstage)
+        #
+        #       modified:   mygitnotes/mygitnotes.rst
+        #
+
+这里添加中文注释的时候总会出问题，看来还是好好提高英文能力才是出路。
+
+
+[Chages to be committed & Changed but not updated]同时存在的情况
+----------------------------------------------------------------
+下面的这个情况，同时存在未提交的和
+
+::
+
+        $ git status
+        # On branch master
+        # Your branch is ahead of 'origin/master' by 2 commits.
+        #
+        # Changes to be committed:
+        #   (use "git reset HEAD <file>..." to unstage)
+        #
+        #       modified:   mygitnotes/mygitnotes.rst
+        #
+        # Changed but not updated:
+        #   (use "git add <file>..." to update what will be committed)
+        #   (use "git checkout -- <file>..." to discard changes in working directory)
+        #
+        #       modified:   mygitnotes/mygitnotes.rst
+        #
+        $ git commit -m "撤销对文件的修改"
+        [master 02b7f19] 撤销对文件的修改
+         1 files changed, 30 insertions(+), 0 deletions(-)
+        $ git status
+        # On branch master
+        # Your branch is ahead of 'origin/master' by 3 commits.
+        #
+        # Changed but not updated:
+        #   (use "git add <file>..." to update what will be committed)
+        #   (use "git checkout -- <file>..." to discard changes in working directory)
+        #
+        #       modified:   mygitnotes/mygitnotes.rst
+        #
+        no changes added to commit (use "git add" and/or "git commit -a")
+
 
