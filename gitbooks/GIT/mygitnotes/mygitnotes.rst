@@ -115,3 +115,33 @@ git add -A
 	    --refresh             don't add, only refresh the index
 	    --ignore-errors       just skip files which cannot be added because of errors
 
+取消对文件的修改
+----------------
+不想提交修改的文件，可以使用下面的操作解决：
+
+::
+
+        $ git status
+        # On branch master
+        # Your branch is ahead of 'origin/master' by 2 commits.
+        #
+        # Changed but not updated:
+        #   (use "git add <file>..." to update what will be committed)
+        #   (use "git checkout -- <file>..." to discard changes in working directory)
+        #
+        #       modified:   controlprocess.c
+        #
+        no changes added to commit (use "git add" and/or "git commit -a")
+        $ git checkout -- controlprocess.c
+        $ git status
+        # On branch master
+        # Your branch is ahead of 'origin/master' by 2 commits.
+        #
+        nothing to commit (working directory clean)
+
+Ref:
+
+.. _undo: http://progit.org/book/zh/ch2-4.html
+
+
+
