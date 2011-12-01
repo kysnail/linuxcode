@@ -141,6 +141,7 @@ git add -A
 
 Ref:
 
+undo
 .. _undo: http://progit.org/book/zh/ch2-4.html
 
 
