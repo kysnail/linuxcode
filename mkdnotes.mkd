@@ -98,3 +98,5 @@ Do not use `>` symbol, it will cause display error on following `###` title.
     
     ### Title Two
     
+# `*` & `nmuber` list
+使用 list 时，如果跟上一段文字没有空行，则可能会显示混乱，这点需要注意。
