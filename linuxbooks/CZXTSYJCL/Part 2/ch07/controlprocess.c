@@ -11,12 +11,16 @@ int main()
 	// Create Process 1
 	if ((p1 = fork()) == 0) 
 	{
-		execl("/bin/echo", "echo", "I am P1", 0);
+	//	execl("/bin/echo", "echo", "I am P1", 0);
+	 	printf("Process 1 \n");
 	}
 
-	wait(&status);
+//	wait(&status);
 	if ((p2 = fork()) == 0)
 	{
-		execl("/bin/echo", "echo", "I am P2", 0);
+		//execl("/bin/echo", "echo", "I am P2", 0);
+	 	printf("Process 2 \n");
 	}
+
+	printf("---------\n");
 }
