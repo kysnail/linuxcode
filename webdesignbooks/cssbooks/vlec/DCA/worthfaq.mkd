@@ -1,0 +1,67 @@
+# CSS 伪选择器
+感觉这个过程还是值得记录的，花费了我快一小时才找到。
+
+使用 `CSS 伪选择器` 时，一定要保证相应属性的正确而书写，否则造成难于查找的问题。
+
+比如下面这个例子，先看看解决前的页面
+
+## 解决前
+CSS 文件
+
+    [CSS]
+    <style type="text/css" media="screen">
+    	#tab li a {
+		display: block;
+		width: 90%;
+		height: 25px;
+		line-height: 25px;
+		margin-left: 8%;
+		font-size: 12px;
+		text-decoration: none;
+		color: #FFFFFF;
+	}
+
+	#tab li a:hover {
+		text-decoration: underline;
+		color: red;
+	}
+    </style>
+
+相应的 HTML 片段
+
+    [HTML]
+    <div class="left_main">
+        <div id="tab">
+	    <div class="block">
+	        <ul>
+		    <li><a herf="#">line 1</a></li>
+		</ul>
+	    </div>
+	</div>
+    </div>
+
+显示结果，`a` 标签的静态样式没有任何问题 `#tab li a` 成功的被应用，从 Chrome 的调试工具中也可以看到。符合 `Matched CSS Rules` ，表明找到了对应的规则。
+而相应的 `#tab li a:hover` 却总也无法显示，在 `Matched CSS Rules` 中也找不到相应的规则。
+
+为什么呢？？
+
+原因竟然是由于将标签 `a` 的属性错误的写为了 `herf` ，CSS 解析器不能正确的应用规则，从而导致了错误。
+
+## 解决后
+CSS 文件，没有变化，同上。相应的 HTML 片段修改如下：
+
+    [HTML]
+    <div class="left_main">
+        <div id="tab">
+	    <div class="block">
+	        <ul>
+		    <li><a href="#">line 1</a></li>
+		</ul>
+	    </div>
+	</div>
+    </div>
+
+这样修改后，CSS 规则就可以正确的应用了。
+
+## 总结
+通过这个例子，明白了 CSS 使用选择器时，也要保证对应标签属性的正确书写，否则不能够正常应用 CSS 规则。
