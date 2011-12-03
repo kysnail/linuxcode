@@ -1,0 +1,201 @@
+# DIV+CSS 标准化网页布局
+
+    高洛峰
+    http://www.coodu.cn
+
+## Lecture 1
+
+`div -> division` 
+
+    段落里不能嵌套 div ，反过来可以。
+
+div 只有与 css 合起来用才能发挥起作用。
+
+### 四种样式表
+
+#### 1. 内联样式表
+写法如下：
+
+    [CSS]
+    <p style="font-size:50px; color:red;">paragraph</p>
+
+#### 2. 嵌入式样式表
+写法如下：
+
+    [CSS]
+    <style type="text/css" media"screen, projection">
+        <!-- 防止不支持样式表的浏览器解析为 html
+            p {
+                font-size: 50px;
+                color: red;
+                background-color: green;
+                text-decoration: underline;
+            }
+        //-->
+    </style>
+
+#### 3. 外部样式表
+写法如下：
+
+    [CSS]
+    file:
+        style\style.css
+    contents:
+        {
+            font-size: 50px;
+            color: red;
+            background-color: green;
+            text-decoration: underline;
+        }
+    usage:
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+
+#### 4. 输入样式表
+`输入样式表` 可以输入到另一个样式表中，或者输入到嵌入式样式表的标签中。
+
+##### * 输入到另一个样式表中
+
+    [CSS]
+    file:
+        style\demo.css
+    contents:
+        div {
+            color: yellow;
+            font-size: 4cm;
+        }
+
+    other file:
+        style\style.css
+    contents:
+        p {
+            font-size: 50px;
+            color: red;
+            background-color: green;
+            text-decoration: underline;
+        }
+    @import url(demo.css);	// 将 demo.css 输入到另一个样式表中
+
+##### * 输入到嵌入式样式表的样式标签中
+
+    [CSS]
+    <style type="text/css" media="screen">
+        @import url(style/news.css);
+        @import url(style/site.css);
+    </style>
+
+### 样式规则选择器
+通常有 6 中样式选择器，分别如下：
+
+#### 1. html selector
+
+    [CSS]
+    p {
+        color: red;
+	font-size: 3cm;
+    }
+
+    [HTML]
+    <p>paragraph</p>
+
+#### 2. class selector
+
+    [CSS]
+    p.one {
+        color: red;
+	font-size: 2cm;
+	background: green;
+    }
+    p.two {
+        color: yellow;
+	font-size: 2cm;
+	background: green;
+    }
+
+    [HTML]
+    <p class="one">paragraph</p>
+
+当然上面的方式只能让 p 标签引用 one 样式，如果想让所有的标签都有机会应用 one 样式，则可以使用下面的写法：
+
+    [CSS]
+    .one {
+        color: red;
+	font-size: 2cm;
+	background: green;
+    }
+
+#### 3. id selector
+
+    [CSS]
+    #one {
+        color: red;
+	font-size: 2cm;
+	background: green;
+    }
+
+    [HTML]
+    <a id="one">link</a>
+
+#### 4. 关联选择器
+
+    [CSS]
+    p em {
+        color: red;
+	font-size: 2cm;
+	background: green;
+    }
+
+    [HTML]
+    <p>
+        <em>只有这里的内容可以应用关联选择器</em>
+    </p>
+
+当然，下面的写法也都成立：
+
+    [CSS]
+    .one .two p em {}
+    #one .two em {}
+
+#### 5. 组合选择器
+
+    [CSS]
+    p, div, a, h1, .one, #two {
+        color: red;
+	font-size: 2cm;
+	background: green;
+    }
+
+#### 6. 伪选择器
+
+    [CSS]
+    a:link {
+        color: red;
+	font-size: 1cm;
+    }
+
+    a:hover {
+        color: green;
+	font-size: 2cm;
+    }
+
+    a:visited {
+        color: yellow;
+	font-size: 3cm;
+    }
+
+下面这几种不同选择器间的嵌套也是可行的：
+
+    [CSS]
+    p, a.one:link {
+        color: red;
+	font-size: 1cm;
+    }
+
+    div a.two:hover {
+	color: green;
+        font-size: 5cm
+    }
+
+    a.three:visited {
+        color: yellow;
+	font-size: 2cm;
+    }
