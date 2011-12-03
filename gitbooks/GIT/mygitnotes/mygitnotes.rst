@@ -203,4 +203,7 @@ undo
         #
         no changes added to commit (use "git add" and/or "git commit -a")
 
-
+diff
+----
+如果想要进行 diff 操作，首先必须要保证该文件已经经过了 add 。比如，你新创建的一个文件，但没有进行 add 操作，在输入某些内容后，并反复修改后，突然
+想查看一下到底修改了那些内容，对不起，git 并没有帮你跟踪文件的变化，如果你想让 git 帮你完整的跟踪，记住多提交！！
