@@ -1,3 +1,12 @@
+/**
+ * Author:
+ * 	kysnail
+ * Date:
+ * 	2011-12-02
+ * Description:
+ * 	创建两个子进程，会打印出三条 "----------" 。
+ * 
+ */
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
