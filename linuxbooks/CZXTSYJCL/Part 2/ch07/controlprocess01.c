@@ -1,3 +1,12 @@
+/**
+ * Author:
+ * 	kysnail
+ * Date:
+ * 	2011-12-02
+ * Description:
+ * 	创建两个子进程，但只会打印出两条 "----------" ，因为这里在子进程的分支中出现了 return 语句，作用
+ * 	等同于 execl 的效果，从子进程返回。
+ */
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
