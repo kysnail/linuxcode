@@ -199,3 +199,84 @@ div 只有与 css 合起来用才能发挥起作用。
         color: yellow;
 	font-size: 2cm;
     }
+
+## Lecture 2 网页布局
+
+**DIV + CSS 的优点**
+
+1. 表现与样式分离；
+2. 更好控制页面布局；
+3. 缩短了改版时间；
+4. 结构清晰，对搜索引擎友好；
+5. 节约 html 标签；
+6. 结构重用性很强。
+
+    表格比较占带宽、费流浪。而且表格布局中垃圾代码太多。
+
+`div` 标签中常接触到的几个属性。
+
+### margin
+`margin` 可以细分为下面几个：
+
+* marigin-top
+* marigin-bottom
+* marigin-left
+* marigin-right
+
+    [CSS]
+    .bianju {
+        margin-top: 10cm;
+        margin-right: 10cm;
+        margin-bottom: 10cm;
+        margin-left: 10cm;
+    }
+
+起简写形式如下：
+
+    [CSS]
+    .bianju {
+        margin: 10cm;
+    }
+
+    [CSS]
+    .bianju {
+        margin: 1cm, 2cm, 3cm, 4cm;
+    }
+
+    [CSS]
+    .bianju {
+        margin: auto;
+    }
+ 
+    [CSS]
+    /* 显示效果居中 */
+    .bianju {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+### padding
+
+    [CSS]
+    td {
+        padding-left: 4cm;
+    }
+
+### float
+
+    [CSS]
+    td {
+        float: left;
+        float: right;
+        float: none;
+    }
+
+### clear
+
+    [CSS]
+    .one {
+        clear: none;
+        clear: left;
+        clear: right;
+        clear: both;
+    }
