@@ -1,0 +1,534 @@
+# 指针与数组
+指针和变量的结合就有了 
+
+* `指针变量`
+* `变量指针`
+
+同样地，指针与数组的结合就有了
+
+* `指针数组`
+* `数组指针`
+
+`数组指针` 指的是指向数组的指针，`指针数组` 也是一组 `指针变量`。
+
+## 指向数组元素的指针
+指针可以指向变量，也可以指向数组和数组元素。
+
+* `数组的指针` 指的是数组的首地址（起始地址）；
+* `数组元素的指针` 指向该数组元素的地址。
+
+例如，下面定义两个变量，一个整型数组和一个指针变量：
+
+    int a[5] = {10, 20, 30, 40, 50};
+    int *aPtr;
+
+这里，`a` 就是一个数组，它包含 5 个整型数据。变量名 `a` 就是数组 `a` 的首地址，它与 `&a[0]` 等价。
+如果令 
+
+* `aPtr = &a[0]` 
+
+或
+
+* `aPtr = a`
+
+则 aPtr 也指向数组 a 的首地址。
+
+在定义指针变量时也可以直接赋值，如下两种方式等价：
+
+    int *aPtr = &a[0];
+    	<equal>
+    int *aPtr;
+    aPtr = &a[0];
+
+### 指针的算术运算
+指针也可以进行算术运算，但不像整数等算术运算，例如 12 + 2 = 14。当指针加上或减去一个数时，并不是简单
+地加上或者减去其值，而是加上或者减去该整数与指针指向对象的大小的乘积。
+
+例如，在上面的例子中，`aPtr += 3`，如果一个整数占用四个字节，则
+
+    aPtr = 4000 + 4*3 = 4012
+
+这里假设指针的初始值为 4000。同样指针也可以进行自增(++)运算和自减(--)运算。
+
+### 指针想减的含义
+也可以用一个指针变量减去另一个指针变量。例如，指向数组元素的指针 aPtr 的地址是 4008，另一个指向数组
+元素的指针 bPtr 的地址是 4000，则语句
+
+    a = aPtr - bPtr;
+
+是把从 aPtr 到 bPtr 数组元素个数赋值给 a，元素个数为
+
+    (4008 - 4000)/4 = 2
+
+这里仍然假设整数占用四个字节。
+
+### 指针引用数组元素
+也可以通过指针引用数组元素：
+
+    *(aPtr + 2)
+
+如果 aPtr 是指向 `a[0]`，即数组 a 的首地址，则 aPtr + 2 就是数组 `a[2]` 的地址，`*(aPtr + 2)` 就是 30。
+
+### 指针的灵活之处
+指向数组的指针可以进行自增或自减运算，但是数组名则不能，因为数组名是一个常量指针，也是一个常量地址，不能改变。
+
+### 2.4 用指针引用数组元素并打印输出
+主要考察指针与数组结合进行运算，有指针对数组的引用及指针的加，减运算。指针及数组对元素的操作，实现如下：
+
+	#include <stdio.h>
+
+	int main()
+	{
+			int var[5] = {10, 20, 30, 40, 50};
+			int pVar, i;
+			pVar = &var[0];
+
+			for (i = 0; i != 5; i++)
+					printf("var[%d] = %d\n", i, var[i]);
+	}
+
+上面的这种写法，在编译时总会报警告。	
+
+	2.4.c: In function ‘main’:
+	2.4.c:7: 警告: assignment makes integer from pointer without a cast
+
+可以修改为下面这种写法：
+
+	#include <stdio.h>
+
+	int main()
+	{
+			int var[5] = {10, 20, 30, 40, 50};
+			int pVar, i;
+			pVar = (int)&var[0];
+
+			for (i = 0; i != 5; i++)
+					printf("var[%d] = %d\n", i, var[i]);
+	}
+
+如果换种方式定义循环变量 `i` ，
+
+	#include <stdio.h>
+
+	int main()
+	{
+			int var[5] = {10, 20, 30, 40, 50};
+			int *pVar;
+			pVar = (int)&var[0];
+
+			for (int i = 0; i != 5; i++)
+					printf("var[%d] = %d\n", i, var[i]);
+	}
+
+则会报下面的错误。
+
+	2.4.c: In function ‘main’:
+	2.4.c:9: error: ‘for’ loop initial declaration used outside C99 mode
+
+疏忽错将指针运算符漏写了，
+
+	#include <stdio.h>
+
+	int main()
+	{
+			int var[5] = {10, 20, 30, 40, 50};
+			int pVar, i;
+			pVar = (int)&var[0];
+
+			for (i = 0; i != 5; i++)
+					printf("var[%d] = %d\n", i, var[i]);
+
+			for (i = 0; i != 5; i++)
+					printf("*(var + %d) = %d\n", i, *(var + i));
+
+			for (i = 0; i != 5; i++)
+					printf("pVar[%d] = %d\n", i, pVar[i]);
+	}
+
+则会报下面的错误。
+
+	2.4.c: In function 'main':
+	2.4.c:16: error: subscripted value is neither array nor pointer
+
+使用下标值的既不是数组也不是指针。
+
+	You have attempted to subscript a scalar variable.  If you want to use an
+	array make sure you define the thing as an array.
+
+[GCC and G++ compiler error messages or run-time error messages.](http://ugweb.cs.ualberta.ca/~rod/tutorials/error_messagesC.html)
+
+完整的写法如下：
+
+	#include <stdio.h>
+
+	int main()
+	{
+			int var[5] = {10, 20, 30, 40, 50};
+			int *pVar, i;
+			pVar = &var[0];
+
+			// 通过数组下标引用引用元素
+			for (i = 0; i != 5; i++)
+					printf("var[%d] = %d\n", i, var[i]);
+
+			// 通过数组名偏移引用元素
+			for (i = 0; i != 5; i++)
+					printf("*(var + %d) = %d\n", i, *(var + i));
+
+			// 通过指针变量下标引用元素
+			for (i = 0; i != 5; i++)
+					printf("pVar[%d] = %d\n", i, pVar[i]);
+
+			// 通过指针变量偏移引用元素
+			for (i = 0; i != 5; i++)
+					printf("*(pVar + %d) = %d\n", i, *(pVar + i));
+	}
+
+在上面的程序中，共有 4 个 for 循环，
+
+* 其中第一个 for 循环是利用数组的下标访问数组的元素；
+* 第二个是利用数组名偏移访问数组的元素，在 C 语言中，地址也可以像一般的变量一样进行加、减运算，但是指针加 1 和减 1 表示的是一个元素单元；
+* 第三个是利用指针访问数组中的元素；
+* 第四个则是先将指针便宜，然后对该指针所指向的内容进行访问。
+
+以上四种方法说明了 C 语言是非常灵活的一种语言。
+
+    对于一维数组而言，总共就只有上面的 4 种引用方式。而二维数组的引用方式总共有 6 种。
+
+## 2 -> 数组指针
+`数组指针` 是指向数组的一个指针。例如，
+
+    int (*p)[4];
+
+表示 p 是指向拥有 4 个元素的数组指针，数组中每个元素都为整型。这可以与前面学习过的指针对比，这里指针 p 在括号里面，
+并且 `*p` 两边的括号不可省略，`p` 其实是包含 4 个元素的一维数组，p 指向该一维数组的首地址。
+
+对于数组指针，重要的是将其从多维数组的角度考虑。
+
+	int (*p)[4]
+    (*p) 这部分相当于多维数组的行属性。[4] 这部分相当于多维数组的列属性。
+    (*(p + 1)) 则相当于移动行指针，[3] 则相当于移动列指针。
+
+从上面的描述可以看出，数组指针通常是用于多维数组中。通常的一维数组只需要 `一般的指针变量` 即可。
+
+### 2.5 用指针引用数组元素并打印输出
+主要考察数组指针与数组的关系。可以通过打印输出指针的值和数组元素加深对数组指针的理解。代码如下：
+
+	#include <stdio.h>
+
+	int main()
+	{
+			int arr[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12} };
+			int (*pArr)[4];
+			int row, col;
+			pArr = arr;
+
+			// 使用 数组名下标 + 数组名下标 的方式输出结果
+			for (row = 0; row != 3; row++)
+			{
+					for (col = 0; col != 4; col++)
+							printf("arr[%d][%d] = %-5d", row, col, arr[row][col]);
+					printf("\n");
+			}
+
+			// 使用 指针偏移 + 下标 的方式输出结果
+			for (pArr = arr, row = 0; pArr != arr + 3; pArr++, row++)
+			{
+					for (col = 0; col != 4; col++)
+							printf("(*(pArr + %d))[%d] = %d\n", row, col, (*(pArr))[col]);
+			}
+
+			// 使用 指针偏移 + 偏移 的方式输出结果
+			for (pArr = arr, row = 0; pArr != arr + 3; pArr++, row++)
+			{
+					for (col = 0; col != 4; col++)
+							printf("*(*(pArr + %d) + %d) = %d\n", row, col, *(*(pArr) + col));
+			}
+
+			// 使用 指针下标 + 指针下标 的方式输出结果
+			for (pArr = arr, row = 0; row != 3; row++)
+			{
+					for (col = 0; col != 4; col++)
+							printf("pArr[%d][%d] = %d\n", row, col, pArr[row][col]);
+			}
+
+			// 使用 数组名偏移 + 下标 的方式输出结果
+			for (row = 0; row != 3; row++)
+			{
+					for (col = 0; col != 4; col++)
+							printf("(*(arr + %d))[%d] = %d\n", row, col, (*(arr + row))[col]);
+			}
+
+			// 使用 数组名偏移 + 数组名偏移 的方式输出结果
+			for (row = 0; row != 3; row++)
+			{
+					for (col = 0; col != 4; col++)
+							printf("*(*(arr + %d) + %d) = %d\n", row, col, *(*(arr + row) + col));
+			}
+	}
+
+运行结果如下：
+
+	arr[0][0] = 1    arr[0][1] = 2    arr[0][2] = 3    arr[0][3] = 4    
+	arr[1][0] = 5    arr[1][1] = 6    arr[1][2] = 7    arr[1][3] = 8    
+	arr[2][0] = 9    arr[2][1] = 10   arr[2][2] = 11   arr[2][3] = 12   
+	(*(pArr + 0))[0] = 1
+	(*(pArr + 0))[1] = 2
+	(*(pArr + 0))[2] = 3
+	(*(pArr + 0))[3] = 4
+	(*(pArr + 1))[0] = 5
+	(*(pArr + 1))[1] = 6
+	(*(pArr + 1))[2] = 7
+	(*(pArr + 1))[3] = 8
+	(*(pArr + 2))[0] = 9
+	(*(pArr + 2))[1] = 10
+	(*(pArr + 2))[2] = 11
+	(*(pArr + 2))[3] = 12
+	*(*(pArr + 0) + 0) = 1
+	*(*(pArr + 0) + 1) = 2
+	*(*(pArr + 0) + 2) = 3
+	*(*(pArr + 0) + 3) = 4
+	*(*(pArr + 1) + 0) = 5
+	*(*(pArr + 1) + 1) = 6
+	*(*(pArr + 1) + 2) = 7
+	*(*(pArr + 1) + 3) = 8
+	*(*(pArr + 2) + 0) = 9
+	*(*(pArr + 2) + 1) = 10
+	*(*(pArr + 2) + 2) = 11
+	*(*(pArr + 2) + 3) = 12
+	pArr[0][0] = 1
+	pArr[0][1] = 2
+	pArr[0][2] = 3
+	pArr[0][3] = 4
+	pArr[1][0] = 5
+	pArr[1][1] = 6
+	pArr[1][2] = 7
+	pArr[1][3] = 8
+	pArr[2][0] = 9
+	pArr[2][1] = 10
+	pArr[2][2] = 11
+	pArr[2][3] = 12
+	(*(arr + 0))[0] = 1
+	(*(arr + 0))[1] = 2
+	(*(arr + 0))[2] = 3
+	(*(arr + 0))[3] = 4
+	(*(arr + 1))[0] = 5
+	(*(arr + 1))[1] = 6
+	(*(arr + 1))[2] = 7
+	(*(arr + 1))[3] = 8
+	(*(arr + 2))[0] = 9
+	(*(arr + 2))[1] = 10
+	(*(arr + 2))[2] = 11
+	(*(arr + 2))[3] = 12
+	*(*(arr + 0) + 0) = 1
+	*(*(arr + 0) + 1) = 2
+	*(*(arr + 0) + 2) = 3
+	*(*(arr + 0) + 3) = 4
+	*(*(arr + 1) + 0) = 5
+	*(*(arr + 1) + 1) = 6
+	*(*(arr + 1) + 2) = 7
+	*(*(arr + 1) + 3) = 8
+	*(*(arr + 2) + 0) = 9
+	*(*(arr + 2) + 1) = 10
+	*(*(arr + 2) + 2) = 11
+	*(*(arr + 2) + 3) = 12
+
+## 总结
+通过例 2.4 可以发现，对于一维数组来说，引用数组元素的方式共有 4 种，分别为：
+
+1. 通过数组下标引用元素 => `a[i]`；
+2. 通过数组名引用元素 => `*(a + i)`；    （由于这里的 `a` 是常量，所以需要辅助变量表示偏移地址。这是与第四种方法的不同之处。）
+3. 通过指针变量下标引用元素 => `p[i]`；
+4. 通过指针变量偏移引用元素 => `*p`；   （与第二种数组名引用元素不同的地方在于，由于 `*p` 是变量，所以不需要额外的
+辅助变量 `i` 进行移动。）
+
+同样通过例 2.5 可以发现，对于二维数组来说，引用数组的方式共有 6 种，分别为：
+
+1. 通过 `数组下标 + 数组下标` 引用元素 => `a[i][j]`；
+2. 通过 `数组名偏移 + 下标` 引用元素 => '(*(arr + row))[col]'；
+3. 通过 `数组名偏移 + 数组名偏移` 引用元素 => `*(*(arr + row) + col)`；
+4. 通过 `指针变量下标 + 指针变量下标` 引用元素 => `p[i][i]`；
+5. 通过 `指针变量偏移 + 指针变量下标` 引用元素 => `(*(pArr + row))[col]`；
+6. 通过 `指针变量偏移 + 指针变量偏移` 引用元素 => `*(*(pArr + row) + col)`；
+
+同样，这里 `指针` 与 `数组名` 的最大区别就来源于他们的性质不同，`指针` 属于变量，所以不需要额外的辅助变量帮助偏移，而
+`数组名` 属于常量，必须辅以额外的变量用以帮助偏移。
+
+## 3 -> 指针数组
+`指针数组` 是一个数组，数组中的元素是指针类型的数据。也就是说，指针数组中的每一个元素都是一个 `指针变量`。指针数组的定义如下：
+
+    int *p[4];
+
+由于 `[]` 运算符优先级比 `*` 高，`p` 与 `[]` 优先结合，形成 `p[]` 数组形式，然后与 `*` 结合，表示此数组是指针类型的，每
+一个数组元素是一个指向整型的变量。
+
+    也就是说，指针数组首先是一个数组，其次它保存的是指针类型的变量。
+
+**指针数组常用于存储一些长度不同的字符串数据**，因为如果把这些长短不一的字符串放在二维数组中，就会出现一部分存储空间不能
+有效利用，造成浪费。
+
+下面通过一个简单的实例学习指针数组的操作。
+
+### 2.6 用指针数组保存字符串并将字符元素打印输出
+分析：
+
+    主要考察指针的应用及对指针数组的理解，其实 books[0], books[1], books[2], books[3] 分别是指向各个字符串的指针，
+	即数组保存的是各个字符串的首地址。
+
+为了加深对指针数组的理解，这里先用二维数组存储字符串，然后打印输出。
+
+	#include <stdio.h>
+
+	int main()
+	{
+			char arr[4][30] = {"C Programming Language", "Assembly Language", "Java Language", "Natural Language"};
+			int i = 0;
+
+			for (i = 0; i != 4; i++)
+			{
+					printf("%s\n", arr[i]);
+			}       
+	}
+
+使用二维数组存储字符串，会造成存储空间的浪费，并且提前要定义一个预定的长度值，该值的大小也比较难确定。所以，这里最好
+还是使用 C 语言通过的一种简介定义方式：
+
+	#include <stdio.h>
+	#define LEN 4
+
+	int main()
+	{
+			char *books[4] = {"C Programming Language", "Assembly Language", "Java Language", "Natural Language"};
+			int i = 0;
+			int row = 0;
+			// 这里使用 int * ，与实际的类型并不匹配，但不会报错，这里需要注意。
+			int *pBooks;
+
+			for (i = 0; i != LEN; i++)
+					printf("%s\n", books[i]);
+
+			printf("--------------\n");
+			// 这里需要注意，在 指针数组 中，需要使用辅助变量进行元素的操作。
+			for (pBooks = books[0], row = 0; pBooks != LEN; pBooks = books[row++])
+					printf("%s\n", pBooks);
+	}
+
+上面这段代码有个小小的 bug ，先看看输出结果。
+
+	# ./a.out 
+	C Programming Language
+	Assembly Language
+	Java Language
+	Natural Language
+	--------------
+	C Programming Language
+	C Programming Language
+	Assembly Language
+	Java Language
+	Natural Language
+
+错误出在 `pBooks = books[row++]` 这条语句上，因为这里先获取 `row` 的值，为 `0` ，那么 `pBooks = books[0]` 重复的执行
+了两次，细节性的陷阱在 C 语言中到处都是，甚是需要小心。上面的这个错误可以有两种修改方法。
+
+	// 改法一
+	#include <stdio.h>
+	#define LEN 4
+
+	int main()
+	{
+			char *books[4] = {"C Programming Language", "Assembly Language", "Java Language", "Natural Language"};
+			int i = 0;
+			int row = 0;
+			// 这里使用 int * 居然不报错，但是在下面的 pBooks = books[++row] 时，会报相应的类型不匹配警告。
+			int *pBooks;
+
+			for (i = 0; i != LEN; i++)
+					printf("%s\n", books[i]);
+
+			printf("--------------\n");
+
+			// 这里需要注意，在 指针数组 中，需要使用辅助变量进行元素的操作。
+			for (pBooks = books[0], row = 0; pBooks != LEN; pBooks = books[++row])
+					printf("%s\n", pBooks);
+	}
+
+为了避免上面这种容易掉入陷阱的写法，可以使用下面的方式：
+
+	#include <stdio.h>
+	#define LEN 4
+
+	int main()
+	{
+		  char *books[4] = {"C Programming Language", "Assembly Language", "Java Language", "Natural Language"};
+		  int i = 0;
+		  int row = 0;
+		  char *pBooks;
+
+		  for (i = 0; i != LEN; i++)
+				  printf("%s\n", books[i]);
+
+		  printf("--------------\n");
+
+		  // 这里需要注意，在 指针数组 中，需要使用辅助变量进行元素的操作。
+		  for (pBooks = books[0], row = 0; row != LEN; pBooks = books[row])
+		  {
+				  printf("%s\n", pBooks);
+				  row++;
+		  }
+	}
+
+完整代码如下：
+
+	#include <stdio.h>
+	#define LEN 4
+
+	int main()
+	{
+			// 指针数组定义
+			char *books[4] = {"C Programming Language", "Assembly Language", "Java Language", "Natural Language"};
+			int i = 0;
+			int row = 0;
+			char *pBooks;
+
+			printf("第一种输出方法：通过指针数组中的各个数组名输出：\n");
+			for (i = 0; i != LEN; i++)
+					printf("books[%d] = %s\n", i, books[i]);
+
+			printf("--------------\n");
+
+			printf("第二种输出方法： 通过指向各个数组的指针输出：\n");
+			// 这里需要注意，在 指针数组 中，需要使用辅助变量进行元素的操作。
+			for (pBooks = books[0], row = 0; row != LEN; pBooks = books[row])
+			{   
+					printf("pBooks = books[%d] = %s\n", row, pBooks);
+					row++;
+			}   
+	}
+
+输出结果如下：
+
+	# ./a.out 
+	第一种输出方法：通过指针数组中的各个数组名输出：
+	books[0] = C Programming Language
+	books[1] = Assembly Language
+	books[2] = Java Language
+	books[3] = Natural Language
+	--------------
+	第二种输出方法： 通过指向各个数组的指针输出：
+	pBooks = books[0] = C Programming Language
+	pBooks = books[1] = Assembly Language
+	pBooks = books[2] = Java Language
+	pBooks = books[3] = Natural Language
+
+这里需要注意下面的事项：
+
+    数组指针和指针数组的区别（★）：
+	数组指针首先是一个指针，并且它是一个指向数组的指针。
+	指针数组首先是一个数组，并且它是保存指针变量的数组。
+
+既然指针数组保存的是指针变量，那么当然特别适合于存放二维字符串数组之类的东西了。
+
+## 总结
+指针数组的输出方式有两种形式，但实际上指针输出的方式最终仍然还是要转换为通过数组名输出。
+	
+
