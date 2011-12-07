@@ -72,46 +72,127 @@ int main()
 		if (pid == p5) end_p5 = 1;
 	} while (end_p4 == 0 || end_p5 == 0);
 
+	if ((p6 = fork()) == 0)
+	{
+		execl("/bin/echo", "echo", "I am P6", 0);
+	}
+
+	do
+	{
+		pid = wait(&status);
+		if (pid == p2) end_p2 = 1;
+		if (pid == p6) end_p6 = 1;
+	} while(end_p2 == 0 || end_p6 == 0);
+
+	if ((p7 = fork()) == 0)
+	{
+		execl("/bin/echo", "echo", "I am P7", 0);
+	}
+	wait(&status);
+	exit(1);
 	printf("---------\n");
 }
 
 /**
  * Result:
- *  $ ./a.out 
- *  I am P1
- *  I am P3
- *  I am P2
- *  I am P4
- *  I am P5
- *  ---------
- *  $ ./a.out 
- *  I am P1
- *  I am P2
- *  I am P3
- *  I am P5
- *  I am P4
- *  ---------
- *  $ ./a.out 
- *  I am P1
- *  I am P3
- *  I am P4
- *  I am P2
- *  I am P5
- *  ---------
- *  $ ./a.out 
- *  I am P1
- *  I am P3
- *  I am P2
- *  I am P5
- *  I am P4
- *  ---------
- *  $ ./a.out 
- *  I am P1
- *  I am P2
- *  I am P3
- *  I am P5
- *  I am P4
- *  ---------
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P4
+ * I am P5
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P5
+ * I am P4
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P5
+ * I am P4
+ * I am P6
+ * ^P
+ * ^P
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P4
+ * I am P5
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P4
+ * I am P5
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P5
+ * I am P4
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P5
+ * I am P4
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P2
+ * I am P3
+ * I am P5
+ * I am P4
+ * I am P6
+ * I am P7
+ * $ ./a.out 
+ * I am P1
+ * I am P2
+ * I am P3
+ * I am P5
+ * I am P4
+ * I am P6
+ * I am P7
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P5
+ * I am P4
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P3
+ * I am P2
+ * I am P4
+ * I am P5
+ * I am P6
+ * ^C
+ * $ ./a.out 
+ * I am P1
+ * I am P2
+ * I am P3
+ * I am P4
+ * I am P5
+ * I am P6
+ * I am P7
  *
- *  通过上面的运行可以看出，此程序可以保证 p3 一定在 p4/p5 之前执行完毕，但对于 p2 的执行则没有规定。
+ * 从执行结果中可以发现，只要沿着 p1->p2->p3->p4->p5->p6->p7 流程执行下去，则程序可以正常完成，否则程序编程处于无响应的状态。
  */
