@@ -65,4 +65,61 @@ int main()
 
 /**
  * Result:
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P2
+ *  I am P3
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P2
+ *  I am P4
+ *  I am P5
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P2
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P2
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P2
+ *  I am P3
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P2
+ *  I am P3
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P2
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P2
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  通过大量的运行可以验证 p2/p3 一定会在 p4/p5 之前执行完毕。
  */
