@@ -77,4 +77,41 @@ int main()
 
 /**
  * Result:
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P2
+ *  I am P4
+ *  I am P5
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P2
+ *  I am P3
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P4
+ *  I am P2
+ *  I am P5
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P3
+ *  I am P2
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *  $ ./a.out 
+ *  I am P1
+ *  I am P2
+ *  I am P3
+ *  I am P5
+ *  I am P4
+ *  ---------
+ *
+ *  通过上面的运行可以看出，此程序可以保证 p3 一定在 p4/p5 之前执行完毕，但对于 p2 的执行则没有规定。
  */
