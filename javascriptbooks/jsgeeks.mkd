@@ -39,6 +39,7 @@ http://christianheilmann.com/
 ## Fully authored books
 * Begging JavaScript with DOM Scripting and Ajax: From Novice to Professional
 * Web Development Solutions: Ajax, APIs, Libraries, and Hosted Services Made Easy
+
 ## Chapter contributions
 * The Art and Science of JavaScript
 * Web Accessibility: Web Standards and Regulatary Compliance
