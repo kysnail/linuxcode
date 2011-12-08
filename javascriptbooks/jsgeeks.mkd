@@ -23,3 +23,22 @@ Rob Hawkes，现任Mozilla技术布道师，国际知名的HTML5开发专家，�
 
 要想了解Rob和他经常参加的会议，可以访问他的网站（http://rawkes.com ），或者加他的Twitter（@robhawkes）。
 
+# 24 ways - web design and development articles and tutorials for advent
+http://24ways.org/
+
+**24 ways** is th advent calendar for web geeks. Each day throughout December we publish a 
+daily dose of web deisgn and development goodness to bring you all a little Christmas cheer.
+
+绝对也是重磅推荐！
+
+# CHRISTIAN HEILMANN
+http://christianheilmann.com/
+
+写了很多 Web 书籍。
+
+## Fully authored books
+* Begging JavaScript with DOM Scripting and Ajax: From Novice to Professional
+* Web Development Solutions: Ajax, APIs, Libraries, and Hosted Services Made Easy
+## Chapter contributions
+* The Art and Science of JavaScript
+* Web Accessibility: Web Standards and Regulatary Compliance
