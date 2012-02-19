@@ -1,0 +1,33 @@
+Node 1:
+
+	$ ./guiclient.py c/urlsC.txt c http://localhost:4243 
+
+Node 2:
+
+	
+
+
+
+Before fetch operation.
+
+├── a
+│   └── urlsA.txt
+├── c
+│   ├── b.txt
+│   └── urlsC.txt
+
+
+step 1:
+
+kysnail@ubunkysnail:/work/git/repository/linuxcode/pythonbooks/BPFNTP/code/demo$ ./client.py c/urlsC.txt c http://localhost:4243
+> fetch b.txt
+> 
+
+step 2:
+
+kysnail@ubunkysnail:/work/git/repository/linuxcode/pythonbooks/BPFNTP/code/demo$ ./guiclient.py a/urlsA.txt a http://localhost:4242
+Xlib:  extension "RANDR" missing on display "localhost:12.0".
+kysnail@ubunkysnail:/work/git/repository/linuxcode/pythonbooks/BPFNTP/code/demo$
+
+
+

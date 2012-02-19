@@ -1,0 +1,1 @@
+This ia test file from 'file2' folder.

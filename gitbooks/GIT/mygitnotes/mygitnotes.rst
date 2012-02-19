@@ -207,3 +207,42 @@ diff
 ----
 如果想要进行 diff 操作，首先必须要保证该文件已经经过了 add 。比如，你新创建的一个文件，但没有进行 add 操作，在输入某些内容后，并反复修改后，突然
 想查看一下到底修改了那些内容，对不起，git 并没有帮你跟踪文件的变化，如果你想让 git 帮你完整的跟踪，记住多提交！！
+
+
+提交当前文件夹内的所有文件
+--------------------------
+$ git add .
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#       new file:   handlers.py
+#       new file:   handlers.pyc
+#       new file:   markup.py
+#       new file:   rules.py
+#       new file:   rules.pyc
+#       new file:   simple_markup.py
+#       new file:   test_output.html
+#       new file:   util.py
+#       new file:   util.pyc
+#
+$ git commit -a -m "Add source code of chapter 20."
+[master 4e9b9e7] Add source code of chapter 20.
+ 9 files changed, 251 insertions(+), 0 deletions(-)
+ create mode 100755 pythonbooks/BPFNTP/code/chapter20/handlers.py
+ create mode 100644 pythonbooks/BPFNTP/code/chapter20/handlers.pyc
+ create mode 100755 pythonbooks/BPFNTP/code/chapter20/markup.py
+ create mode 100755 pythonbooks/BPFNTP/code/chapter20/rules.py
+ create mode 100644 pythonbooks/BPFNTP/code/chapter20/rules.pyc
+ create mode 100755 pythonbooks/BPFNTP/code/chapter20/simple_markup.py
+ create mode 100644 pythonbooks/BPFNTP/code/chapter20/test_output.html
+ create mode 100755 pythonbooks/BPFNTP/code/chapter20/util.py
+ create mode 100644 pythonbooks/BPFNTP/code/chapter20/util.pyc
+$ git status
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#
+nothing to commit (working directory clean)
+
+
