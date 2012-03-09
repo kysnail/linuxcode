@@ -1,0 +1,4 @@
+# bitnami notes
+This file record the bitnami stack notes.
+
+Including how to install, start, stop and configure server.
