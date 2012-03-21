@@ -1,0 +1,15 @@
+1. menuconfig 配置
+一般会使用 
+
+    make menuconfig
+
+进行模块的配置工作。要进行此工作，最主要的就是配置编译工具，以及 ncurses 库。
+
+sudo apt-get install build-essential ncurses-base fakeroot kernel-package 
+
+上面配置完成后，仍然出现 ncurses 不能使用的问题。于是尝试了下面的命令
+
+sudo apt-get install fakeroot build-essential crash kexec-tools makedumpfile kernel-wedge libncurses5 libncurses5-dev libelf-dev binutils-dev 
+
+我想这里面最重要的应该是 libncurses5* ，真正其作用的应该是这两个库。
+
