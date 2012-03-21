@@ -13,3 +13,9 @@ sudo apt-get install fakeroot build-essential crash kexec-tools makedumpfile ker
 
 我想这里面最重要的应该是 libncurses5* ，真正其作用的应该是这两个库。
 
+2. .config 文件
+.config 是从 make menuconfig 中生成的，但由于这种方式生成的 .config 配置信息太多，所以可以使用系统中的配置文件，一般都位于：
+
+    /boot/config*
+
+中。
