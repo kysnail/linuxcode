@@ -12,9 +12,10 @@ int InsertDList(DLinkList head, int i, DataType e)
                  p = p->next
         }
 
-        if (j != (i - 1))
+        if (j != i)
         {
                 printf("wrong location\n");
+                return 0;
         }
 
         *s = (DLinkNode)malloc(sizeof(struct DLinkNode));
