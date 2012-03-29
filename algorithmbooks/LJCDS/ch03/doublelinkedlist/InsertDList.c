@@ -7,7 +7,7 @@ int InsertDList(DLinkList head, int i, DataType e)
         int j;
         p = head->next; // with head node
 
-        for (int j = 1; j != i; j++)
+        for (int j = 1; j != i && p != head; j++)
         {
                  p = p->next
         }
