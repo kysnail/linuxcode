@@ -25,6 +25,7 @@ int InsertDList(DLinkList head, int i, DataType e)
         }
 
         s->data = e;
+        // core ops
         p->prior->next = s;
         s->prior = p->prior;
         s->next = p;
