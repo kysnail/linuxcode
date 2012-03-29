@@ -18,7 +18,7 @@ int InsertDList(DLinkList head, int i, DataType e)
                 return 0;
         }
 
-        *s = (DLinkNode)malloc(sizeof(struct DLinkNode));
+        *s = (DLinkNode)malloc(sizeof(DLinkNode));
 
         p->prior->next = s;
         s->prior = p->prior;
