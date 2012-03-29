@@ -24,6 +24,7 @@ int InsertDList(DLinkList head, int i, DataType e)
                 return -1;
         }
 
+        s->data = e;
         p->prior->next = s;
         s->prior = p->prior;
         s->next = p;
