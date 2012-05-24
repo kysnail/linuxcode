@@ -245,4 +245,12 @@ $ git status
 #
 nothing to commit (working directory clean)
 
+回滚操作
+--------
+最新发布了 GitHub Windows 版，我尝试了一下。在操作的过程中遇到了一个问题，从仓库中检出的 `linuxcode` 发生了自动转码的问题。本身 linuxcode 是我在 Linux 下的笔记，但当下载到 Windows 系统后，可能自动进行了文本行的转换。系统的日志显示原本的文件被删除了，并在后面追加了新的版本，并在后面追加了 ^M 的字母。
 
+如果使用 `git status` 查看当前仓库，会发现一片飘红。既然是它进行了转换，那么可以回滚这个操作。简单说，也就是抛弃本地的修改。
+
+    # git reset --hard HEAD
+
+需要注意的是，回滚也会产生相应的 log 信息。
