@@ -254,3 +254,6 @@ nothing to commit (working directory clean)
     # git reset --hard HEAD
 
 需要注意的是，回滚也会产生相应的 log 信息。
+
+reset
+.. _reset: http://www.fwolf.com/blog/post/441
