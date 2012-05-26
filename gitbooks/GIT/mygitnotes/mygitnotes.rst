@@ -257,3 +257,10 @@ nothing to commit (working directory clean)
 
 reset
 .. _reset: http://www.fwolf.com/blog/post/441
+
+高亮支持
+--------
+
+    # git config --global color.ui true
+
+
