@@ -263,4 +263,11 @@ reset
 
     # git config --global color.ui true
 
+[Git颜色高亮](http://poiyzy.heroku.com/blog/2012/02/20/gityan-se-gao-liang/)
+
+终端高亮显示GIT分支信息
+-----------------------
+
+    PS1="[\u@\h:\W\[\033[0;32m\]\$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')\033[0m]\$ "
+
 
