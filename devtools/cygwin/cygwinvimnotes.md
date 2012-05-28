@@ -20,3 +20,14 @@
 
     :h bs
 
+
+### vim 的高亮问题
+尝试在 ~/.vimrc 中添加 `syntax enable` & `syntax on` 参数，并不能够开启 vim 的语法高亮功能。网上查了很多资料，基本上都没有遇到更我类似问题的人。
+
+期间倒是找到了一篇跟我这个问题最相近的一篇文章
+
+    [cygwin 的vim设置](http://blog.csdn.net/xcyangfan/article/details/7036304)
+
+而真正产生这种现象的原因在于，我对 vim 所有的配置并不能在当前终端这个 session 中生效，必须另起一个终端。
+
+
