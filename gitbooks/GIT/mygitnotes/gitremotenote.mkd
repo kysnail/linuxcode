@@ -1,0 +1,30 @@
+# git remote xxxxx
+不知什么原因，从公司机器进行 `git push` 操作时，总提示输入用户名密码。但正确输入后，也没有一个提示，而且 `Github for Windows` 进行 sync 操作时，总不成功。然后选择 open shell ，在 shell 中输入对应的用户名/密码后才能够正确的 push 修改值。 
+
+	$ git push
+	Username for 'https://github.com':
+
+这种情况下有可能是 repository 的 url 出了问题，可以通过下面的语句进行修复。
+
+	git remote set-url origin git://new.url.here
+
+执行完对应的语句后，既可以提交修改结果了。
+
+查看了一下 repository 目录下 .ssh 文件夹中的 config 文件
+
+	[core]
+		repositoryformatversion = 0
+		filemode = false
+		bare = false
+		logallrefupdates = true
+		symlinks = false
+		ignorecase = true
+		hideDotFiles = dotGitOnly
+	[remote "origin"]
+		fetch = +refs/heads/*:refs/remotes/origin/*
+		url = git@github.com:kysnail/linuxcode.git
+	[branch "master"]
+		remote = origin
+		merge = refs/heads/master
+
+当时出错，很有可能是这里的 url 出问题了。
