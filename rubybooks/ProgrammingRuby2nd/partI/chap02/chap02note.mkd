@@ -1,0 +1,37 @@
+#Chapter 2 - Ruby.new
+
+## Ruby Is an Object-Oriented Language
+
+	点唱机 - jukebox
+
+重新说一遍， Ruby 是真正的面向对象语言。在 Ruby 里，需要定义类（class）来表示尸体。类是状态（state，比如歌曲名称）和使用这些状态的方法（method，可能是一个播放歌曲的方法）的组合。
+
+对象（object）和类的实体（class instance）等同互用。
+
+有一点比较特殊：
+
+	方法是通过对象发送消息（message）来唤起调用的。消息包含方法名称以及方法可能需要的参数。当对象接收到一条消息时，它在
+	自己的类中查找相应的方法。如果找到了，该方法会被执行。
+
+	而将方法调用表述为消息形式的想法来自于 Smalltalk 。
+
+比如下面的一些方法调用
+
+	"gin joint".length		->	9
+	"Rick".index("c")		->	2
+	-1942.abs				-> 	1942
+	sam.play(song)			->	"duh dum, da dum de dum ..."
+
+点号（“.”）之前的东西被称为 **接收者（receiver）**，点号后面的名字是被调用的方法。
+
+值得注意到是：
+
+	Ruby 和大多数别的语言之间有一个很大的区别。
+	例如在 Java 中，是通过调用另外一个函数来得到某些成员数据的绝对值，并把结果传回数据本身。你可以写成：
+		number = Math.abs(number);		// Java Code
+
+	而在 Ruby 里，确定绝对值的能力内建在数字中——处理细节在内部实现。只要发送 abs 消息到一个数字对象，让它
+	去得到绝对值即可。
+		number = number.abs
+
+
