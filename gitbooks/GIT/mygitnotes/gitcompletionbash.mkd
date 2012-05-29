@@ -1,0 +1,27 @@
+## git 命令选项补全设置
+
+### 只在当前用户生效
+将 git 源码包里的 contrib/completion 目录下的 .git-completion.bash 文件拷贝到 ~/.git-completion.bash ，
+
+    # vim ~/.git-completion.bash
+
+然后在 `.bashrc` 或 `.bash_profile` 中加入下面的内容。
+	
+	source ~/.git-completion.bash
+
+### 在整个系统生效
+Mac
+
+    将脚本复制到 /opt/local/etc/bash_completion.d 中。
+
+Linux
+
+	将脚本复制到 /etc/bash_completion.d 目录中。
+
+这两处目录中的脚本，都会在 Bash 启动时自动加载。
+
+
+
+## Ref
+ 
+ * [Git 命令行自动补全](http://www.iceskysl.com/?p=1688)
