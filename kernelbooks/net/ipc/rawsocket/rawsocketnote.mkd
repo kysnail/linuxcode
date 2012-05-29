@@ -1,0 +1,7 @@
+## RAW SOCKET
+In computer networking, a **raw socket** is an **internet socket** that allows direct sending and receiving of raw networ packets.
+
+
+raw socket，即原始套接字，可以接收本机网卡上的数据帧或者数据包,对与监听网络的流量和分析是很有作用的。
+
+###
