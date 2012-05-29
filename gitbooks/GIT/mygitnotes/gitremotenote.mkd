@@ -28,3 +28,7 @@
 		merge = refs/heads/master
 
 当时出错，很有可能是这里的 url 出问题了。
+
+## Ref
+ 
+ * [Git push requires username and password](http://stackoverflow.com/questions/6565357/git-push-requires-username-and-password?answertab=active#tab-top)
