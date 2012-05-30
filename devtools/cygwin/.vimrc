@@ -1,0 +1,1 @@
+/home/kangyushi/.vimrc
