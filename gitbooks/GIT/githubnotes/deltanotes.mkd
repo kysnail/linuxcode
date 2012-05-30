@@ -1,4 +1,15 @@
 ## delta
-使用 git 提交时，总会发现有一个 delta 的提示。之前对于这个的概念并不是很清楚，直到今天在【PKI 入门】这本书中看到了关于 **Delta CRL** 的介绍后，才对 git 提交时出现的 delta 有了一个感性的认识吧。
+使用 git 提交时，总会发现有一个 delta 的提示。
+
+    $ git push
+    Counting objects: 9, done.
+    Delta compression using up to 2 threads.
+    Compressing objects: 100% (4/4), done.
+    Writing objects: 100% (6/6), 903 bytes, done.
+    Total 6 (delta 1), reused 0 (delta 0)
+    To git@github.com:kysnail/linuxcode.git
+       e14c0ea..cc88a01  master -> master
+
+之前对于这个的概念并不是很清楚，直到今天在【PKI 入门】这本书中看到了关于 **Delta CRL** 的介绍后，才对 git 提交时出现的 delta 有了一个感性的认识吧。
 
 所谓的 CRL 是指 Certification Revocation List ，证书吊销列表。其中列出了已经失效的整数列表，由 CA 定期发布。为了减轻 CA 发布的压力，就引入了 Delta CRL 技术，避免了每次完全发布 CRL 的问题。
