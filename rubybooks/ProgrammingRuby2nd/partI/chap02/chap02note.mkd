@@ -120,3 +120,5 @@ Ruby 的散列表与数组相似。散列表字面量使用花括号而不是方
 
 **参考代码 `0208.rb`。**
 
+## 2.4 Control Structures
+Ruby 具有所有常见的控制结构，但与 Java、C、Perl 这种使用花括号表示语句体的语言不同。Ruby 使用 `end` 关键字表明程序体的结束为止。这与 Python 依靠缩进的做法不同，也与 Pascal 使用 `begin ... end` 的做法不同。
