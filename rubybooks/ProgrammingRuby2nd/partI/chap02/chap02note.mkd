@@ -218,7 +218,20 @@ Ruby 具有所有常见的控制结构，但与 Java、C、Perl 这种使用花�
 
     line.gsub(/Perl|Python/, 'Ruby')
 
+## 2.6 Blocks and Iterators
+本节会简单地描述 Ruby 的一个独特特性。Block，一种可以和方法调用相关联的代码块，几乎就像参数一样。这是一个不可思议的功能强大的特性。一位评论家曾经说：
 
+    这个特性是相当的有趣和重要，如果以前没有注意到，从现在开始你应当要注意了。
+
+可以用 block 实现**回调**（但它比 Java 的**匿名内部（anonymous inner）类**更简单），传递一组代码（**但它远比 C 的函数指针灵活**），以及实现迭代器。
+
+Block 只是在花括号或者 `do...end` 之间的一组代码。
+
+    { puts "Hello" }        # this is a block
+    do                      ###
+        club.enroll(person)   # and so is this
+        person.socialize      #
+    end                     ###
 
 
 
