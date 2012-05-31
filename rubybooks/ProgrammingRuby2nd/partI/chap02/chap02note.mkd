@@ -202,6 +202,23 @@ Ruby 具有所有常见的控制结构，但与 Java、C、Perl 这种使用花�
     /Perl\s+Python/             # Perl，空格字符，然后是 Python
     /Ruby (Perl|Python)         # Ruby，一个空格，然后是 Perl 或者 Python
 
+### `=~` 匹配操作符
+一旦创建了模式，不去用它总不好意思。`=~` 匹配操作符可以用正则表达式来匹配字符串。如果在字符串中发现了模式，=~ 返回模式的开始位置，否则它返回 nil 。这意味着可以在 if 和 while 语句中把正则表达式当作条件使用。比如，如果字符串包含了 Perl 或 Python，下面的代码输出一条消息。
+
+    if line =~ /Perl|Python/
+        puts "Scripting language mentioned: #{line}"
+    end
+
+正则表达式匹配到的字符串部分，可以使用 Ruby 的其中一种替换方法，替换为其他文本。
+
+    line.sub(/Perl/, 'Ruby')        # 用 'Ruby' 替换第一个 'Perl'
+    line.gsub(/Python/, 'Ruby')     # 用 'Ruby' 替换所有的 'Python'
+
+使用下面语句可以用 Ruby 替换出现 Perl 和 Python 的每个地方。
+
+    line.gsub(/Perl|Python/, 'Ruby')
+
+
 
 
 
