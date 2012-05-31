@@ -81,7 +81,7 @@ Ruby 的数组（arrays）和散列表（hashes）是被索引的收集（indexe
     数组和散列表会按需调整大小来保存新的元素。
     访问数组元素是高效的，但是散列表提供了灵活性。
 
-### array literal
+### array literal - 数组字面量
 同 JavaScript 一样，可以直接通过定义 array literal 创建并初始化数组。
 
     数组字面量（array literal）
@@ -92,7 +92,31 @@ Ruby 的数组（arrays）和散列表（hashes）是被索引的收集（indexe
 
 Ruby 提供了一种快捷的方式用来创建一个单词数组：
 
+    a = %w{ant bee cat dog elk}
 
+可以参考代码 `0207.rb`。
 
+### hash literal - 散列表字面量
+Ruby 的散列表与数组相似。散列表字面量使用花括号而不是方括号。这个字面量必须为每一项提供两个对象：一个键（key）和一个值（value）。
 
+    inst_section = {
+        'cello'     =>  'string',
+        'clarinet'  =>  'woodwind',
+        'drum'      =>  'percussion',
+        'oboe'      =>  'woodwind',
+        'trumpet'   =>  'brass',
+        'violin'    =>  'string'
+    }
+
+输出结果：
+
+    inst_section['oboe']        ->  "woodwind"
+    inst_section['cello']       ->  "string"
+    inst_section['bassoon']     ->  nil
+
+可以参考代码 `0208.rb`。
+
+默认情况下，如果用一个散列表没有包含的键进行索引，散列表就返回 nil。通常这样是很方便的，比如在条件表达式中 nil 就意味着 false 。而有时候你可能想改变这个默认动作。比如使用散列表来计算每个键出现的次数时，如果这个默认值是 0 的话就会很方便。这很容易做到：当创建一个新的空散列表时，可以指定一个默认值。
+
+**参考代码 `0208.rb`。**
 
