@@ -1,6 +1,6 @@
 #Chapter 2 - Ruby.new
 
-## Ruby Is an Object-Oriented Language
+## 2.1 Ruby Is an Object-Oriented Language
 
 	点唱机 - jukebox
 
@@ -34,7 +34,7 @@
 	去得到绝对值即可。
 		number = number.abs
 
-## Some Basic Ruby
+## 2.2 Some Basic Ruby
 
 	Ruby 中的注释以 # 字符开始，行尾结束。
 	代码布局由你决定，缩进编排并不重要（但是如果打算要发布你的代码的话，使用两个字符的缩进编排会让你在社区内交很多朋友）。
@@ -74,3 +74,25 @@ Ruby 使用一种命名惯例来区分名称的用途：
 	最后，类名称、模块名称和常量都必须以一个大写字母开始。
 
 	方法名称可以 ? ! = 字符结束。
+
+## 2.3 Arrays and Hashes
+Ruby 的数组（arrays）和散列表（hashes）是被索引的收集（indexed collections）。两者都存储对象的集合，通过键（key）来访问。数组的键是整数，而散列表支持以任何对象为它的键。
+
+    数组和散列表会按需调整大小来保存新的元素。
+    访问数组元素是高效的，但是散列表提供了灵活性。
+
+### array literal
+同 JavaScript 一样，可以直接通过定义 array literal 创建并初始化数组。
+
+    数组字面量（array literal）
+    方括号之间放一组元素——可以创建和初始化新的数组对象。有了数组对象，在方括号之间提供索引便可以
+    访问单个元素。
+
+可以参考代码 `0206.rb`。
+
+Ruby 提供了一种快捷的方式用来创建一个单词数组：
+
+
+
+
+
