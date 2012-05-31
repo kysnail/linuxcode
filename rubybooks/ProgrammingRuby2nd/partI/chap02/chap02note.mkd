@@ -118,7 +118,28 @@ Ruby 的散列表与数组相似。散列表字面量使用花括号而不是方
 
 默认情况下，如果用一个散列表没有包含的键进行索引，散列表就返回 nil。通常这样是很方便的，比如在条件表达式中 nil 就意味着 false 。而有时候你可能想改变这个默认动作。比如使用散列表来计算每个键出现的次数时，如果这个默认值是 0 的话就会很方便。这很容易做到：当创建一个新的空散列表时，可以指定一个默认值。
 
-**RefCode `0208.rb`**
+**RefCode `0209.rb`**
 
 ## 2.4 Control Structures
 Ruby 具有所有常见的控制结构，但与 Java、C、Perl 这种使用花括号表示语句体的语言不同。Ruby 使用 `end` 关键字表明程序体的结束为止。这与 Python 依靠缩进的做法不同，也与 Pascal 使用 `begin ... end` 的做法不同。
+
+**RefCode `0210.rb`**
+
+同样 while 语句以 end 结束。
+
+    while weight < 100 and num_pallets <=30
+        pallet = next_pallet()
+        weight += pallet.weight
+        num_pallet += 1
+    end
+
+大多数 Ruby 语句会返回值，这意味着可以把它们当条件使用。例如，gets 方法从标准输入流返回下一行，或者当达到文件结束时返回 nil。因为 Ruby 在条件中把 nil 当做一个假值（false）对待，可以像下面这样来处理文件中的行。
+
+    while line = gets
+        puts line.downcase
+    end
+
+在这里赋值语句要么把变量 line 设置为下一行，要么是 nil，然后 while 语句测试这个赋值的结果，如果它是 nil ，则终止这个循环。
+
+
+
