@@ -2,7 +2,7 @@
 // Returning a reference to an inner class.
 
 public class Parcel2 {
-    
+
     class Contents {
         private int i = 11;
         public int value() { return i; }
@@ -26,7 +26,7 @@ public class Parcel2 {
         return new Contents();
     }
 
-    public void ship(Stirng dest) {
+    public void ship(String dest) {
         // 这里不再需要像 Parcel1.java 中那样使用 new Contents() 创建了。
         Contents c = contents();
         Destination d = to(dest);
@@ -48,4 +48,3 @@ public class Parcel2 {
 output:
 Tasmania
 ----------------------------------*///:~
-
