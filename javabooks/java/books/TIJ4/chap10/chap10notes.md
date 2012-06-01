@@ -13,3 +13,12 @@
     RefCode: src/innerclasses/Parcel1.java
 
 当我们在 ship() 方法里面使用内部类的时候，与使用普通类没什么不同。在这里，实际的区别只是内部类的名字是嵌套在 Parcel1 里面的。不过你将会看到，这并不是唯一的区别。
+
+更典型的情况是，外部类将有一个方法，该方法返回一个指向内部类的引用，就像在 `to()` 和 `contents()` 方法中看到的那样：
+
+    RefCode: src/innerclasses/Parcel2.java
+
+如果想从 **外部类的非静态方法** 之外的任意位置创建某个内部类对象，那么必须像在 main() 方法中那样，具体地指明这个对象的类型：
+
+    OuterClassName.InnerClassName
+
