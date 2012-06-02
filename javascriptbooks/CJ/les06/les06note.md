@@ -51,6 +51,10 @@ String 也是对象。
 在 C 这类语言中，字符串可以原位改变，而在 JavaScript 这类语言中，字符串对象不可以被原位修改。
 
 ### setInterval 的使用
+
+    The setInterval() method calls a function or evaluates an expression at specified intervals (in miliseconds).
+
+上面是 `setInterval` 的解释。
     
     setInterval("alert('abc')", 1000)
 
@@ -69,4 +73,22 @@ String 也是对象。
 
     setInterval(func, 10000);
 
-    
+## Array.push() & Array.shift()
+
+ * push() - Adds new elements to the end of array, and returns the new length
+ * shift() - Removes the first element of an array, and returns that element 
+
+## Demo - Title Marquee
+
+
+        <script type="text/javascript" charset="utf-8">
+            var str = "..oOo..".split("");
+            function titleMarquee() {
+                str.push(str[0]);
+                str.shift();
+                //var s = push(str[0])
+                document.title = str.join("");
+            }
+
+            setInterval(titleMarquee, 1000);
+        </script>
