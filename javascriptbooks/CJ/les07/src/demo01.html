@@ -1,0 +1,26 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <input type="button" id="btn" value="Button" onclick="alert('Alert')" />
+        <img src="a.jpg" id="img1" onmouseover="this.src='b.jpg';" title="翻转图像" />
+
+        <script type="text/javascript">
+            var btn=document.getElementById("btn");
+            // img 当成一个对象
+            // JavaScript ImgElement
+            var a = {
+                src:"a.jpg",
+                title:"翻转图像" 
+            }
+            a.src = "b.jpg";
+
+            var btn = {
+                type:"button",
+                id:"btn",
+                value:"Button"
+            }
+            btn.value="Button";
+        </script>
+    </body>
+</html>
