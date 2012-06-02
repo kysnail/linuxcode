@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=gb2312" />
+        <title>Title Marquee</title>
+        <script type="text/javascript" charset="utf-8">
+            var str = "..oOo..".split("");
+            function titleMarquee() {
+                str.push(str[0]);
+                str.shift();
+                //var s = push(str[0])
+                document.title = str.join("");
+            }
+
+            setInterval(titleMarquee, 1000);
+        </script>
+</head>
+<body>
+</body>
+</html>
