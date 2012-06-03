@@ -23,3 +23,7 @@ cygwin 没有 root 用户一说，它提供的主目录位置信息存放在 $HO
 
     none /cygdrive cygdrive binary,user,noacl,posix=0 0 0
 
+###Ref:
+
+ * [Cygwin的文件权限管理](http://wujblog.blogspot.com/2012/03/cygwin.html)
+
