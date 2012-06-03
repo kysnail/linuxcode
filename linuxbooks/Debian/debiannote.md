@@ -19,3 +19,20 @@ Debian 默认情况下会启动到图形界面，对于我这种习惯关闭图�
     To reset your login manager so that it runs at boot up, do 
 
     # update-rc.d -f gdm defaults
+
+## 切换 root 权限
+准备安装 vim 时，提示如下信息：
+
+    kysnail@mydbian:~$ sudo apt-get install vim
+    [sudo] password for kysnail: 
+    kysnail is not in the sudoers file.  This incident will be reported.
+
+可以按照下面方式操作，将 kysnail 用户添加到 sudouser 列表：
+
+    $ su -
+    # vim /etc/sudousers
+        ......
+        root ALL=(ALL) ALL
+        # Add by kysnail
+        kysnail ALL=(ALL) ALL
+        ......
