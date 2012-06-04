@@ -28,6 +28,44 @@
 ### 2.2 请写出一段Python代码实现删除一个list里面的重复元素？
 可以先把list重新排序，然后从list的最后开始扫描，代码如下：
 
+### 方法一：
+
+    #!/usr/bin/env python
+
+    a = [1, 2, 2, 3, 2, 1, 5, 4]
+    b = list(set(a))
+    print b 
+
+### 方法二：
+
+    #!/usr/bin/env python
+
+    a = [1, 2, 2, 3, 2, 1, 5, 4]
+
+    if a:
+            a.sort()
+
+    last = a[-1]
+    print last
+
+    for i in range(len(a) - 2, -1, -1):
+            if last == a[i]:
+                    del a[i]
+            else:
+                    last=a[i]
+
+    print a
+
+### 方法三：
+
+    #!/usr/bin/python
+
+    a = [1, 2, 2, 3, 2, 1, 5, 4]
+    b = {}
+    b = b.fromkeys(a)
+    print b
+    a = list(b.keys())
+    print a
 
 ### 2.3 介绍一下Python下range()函数的用法？
 如果需要迭代一个数字序列的话，可以使用range()函数，range()函数可以生成等差级数。
