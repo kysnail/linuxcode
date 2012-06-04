@@ -70,18 +70,23 @@
 ### 2.3 介绍一下Python下range()函数的用法？
 如果需要迭代一个数字序列的话，可以使用range()函数，range()函数可以生成等差级数。
 如例：
-for i in range(5)
-print(i)
+
+    for i in range(5)
+    print(i)
+
 这段代码将输出0, 1, 2, 3, 4五个数字
-range(10)会产生10个值， 也可以让range()从另外一个数字开始，或者定义一个不同的增量，甚至是负数增量
-range(5, 10)从5到9的五个数字
-range(0, 10, 3) 增量为三， 包括0,3,6,9四个数字
-range(-10, -100, -30) 增量为-30， 包括-10, -40, -70
+
+    range(10)会产生10个值， 也可以让range()从另外一个数字开始，或者定义一个不同的增量，甚至是负数增量
+    range(5, 10)从5到9的五个数字
+    range(0, 10, 3) 增量为三， 包括0,3,6,9四个数字
+    range(-10, -100, -30) 增量为-30， 包括-10, -40, -70
+
 可以一起使用range()和len()来迭代一个索引序列
 例如：
-a = ['Nina', 'Jim', 'Rainman', 'Hello']
-for i in range(len(a)):
-    print(i, a[i])
+
+    a = ['Nina', 'Jim', 'Rainman', 'Hello']
+    for i in range(len(a)):
+        print(i, a[i])
 
 ## 3. 工具篇
 
