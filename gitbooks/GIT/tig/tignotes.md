@@ -46,5 +46,9 @@
 
 	Complete!
 
+## Refs:
 
+ * [Tig: text-mode interface for git](http://jonas.nitro.dk/tig/)
+ * [The tig Manual](http://jonas.nitro.dk/tig/manual.html)
+ * [Tig 1.0 发布，文本模式的Git浏览器](http://www.oschina.net/news/28854/tig-1-0-released)
 
