@@ -96,3 +96,18 @@ I also need access to the Rails API documentation, which I view in a browser. In
 
 MySQL 与 SQLite 的驱动都可以通过 RubyGems 下载（gem 名称分别是 mysql 和 sqlite3-ruby）。
 
+## Keeping Up-to-Date
+如果你是通过 RubyGems 安装的 Rails，保持更新就非常简单，只要输入下列命令：
+
+    rubys> gem update rails
+
+RubyGems 就会自动更新你的 Rails 安装版本（**gems 的早期版本需要 --include-dependencies 选项。**）。RubyGems 会自动保存升级之前的旧版本文件，用下列命令就可以删除这些备份文件。
+
+    rubys> gem cleanup
+
+安装了最新版本的 Rails 之后，你可能希望同时更新 Rails 在创建应用程序之初加入其中的那些文件（例如用于支持 Ajax 的 JavaScript 库、各种脚本等等）。只要在**应用程序的顶级目录**运行下列目录即可：
+
+    rubys> rake rails:update
+
+
+
