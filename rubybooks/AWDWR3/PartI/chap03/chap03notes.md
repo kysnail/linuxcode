@@ -109,5 +109,7 @@ RubyGems 就会自动更新你的 Rails 安装版本（**gems 的早期版本需
 
     rubys> rake rails:update
 
+## Rails and ISPs
+如果你希望 Rails 应用程序放在共享主机环境下，使人们可以通过 Internet 访问它就需要寻找一家支持 Ruby 的 ISP —— 它必须支持 Ruby，拥有你需要的 Ruby 数据库驱动并且提供 Phusion Passenger 和 / 或 Mongrel 代理设置。
 
 
