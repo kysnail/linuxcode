@@ -51,3 +51,5 @@
     rvm 1.14.1 (stable) by Wayne E. Seguin <wayneeseguin@gmail.com>, Michal Papis <mpapis@gmail.com> [https://rvm.io/]
 
 ### 用 RVM 安装 Ruby 环境
+安装过程花费了我 4 个多小时，居然仅仅只是为了解决一个被墙的问题，可想我有多么的郁闷了。
+
