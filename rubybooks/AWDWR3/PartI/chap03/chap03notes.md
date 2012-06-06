@@ -36,3 +36,13 @@
 
     vim ~/.bashrc
     export PATH=/var/lib/gems/1.8/bin:$PATH
+
+## Development Environments
+
+### The Command Line
+这里提到了一 Windows 操作系统中的小工具
+
+    TwakUI
+
+值得尝试一下。
+
