@@ -116,6 +116,9 @@
 
 这次总算认证成功了。
 
+**Notes**
+最好在 misc 文件夹中进行操作，不然会报错。
+
 **Ref**
 
  * [OpenSSL的配置文件](http://zl198751.iteye.com/blog/762322)    
