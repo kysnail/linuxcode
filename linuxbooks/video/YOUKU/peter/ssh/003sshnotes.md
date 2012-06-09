@@ -77,3 +77,5 @@
 OS: Ubuntu
 
  * [SSH原理与运用（一）：远程登录](http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html)
+
+视频录制软件： `screenflow`
