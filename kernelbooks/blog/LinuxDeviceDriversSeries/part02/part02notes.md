@@ -62,3 +62,25 @@
 
 与 `uname -r` 所查到的版本一致。
 
+#### 重新安装内核源码
+
+	[root@CentOS55 ch02]# rpm -fe `rpm -q kernel`      => 这里的选项参数可能有问题，这里的 -e 选项并不能够移除，可能需要 --force 选项，才能生效。
+	error: Failed dependencies:
+		kernel >= 2.6.12-1.1411_FC5 is needed by (installed) pcmciautils-014-5.i386
+		kernel >= 2.6 is needed by (installed) gnome-volume-manager-2.15.0-5.el5.i386
+
+	[root@CentOS55 ch02]# rpm -ivh kernel-2.6.18-194.el5.i686.rpm 
+	warning: kernel-2.6.18-194.el5.i686.rpm: Header V3 DSA signature: NOKEY, key ID e8562897
+	Preparing...                ########################################### [100%]
+		package kernel-2.6.18-194.el5.i686 is already installed
+
+	[root@CentOS55 ch02]# rpm --replacepkgs 
+	rpm: only installation, upgrading, rmsource and rmspec may be forced
+	[root@CentOS55 ch02]# rpm --replacepkgs -ivh kernel-2.6.18-194.el5.i686.rpm 
+	warning: kernel-2.6.18-194.el5.i686.rpm: Header V3 DSA signature: NOKEY, key ID e8562897
+	Preparing...                ########################################### [100%]
+	   1:kernel                 ########################################### [100%]
+
+这是实际是安装 Linux 内核，而不是源码，安装源码的过程如下：
+
+	应该是安装 `kernel-debug-2.6.18-194.el5.i686.rpm` 即可。
