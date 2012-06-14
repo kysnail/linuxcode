@@ -2,3 +2,4 @@ sh.exe.stackdump
 *.swp
 *~
 *.class
+a.out
