@@ -28,5 +28,11 @@
 	include  Makefile        samples
 	[root@CentOS55 ch02]# 
 
+### linux 内核源码存放位置
+通常会将源码存放到 
+
+    /usr/src/linux 
+
+下。如果有多个版本，则可以将其指向 /usr/src/linux 目录，这样方便开发。
 
 
