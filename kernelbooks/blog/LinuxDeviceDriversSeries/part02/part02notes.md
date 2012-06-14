@@ -35,4 +35,30 @@
 
 下。如果有多个版本，则可以将其指向 /usr/src/linux 目录，这样方便开发。
 
+### CentOS 55 源码安装
+安装的时侯选择内核源码包，会在安装完成后的 /usr/src/kernels 目录中找到对应的 linux-2.6.34.tar.bz2 包。将源码包解压后，指向上面的地址即可。
+
+    [root@CentOS55 src]# ln -s /usr/src/kernels/linux-2.6.34 
+    /usr/src/linux
+    [root@CentOS55 src]# pwd
+    /usr/src
+    [root@CentOS55 src]# ll
+    total 20
+    drwxr-xr-x 2 root root 4096 Jan 27  2010 debug
+    drwxr-xr-x 3 root root 4096 May 16 09:39 kernels
+    lrwxrwxrwx 1 root root   29 May 16 09:43 linux -> usr/src/kernels/linux-2.6.34
+    drwxr-xr-x 4 root root 4096 Mar 21 16:38 redhat
+
+现在有这样一个问题，我不能确定这个内核源码是我拷入的，还是系统给安装的。因为查看 `uname -r` 得到的结果与这里提供的源码包版本并不相同。
+
+查看 CentOS55 系统提供有对应的源码 rpm 包，
+
+    kernel-2.6.18-194.el5.i686.rpm
+    kernel-debug-2.6.18-194.el5.i686.rpm
+    kernel-debug-devel-2.6.18-194.el5.i686.rpm
+    kernel-devel-2.6.18-194.el5.i686.rpm
+    kernel-doc-2.6.18-194.el5.noarch.rpm
+    kernel-headers-2.6.18-194.el5.i386.rpm
+
+与 `uname -r` 所查到的版本一致。
 
