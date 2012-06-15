@@ -84,3 +84,108 @@
 这是实际是安装 Linux 内核，而不是源码，安装源码的过程如下：
 
 	应该是安装 `kernel-debug-2.6.18-194.el5.i686.rpm` 即可。
+
+### 模块操作常用命令
+模块加载命令通常位于 `/sbin` 目录中。
+
+    * lsmod
+    * insmod <module_file>
+    * modprobe <module>
+    * rmmod <module>
+
+
+    [root@CentOS55 fs]# pwd
+    /lib/modules/2.6.18-194.el5/kernel/fs
+    [root@CentOS55 fs]# ll *fat msdos
+    fat:
+    total 68
+    -rwxr--r-- 1 root root 59472 Apr  3  2010 fat.ko
+    
+    msdos:
+    total 20
+    -rwxr--r-- 1 root root 15048 Apr  3  2010 msdos.ko
+    
+    vfat:
+    total 24
+    -rwxr--r-- 1 root root 18244 Apr  3  2010 vfat.ko
+
+    [root@CentOS55 fs]# /sbin/insmod vfat/vfat.ko 
+    insmod: error inserting 'vfat/vfat.ko': -1 Unknown symbol in module
+    [root@CentOS55 fs]# dmesg | tail -3
+    vfat: Unknown symbol fat_add_entries
+    vfat: Unknown symbol fat_sync_inode
+    vfat: Unknown symbol fat_detach
+    [root@CentOS55 fs]# /sbin/insmod fat/fat.ko 
+    [root@CentOS55 fs]# /sbin/insmod vfat/vfat.ko 
+    [root@CentOS55 fs]# lsmod | head -5
+    bash: lsmod: command not found
+    [root@CentOS55 fs]# /sbin/lsmod | head -5
+    Module                  Size  Used by
+    vfat                   15937  0 
+    fat                    51165  1 vfat
+    autofs4                29253  3 
+    hidp                   23105  2 
+    [root@CentOS55 fs]# /sbin/rm
+    rmmod  rmt    
+    [root@CentOS55 fs]# /sbin/rmmod vfat fat
+    [root@CentOS55 fs]# /sbin/modprobe vfat
+    [root@CentOS55 fs]# /sbin/rmmod vfat fat
+    [root@CentOS55 fs]# /sbin/lsmod | head -5
+    Module                  Size  Used by
+    autofs4                29253  3 
+    hidp                   23105  2 
+    rfcomm                 42457  0 
+    l2cap                  29505  10 hidp,rfcomm
+    [root@CentOS55 fs]# /sbin/modprobe vfat
+    [root@CentOS55 fs]# /sbin/lsmod | head -5
+    Module                  Size  Used by
+    vfat                   15937  0 
+    fat                    51165  1 vfat
+    autofs4                29253  3 
+    hidp                   23105  2 
+
+### Our First Linux Driver
+
+	/usr/include -- 一般应用程序使用
+	/usr/src/linux -- 模块使用
+
+关于内核，最有意思的莫过于它是 C 语言面向对象方式的实现。
+
+	Our interesting fact about the kernel is that it is an object-oriented implementation in C, as
+	we will observe even with our first driver. Any Linux driver has a constructor and a destructor.
+	The module's constructor is called when the module is successfully loaded into the kernel, and 
+	the destructor when rmmod succeeds in unloading the module. These two are like normal functions 
+	in the driver, except that they are specified as the init and exit functions, respectively, by
+	the macros module_init() and module_exit(), which are defined in the kernel header module.h.
+
+我的第一个 kernel 程序如下：
+
+	nclude <linux/module.h>
+	#include <linux/version.h>
+	#include <linux/kernel.h>
+	 
+	static int __init ofd_init(void) /* Constructor */
+	{
+	    printk(KERN_INFO "Namaskar: ofd registered");
+	    return 0;
+	}
+
+	static void __exit ofd_exit(void) /* Destructor */
+	{
+	    printk(KERN_INFO "Alvida: ofd unregistered");
+	}
+
+	module_init(ofd_init);
+	module_exit(ofd_exit);
+
+	MODULE_LICENSE("GPL");
+	MODULE_AUTHOR("Anil Kumar Pugalia <email_at_sarika-pugs_dot_com>");
+	MODULE_DESCRIPTION("Our First Driver");
+
+注意下面几点：
+
+	1. 没有使用 stdio.h ，这里需要 kernel.h 。
+		stdio.h 	=> a user-space header
+		kernel.h	=> a kernel space header
+	2. 使用 printf 的内核版本 printk 。
+
