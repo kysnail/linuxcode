@@ -184,7 +184,26 @@ svn、cvs 这些版本管理工具都是在代码完成后，需要提交 patch 
 	Deleted branch tmp (was 6402db3).
 	[kysnail@mydbian proj]$ 
 
+### 回到项目比较早期的状态
+先使用 git log 等工具，查考要回到状态的提交号，一般是前六位即可，比如这里的 64530a5 。
 
+	[kysnail@mydbian proj]$ git checkout 64530a5 -b tmp
+	Switched to a new branch 'tmp'
+	[kysnail@mydbian proj]$ git branch
+	  master
+	* tmp
+	[kysnail@mydbian proj]$ tig
+	[kysnail@mydbian proj]$ ls
+	hello.c
+	[kysnail@mydbian proj]$ vim hello.c 
+	[kysnail@mydbian proj]$ git checkout master
+	Switched to branch 'master'
+	[kysnail@mydbian proj]$ git branch -D tmp
+	Deleted branch tmp (was 64530a5).
+	[kysnail@mydbian proj]$ 
+
+### git add .
+扫描当前项目中的所有改动。
 
 
 
