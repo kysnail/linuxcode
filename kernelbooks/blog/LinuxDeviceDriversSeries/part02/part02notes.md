@@ -243,3 +243,30 @@
 	  CC      /work/ch02/ofd.mod.o
 	  LD [M]  /work/ch02/ofd.ko
 	make[1]: Leaving directory `/usr/src/kernels/2.6.18-194.el5-i686'
+
+### Summing up
+
+	# insmod ofd.ko 
+	# insmod ofd.ko 
+	insmod: error inserting 'ofd.ko': -1 File exists
+	# lsmod | head -10
+	Module                  Size  Used by
+	ofd                     5632  0 
+	autofs4                29253  3 
+	hidp                   23105  2 
+	rfcomm                 42457  0 
+	l2cap                  29505  10 hidp,rfcomm
+	bluetooth              53925  5 hidp,rfcomm,l2cap
+	lockd                  63337  0 
+	sunrpc                146685  2 lockd
+	ppdev                  12613  0 
+	# rmmod ofd.ko 
+	# rmmod ofd.ko 
+	ERROR: Module ofd does not exist in /proc/modules
+	# 
+
+提一个问题，`printk` 的信息输出到哪里去了呢？
+
+	1. Where's the printk output gone?
+	2. Also note that our first driver is a template for any driver you would write in Linux.
+	Writing a specialized driver is just a matter of what gets filled into its constructor and destructor.
