@@ -191,3 +191,28 @@ git 的基本配置和使用，帮助初学者快速上手。涉及
 	$ 
 
 ### git config --global core.editor vim
+
+### git commit -a -v
+
+	$ git commit -a -v
+
+
+	# Please enter the commit message for your changes. Lines starting
+	# with '#' will be ignored, and an empty message aborts the commit.
+	# On branch master
+	# Changes to be committed:
+	#   (use "git reset HEAD <file>..." to unstage)
+	#
+	#       modified:   main.c
+	#
+	diff --git a/main.c b/main.c
+	index d2fb1f4..9d7ce42 100644
+	--- a/main.c
+	+++ b/main.c
+	@@ -2,6 +2,5 @@
+
+	 int main(int argc, const char *argv[])
+	 {
+	-       printf("hello\n");
+		return 0;
+	 }
