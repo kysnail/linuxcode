@@ -128,4 +128,47 @@ git 的基本配置和使用，帮助初学者快速上手。涉及
 
 	sudo apt-get install tig
 
+### git commit -a -m "something"
 
+	$ vim README 
+	$ git commit 	==> 可以发现 git 默认的操作时不会记录修改内容的。
+	# On branch master
+	# Changed but not updated:
+	#   (use "git add <file>..." to update what will be committed)
+	#   (use "git checkout -- <file>..." to discard changes in working directory)
+	#
+	#	modified:   README
+	#
+	no changes added to commit (use "git add" and/or "git commit -a")
+	$ git add README
+	$ git commit -m "add sth"
+	[master 19706ab] add sth
+	 1 files changed, 2 insertions(+), 0 deletions(-)
+
+	$ vim README 
+	==> 默认情况下，这种方式只支持对修改文件的监控，不能帮助跟踪 untracked 的文件，也就是
+	==> 新建的文件。
+	$ git commit -a  -m "see if we can add changes this way"
+	[master 7ff2f89] see if we can add changes this way
+	 1 files changed, 1 insertions(+), 1 deletions(-)
+	$ 
+
+	$ ll
+	总用量 4
+	-rw-r--r-- 1 kysnail kysnail 6  6月 16 00:23 README
+	$ vim main.c
+	$ ls
+	main.c  README
+	$ git commit -a -m "add main.c"
+	# On branch master
+	# Untracked files:			==> 对新建文件无效
+	#   (use "git add <file>..." to include in what will be committed)
+	#
+	#	main.c
+	nothing added to commit but untracked files present (use "git add" to track)
+	$ git add main.c
+	$ git commit -m "add main.c"		==> 可以修改为 git commit -a -m "add main.c"
+	[master f0e5566] add main.c
+	 1 files changed, 7 insertions(+), 0 deletions(-)
+	 create mode 100644 main.c
+	$ 
