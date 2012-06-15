@@ -216,3 +216,17 @@ git 的基本配置和使用，帮助初学者快速上手。涉及
 	-       printf("hello\n");
 		return 0;
 	 }
+
+### git confit --global alias.ci "commit -a -v"
+
+	$ git config --global alias.ci "commit -a -v"
+	$ cat /home/kysnail/.gitconfig 
+	[core]
+		editor = vim
+	[color]
+		ui = true
+	[user]
+		name = kysnail
+		email = TracingLife@gmail.com
+	[alias]
+		ci = commit -a -v
