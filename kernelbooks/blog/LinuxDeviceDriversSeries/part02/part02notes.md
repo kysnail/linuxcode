@@ -188,4 +188,19 @@
 		stdio.h 	=> a user-space header
 		kernel.h	=> a kernel space header
 	2. 使用 printf 的内核版本 printk 。
+	3. version.h 
+		version.h is included for the module version to be compatible with
+		the kernel into which it is going to be loaded.
+
+		# pwd
+		/usr/src/linux/include/linux
+		# cat version.h
+		#define LINUX_VERSION_CODE 132626
+		#define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))
+		#define RHEL_MAJOR 5
+		#define RHEL_MINOR 5
+		#define RHEL_RELEASE_CODE 1285
+		#define RHEL_RELEASE_VERSION(a,b) (((a) << 8) + (b))
+
+	4. MODULE_* 宏定义，用来填充模块相关的信息，充当该模块的签名。
 
