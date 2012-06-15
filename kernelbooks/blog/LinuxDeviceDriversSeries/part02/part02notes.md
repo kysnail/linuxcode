@@ -204,3 +204,42 @@
 
 	4. MODULE_* 宏定义，用来填充模块相关的信息，充当该模块的签名。
 
+### Building our first Linux Driver
+要编译你的第一个驱动程序，你必须要有对应的内核源码树，或者至少要拥有内核头文件。
+
+	To build a linux driver, you need to have teh kernel source (or, at least, the kernel
+	headers) installed on your system. The kernel source is assumed to be installed at 
+	/usr/src/linux. If it's at any other location on your system, specify the location in
+	the KERNEL_SOURCE variable in this Makefile.
+
+整个编译过程会使用 make 编译系统，此编译系统会调用内核编译系统，实现驱动的编译。
+
+	# Makefile - makefile of our first driver
+
+	# if KERNELRELEASE is defined, we've been invoked from the
+	# kernel build system and can use its language.
+	ifneq (${KERNELRELEASE},)
+		obj-m := ofd.o
+	# Otherwise we were called directly from the command line.
+	# Invoke the kernel build system.
+	else
+		KERNEL_SOURCE := /usr/src/linux
+		PWD := $(shell pwd)
+	default:
+		${MAKE} -C ${KERNEL_SOURCE} SUBDIRS=${PWD} modules
+
+	clean:
+		${MAKE} -C ${KERNEL_SOURCE} SUBDIRS=${PWD} clean
+	endif	
+
+有了 `ofd.c` 和 `Makefile` 文件，我们就可以使用 make 进行编译了。
+
+	[root@CentOS55 ch02]# make 
+	make -C /usr/src/linux SUBDIRS=/work/ch02 modules
+	make[1]: Entering directory `/usr/src/kernels/2.6.18-194.el5-i686'
+	  CC [M]  /work/ch02/ofd.o
+	  Building modules, stage 2.
+	  MODPOST
+	  CC      /work/ch02/ofd.mod.o
+	  LD [M]  /work/ch02/ofd.ko
+	make[1]: Leaving directory `/usr/src/kernels/2.6.18-194.el5-i686'
