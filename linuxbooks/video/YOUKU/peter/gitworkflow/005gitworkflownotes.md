@@ -160,3 +160,38 @@ svn、cvs 这些版本管理工具都是在代码完成后，需要提交 patch 
 	 2
 	+nice to
 
+### git branch
+使用 `git branch` 避免污染主分支。
+
+	[kysnail@mydbian proj]$ git branch
+	* master
+	[kysnail@mydbian proj]$ git checkout -b tmp
+	Switched to a new branch 'tmp'
+	[kysnail@mydbian proj]$ git branch
+	  master
+	* tmp
+	[kysnail@mydbian proj]$ tig
+	-bash: tig: command not found
+	[kysnail@mydbian proj]$ vim hello.h 
+	[kysnail@mydbian proj]$ git ci
+	[tmp 6402db3] on tmp
+	 1 files changed, 1 insertions(+), 0 deletions(-)
+	[kysnail@mydbian proj]$ tig
+	[kysnail@mydbian proj]$ git checkout master
+	Switched to branch 'master'
+	[kysnail@mydbian proj]$ tig
+	[kysnail@mydbian proj]$ git branch -D tmp
+	Deleted branch tmp (was 6402db3).
+	[kysnail@mydbian proj]$ 
+
+
+
+
+
+
+
+
+
+
+
+
