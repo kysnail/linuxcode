@@ -66,3 +66,50 @@ svn、cvs 这些版本管理工具都是在代码完成后，需要提交 patch 
 	HEAD is now at 64530a5 1st
 	[kysnail@mydbian proj]$ vim hello.c 
 	[kysnail@mydbian proj]$ 
+
+### git 回滚指定修改
+首先对 hello.h & hello.c 两个文件都进行修改。
+
+	# Please enter the commit message for your changes. Lines starting
+	# with '#' will be ignored, and an empty message aborts the commit.
+	# On branch master
+	# Changes to be committed:
+	#   (use "git reset HEAD <file>..." to unstage)
+	#
+	#       modified:   hello.c
+	#       modified:   hello.h
+	#
+	diff --git a/hello.c b/hello.c
+	index d00491f..1191247 100644
+	--- a/hello.c
+	+++ b/hello.c
+	@@ -1 +1,2 @@
+	 1
+	+2
+	diff --git a/hello.h b/hello.h
+	index 0cfbf08..48082f7 100644
+	--- a/hello.h
+	+++ b/hello.h
+	@@ -1 +1 @@
+	-2
+	+12
+
+这里不想要对 hello.h 的修改，可以使用下面的命令完成。
+
+	[kysnail@mydbian proj]$ git checkout hello.h
+	[kysnail@mydbian proj]$ git ci
+	# Please enter the commit message for your changes. Lines starting
+	# with '#' will be ignored, and an empty message aborts the commit.
+	# On branch master
+	# Changes to be committed:
+	#   (use "git reset HEAD <file>..." to unstage)
+	#
+	#       modified:   hello.c
+	#
+	diff --git a/hello.c b/hello.c
+	index d00491f..1191247 100644
+	--- a/hello.c
+	+++ b/hello.c
+	@@ -1 +1,2 @@
+	 1
+	+2
