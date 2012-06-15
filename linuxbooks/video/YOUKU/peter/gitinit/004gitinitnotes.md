@@ -94,3 +94,38 @@ git 的基本配置和使用，帮助初学者快速上手。涉及
 
 	    1st
 
+### git log -p(patch)
+查看修改内容：
+
+	$ git log -p
+	commit ef7dd31e2973f5ded603119fca6133d56f1d5809
+	Author: kysnail <TracingLife@gmail.com>
+	Date:   Sat Jun 16 00:15:25 2012 +0800
+
+	    see if the name is right?
+
+	diff --git a/README b/README
+	index e69de29..d00491f 100644
+	--- a/README
+	+++ b/README
+	@@ -0,0 +1 @@
+	+1
+
+	commit b4d1f87c9f509ff536c4e9747d5fc1719538ab15
+	Author: kysnail <kysnail@mydbian.com>
+	Date:   Sat Jun 16 00:12:43 2012 +0800
+
+	    1st
+
+	diff --git a/README b/README
+	new file mode 100644
+	index 0000000..e69de29
+	$ 
+
+就可以看到 patch 内容了。
+
+### tig
+
+	sudo apt-get install tig
+
+
