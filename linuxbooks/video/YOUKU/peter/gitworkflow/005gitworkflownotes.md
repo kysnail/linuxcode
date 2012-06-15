@@ -205,7 +205,8 @@ svn、cvs 这些版本管理工具都是在代码完成后，需要提交 patch 
 ### git add .
 扫描当前项目中的所有改动。
 
-
+### .gitignore
+把想忽略的文件添加到 .gitignore 中即可。
 
 
 
