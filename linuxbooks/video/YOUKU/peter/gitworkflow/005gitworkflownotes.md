@@ -113,3 +113,50 @@ svn、cvs 这些版本管理工具都是在代码完成后，需要提交 patch 
 	@@ -1 +1,2 @@
 	 1
 	+2
+
+### git stash & git stash apply
+对于之前做的所有操作，先隐藏起来
+
+	[kysnail@mydbian proj]$ git stash
+	Saved working directory and index state WIP on master: 0185e93 nice
+	HEAD is now at 0185e93 nice
+
+然后，上面隐藏的 hello.h 的修改，可以用下面的命令调出
+
+	[kysnail@mydbian proj]$ git stash apply
+	# On branch master
+	# Changed but not updated:
+	#   (use "git add <file>..." to update what will be committed)
+	#   (use "git checkout -- <file>..." to discard changes in working directory)
+	#
+	#	modified:   hello.h
+	#
+	no changes added to commit (use "git add" and/or "git commit -a")
+
+这样，就可以使得我们在中间对 hello.c 所做的修改记录不会污染 git 仓库。
+
+	# Please enter the commit message for your changes. Lines starting
+	# with '#' will be ignored, and an empty message aborts the commit.
+	# On branch master
+	# Changes to be committed:
+	#   (use "git reset HEAD <file>..." to unstage)
+	#
+	#       modified:   hello.c
+	#       modified:   hello.h
+	#
+	diff --git a/hello.c b/hello.c
+	index 1191247..f429349 100644
+	--- a/hello.c
+	+++ b/hello.c
+	@@ -1,2 +1,3 @@
+	 1
+	 2
+	+meet you
+	diff --git a/hello.h b/hello.h
+	index 0cfbf08..35b00ec 100644
+	--- a/hello.h
+	+++ b/hello.h
+	@@ -1 +1,2 @@
+	 2
+	+nice to
+
