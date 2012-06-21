@@ -18,6 +18,33 @@
 #define TIMER       0x1c            // 设置中断号
 
 //----------------------------------------------------------------------------------------------------
+// Constant Variable Section
+//----------------------------------------------------------------------------------------------------
+// 定义常量
+#define MAX_BOX 19                          // 总共有 19 种形态的方块
+#define BSIZE 20                            // 方块的边长是 20 个像素
+#define Sys_x 160                           // 显示方块界面的左上角 x 坐标
+#define Sys_y 25                            // 显示方块界面的左上角 y 坐标
+#define Horizontal_boxes 10                 // 水平的方向以方块为单位的长度
+#define Vertical_boxes 15                   // 垂直的方向以方块为单位的长度，也就说长是 15 个方块
+#define Begin_boxes_x Horizontal_boxes 2    // 产生第一个方块时出现的起始位置
+
+#define FgColor 3                           // 前景颜色，如文字。2-green
+#define BgColor 0                           // 背景颜色，0-black
+
+#define LeftWin_x Sys_x + Horizontal * BSIZE + 46   // 右边状态栏的 x 坐标
+
+#define false 0
+#define true 1
+
+// 移动的方向
+#define MoveLeft    1
+#define MoveRight   2
+#define MoveDown    3
+#define MoveRoll    4
+// 以后坐标的每个方块都可以看作像素点是 BSIZE*BSIZE 的正方形
+
+//----------------------------------------------------------------------------------------------------
 // Data Structure Section
 //----------------------------------------------------------------------------------------------------
 struct BOARD        // 游戏底板结构，表示每个点所具有的属性。
