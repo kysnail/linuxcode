@@ -43,4 +43,5 @@
 **传统**的PIC都是通过两片级联的8259A来管理和控制15个由外部设备所产生的中断源。由下图可看到，每片8259A芯片最多可管理8个中断源。但由于两片8259A芯片的级联，即从片的INT输出端与主片的2号（第三条线）中断线相连接，所以总共可以管理15个中断源。
 
 ![Linux_kernel_interrupt_01.png](Linux_kernel_interrupt_01.png)
+![Linux_kernel_interrupt_01.png](https://github.com/kysnail/linuxcode/blob/master/kernelbooks/blog/edsionte/irq/Linux_kernel_interrupt_01.png)
 
