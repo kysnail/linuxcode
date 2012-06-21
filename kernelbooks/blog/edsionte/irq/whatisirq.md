@@ -44,4 +44,5 @@
 
 ![Linux_kernel_interrupt_01.png](Linux_kernel_interrupt_01.png)
 ![Linux_kernel_interrupt_01.png](https://github.com/kysnail/linuxcode/blob/master/kernelbooks/blog/edsionte/irq/Linux_kernel_interrupt_01.png)
+![Linux_kernel_interrupt_01.png](https://github.com/kysnail/linuxcode/raw/6e3c63139065f336656d301844b2eaafdec3b41c/kernelbooks/blog/edsionte/irq/Linux_kernel_interrupt_01.png)
 
