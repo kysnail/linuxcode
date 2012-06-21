@@ -46,3 +46,5 @@
 ![Linux_kernel_interrupt_01.png](https://github.com/kysnail/linuxcode/blob/master/kernelbooks/blog/edsionte/irq/Linux_kernel_interrupt_01.png)
 ![Linux_kernel_interrupt_01.png](https://github.com/kysnail/linuxcode/raw/6e3c63139065f336656d301844b2eaafdec3b41c/kernelbooks/blog/edsionte/irq/Linux_kernel_interrupt_01.png)
 
+    看到说使用 raw 形式的图片，就可以显示了，但是效果还不是很好。
+    因为 URL 地址总带有 SHA 对象名，显得很不爽。
