@@ -66,7 +66,7 @@ struct BOARD        // 游戏底板结构，表示每个点所具有的属性。
 {
     int var;        // 当前状态只有 0 和 1，1 表示此点已被占用。
     int color;      // 颜色，游戏底板的每个点可以拥有不同的颜色，增强美观性。
-}Table_board[Vertical_boxs][Horizontal_boxs];
+}Table_board[Vertical_boxes][Horizontal_boxes];
 
 struct SHAPE
 {
@@ -162,3 +162,32 @@ void EraseBox(int x, int y, int box_numb);
 void show_box(int x, int y, int box_numb, int color);
 int MoveAble(int x, int y, int box_numb, int direction);
 
+//----------------------------------------------------------------------------------------------------
+// main function
+//----------------------------------------------------------------------------------------------------
+void main()
+{
+    int GameOver = 0;
+    int key, nextbox;
+    int Currentaction = 0;      // 标记当前动作状态
+    int gd = VGA, gm = VGAHI, errorcode;
+    initgraph(&gd, &gm, "");
+    errorcode = graphresult();
+
+    if (errorcode != grOk)
+    {
+        printf("\nNotice: Graphics error: %s\n", grapherrormsg(errorcode));
+        printf("Press any key to quit!");
+        getch();
+        exit(1);
+    }
+
+    setbkcolor(BgColor);
+    setcolor(FgColor);
+    randomize();
+    SetTimer(newtimer);             // 设置定时器的中断处理函数
+    initialize(Sys_x, Sys_y, Horizontal_boxes, Vertical_boxes);     // 初始化
+    nextbox = MkNextBox(-1); 
+    
+    // TODO
+}
