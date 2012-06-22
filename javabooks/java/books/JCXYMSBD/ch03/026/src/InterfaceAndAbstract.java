@@ -63,7 +63,7 @@ class Orange extends Fruit implements Packable, Dividable {
 
 public class InterfaceAndAbstract {
 
-   public static void main() {
+   public static void main(String args[]) {
       Apple apple = new Apple();
       Orange orange = new Orange();
 
