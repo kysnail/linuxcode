@@ -26,4 +26,109 @@
 ### 示例代码
 关于水果的抽象类和接口的示例代码：
 
+   /**
+    * 水果类定义了所有水果的共性，比如这里的重量、体积味道等。而水果间的差异，
+    * 比如香蕉可以剥皮，橘子需要分瓣等则需要通过接口定义。剥皮、分瓣的特性可以
+    * 认为是水果子集的共性。
+    */
+   abstract class Fruit {           // 水果类
+      double weight;                // 重量
+      double volume;                // 体积
+      abstract String getTaste();   // 味道
+   }
 
+   /**
+    * 可包装接口
+    * 从感性上可以知道，所有的水果都可以进行包装处理，但"包装"这个动作并不是水
+    * 果的特性，所以这里定义成接口。也就相当于使用了多重继承，又单独继承了一个
+    * 可以包装的类。
+    */
+   interface Packable {
+      void pack();                  
+   }
+
+   /**
+    * 可分瓣接口
+    * 水果"可分瓣"这个特性可以划分出一个水果的子集，比如橘子，柚子等都属于这个
+    * "可分瓣"的子集中。
+    *
+    * 与上面可包装接口的区别在于，可分瓣也属于水果的一个特性吧。
+    */
+   interface Dividable {
+      void dividable(); 
+   }
+
+   /**
+    * 苹果继承自水果类，实现了可包装接口。
+    */
+   class Apple extends Fruit implements Packable {
+      String getTaste() {                 // 实现 getTaste() 方法
+         return "甜";
+      }
+
+      public void pack() {                // 实现包装方法
+         System.out.println("包装苹果！");
+      }
+   }
+
+   /**
+    * 橘子继承自水果类，实现了可包装接口、可分瓣接口。
+    */
+   class Orange extends Fruit implements Packable, Dividable {
+
+      String getTaste() {                       // 实现 getTaste() 方法
+         return "酸";
+      }
+
+      public void pack() {                      // 实现包装方法
+         System.out.println("包装橙子！");
+      }
+
+      public void dividable() {                 // 实现分瓣方法
+         System.out.println("把橙子分瓣！");
+      }
+   }
+
+   public class InterfaceAndAbstract {
+
+      public static void main(String args[]) {
+         Apple apple = new Apple();
+         Orange orange = new Orange();
+
+         System.out.println("Apple taste " + apple.getTaste());
+         System.out.println("Orange taste " + orange.getTaste());
+
+         apple.pack();
+         orange.pack();
+         orange.dividable();
+      }
+   }
+
+   /*
+    * Output:
+    *
+    * Apple taste 甜
+    * Orange taste 酸
+    * 包装苹果！
+    * 包装橙子！
+    * 把橙子分瓣！
+    *
+    */
+
+`抽象类`，通过 `abstract class` 进行定义，它也是一种类，只不过它不可以实例化，例如上例中的 Fruit 类。接口通过 `interface` 进行定义，它不能被直接实例化，实现类通过 `implements` 关键字来声明实现接口，例如，以上代码中的 `Packable` 和 `Dividable` 接口，分别代表水果可包装和可分辨的性质。
+
+### 注意
+
+   如果类包含一个或多个抽象方法时，该类必须声明为抽象类。
+
+在上例中，苹果（Apple）类和橙子（Orange）类是 Fruit 类的实现类，它们都实现了 `Packable` 接口，`Orange` 还实现了 `Dividable` 接口。
+
+   一个实现类只能继承一个抽象类，但可以实现多个接口，这一点也是接口和抽象类最大的区别。
+
+这就好像，一个人只能有一个亲爸爸，但是可以有多个干爸爸一样。这些干爸爸都可以为这个孩子带来一些其他的特性。
+
+### 使用指导
+在许多情况下，接口是可以代替抽象类的，如果不需要刻意表达属性上的继承的话。当然，在开发过程中，应该遵循一下继承的原始含义，的确是继承关系才使用继承，如果不是，则使用接口更为妥当。
+
+### 总结
+抽象类是一种功能不全的类，接口只是一个抽象方法声明和静态不能被修改的数据的集合，两者都不能被实例化。从某种意义上说，接口是一种特殊形式的抽象类，在 Java 语言中，抽象类表示一种继承关系，一个类只能继承一个抽象类，而一个类却可以实现多个接口。

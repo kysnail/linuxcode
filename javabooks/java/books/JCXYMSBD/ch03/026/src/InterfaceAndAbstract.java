@@ -75,3 +75,14 @@ public class InterfaceAndAbstract {
       orange.dividable();
    }
 }
+
+/*
+ * Output:
+ *
+ * Apple taste 甜
+ * Orange taste 酸
+ * 包装苹果！
+ * 包装橙子！
+ * 把橙子分瓣！
+ *
+ */
