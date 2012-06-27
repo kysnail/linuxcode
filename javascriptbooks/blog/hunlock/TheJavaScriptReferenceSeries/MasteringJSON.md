@@ -122,4 +122,14 @@ There's no standard naming convention for these methods, however "assignment met
 
 	document.writeln(someVar.color);			// Outputs 'blue'
 
+#### JSON Via Callback
+The second method calls a pre-defined function and passes the JSON data to that function as the first argument. A good name for this method is the **"callback method"**. This approach is used extensively when dealing with third party JSON files (IE, JSON data from domains you do not control).
 
+	function processData(incommingJSON) {
+		document.writeln(incommingJSON.color);		// Outputs 'blue'
+	}
+
+	// exmple of what is received from the server ...
+	var JSONFile = "processData( { 'color' : 'blue' } )";
+
+	eval(JSONFile);
