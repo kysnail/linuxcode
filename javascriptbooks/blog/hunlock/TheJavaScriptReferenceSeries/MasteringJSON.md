@@ -107,4 +107,19 @@ You can also access JSON data as if it were `Associative Array`.
 
 Be aware that this is **NOT** an associative array, however it appears. If you attempt to loop through myFirstObject you will get, in addition to the three properties above, andy methods or prototypes assigned to the object, so while you're more than free to use thie method of addressign JSON data, just treat it for what it is (Object Properties) and not for what it is not (Associative Array).
 
+### Receiving JSON via AJAX
+There are three seperate ways to receive JSON data via AJAX.
+
+ * Assignment
+ * Callback
+ * Parse
+
+#### JSON Via Assignment
+There's no standard naming convention for these methods, however "assignment method" is a good descriptive name because the file comming in from the server creates a javascript expression which will assign the JSON object to a variable. When the responseText from the server is passed through eval, someVar will be loaded with the JSON object and you can access it from there.
+
+	var JSONFile = "someVar = { 'color' : 'blue' }";	// example of what is received from the server.
+	eval(JSONFile);						// Execute the javascript code contained in JSONFile.
+
+	document.writeln(someVar.color);			// Outputs 'blue'
+
 
