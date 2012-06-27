@@ -8,4 +8,14 @@ Behold, an Object...
 
 It may not look like much, but those squiggly braces have the potential to record every bit of information humanity has ever gathered, and express the most complex programs computer scientists can dream up. In fact, JavaScript itself is stored inside of a set of squiggly braces just like that, as are all of its primitive data types -- strings, numbers, arrays, dates, regular expressions, they're all objects and they all started out just like myFirstObject.
 
+### Creating A New Object
+The old way to create a new object was to use the "new" keyword.
+
+	var myJSON = new Object();
+
+This method has been `deprecated` now in favor of simply defining an empty object with squiggly braces...
+
+	var myJSON = {};
+
+
 
