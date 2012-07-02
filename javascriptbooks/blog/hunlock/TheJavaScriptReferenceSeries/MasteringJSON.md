@@ -213,3 +213,7 @@ The third and final method sends a raw object which must be parsed by a function
 	document.writeln(testObject.color);	// Outputs: Green.
 
 As you can see, you'll need to include the public domain prototype which will parse the JSON data, however once it's included, processing JSON data is as simple as it looks in the last three lines of the above example. Of the three extraction methods, the "parse method" is the most secure and exposes your code to the fewest problems. You should use this method wherever possible in all of your JSON request via AJAX.
+
+	上面的 JSON Via Parse 基本上是 Douglas Crockford 的那个版本。大概的意思是明白了，就差很多细节性的东西了。
+
+
