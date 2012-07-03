@@ -74,6 +74,13 @@ Linux 下连接 MSSQL 的配置过程可以分为两大步：
 	[S1000][unixODBC][FreeTDS][SQL Server]Unable to connect to data source
 	[ISQL]ERROR: Could not SQLConnect	<==== 这个错误就有可能是没有添加 TDS_Version 而产生的。
 	
+	---------------------------------------------------------------------------------------------------
+	[root@bogon bin]# ./isql -v DSNDB sa wan2008
+	[S1000][3w][FreeTDS][SQL Server]Unable to connect to data source
+	[01000][unixODBC][FreeTDS][SQL Server]Adaptive Server connection failed
+	[01000][unixODBC][FreeTDS][SQL Server]Unexpected EOF from the server
+	[ISQL]ERROR: Could not SQLConnect	<==== 这个错误就有可能是没有添加 TDS_Version 而产生的。
+
 
 **Refs**
 
