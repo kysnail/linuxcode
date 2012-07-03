@@ -41,3 +41,23 @@ Usage...
 	var test3 = test.trim();		// retrn "Test"
 
 Trim is so common that it's pretty much a freebie on any Javascript list so we'll count this as zero and give you ten more.
+
+### #1 - Numeric Sort.
+Javascript's Array object has a sort() method, and a pretty quick and fast one at that (at that - 而且). Unfortunately, by defualt, it only sorts alphabetically. Which means if you pass it an array of numbers it will sort the array alphabetically instead of numerically (1,15,100,2,25,200 instead of 1,2,15,25,100,200). This is easy enough to fix however by adding a new method called `sortNum` which will sort a numerical array very nicely.
+
+	Array.prototype.sortNum = function() {
+		return this.sort( function(a, b) { return a - b; });
+	}
+
+Usage...
+
+	var tmp = [5,9,12,18,56,1,10,42,30,7,97,53,33,35,27];
+	tmp = tmp.sortNum();	// returns 1,5,7,9,10,12,18,27,30,33,35,42,53,56,97 
+
+`Array.sort` 方法被设计的具有很强的扩展性，这在其他语言中也有同样的思路。
+
+如果想按照其他标准进行排序，就需要提供比较函数，该函数要比较两个值，然后返回一个用于说明这两个值的相对顺序的数字。比较函数应该具有两个参数 a 和 b，其返回值如下：
+
+ * 若 a 小于 b，在排序后的数组中 a 应该出现在 b 之前，则返回一个小于 0 的值。
+ * 若 a 等于 b，则返回 0。
+ * 若 a 大于 b，则返回一个大于 0 的值。
