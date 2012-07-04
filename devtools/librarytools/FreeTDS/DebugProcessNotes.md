@@ -247,3 +247,111 @@
 			对于数据库着这样的程序，往往还需要标明需要访问的数据库。
 				3. 指定数据库
 		------------------------------------------------------------------------------------------------------
+
+
+### 下面是调试过程中的错误日志信息
+
+	[root@bogon bin]# ./isql -v DSNDB sa wan2008
+	[S1000][3w][FreeTDS][SQL Server]Unable to connect to data source
+	[01000][unixODBC][FreeTDS][SQL Server]Adaptive Server connection failed
+	[01000][unixODBC][FreeTDS][SQL Server]Unexpected EOF from the server
+	[ISQL]ERROR: Could not SQLConnect
+
+	-------------------------------------------------------------------------------------------------------------
+	log info
+	--------
+	[ODBC][22493][1341209787.575498][__handles.c][459]
+			Exit:[SQL_SUCCESS]
+				Environment = 0x8c4ef48
+	[ODBC][22493][1341209787.575518][SQLAllocHandle.c][375]
+			Entry:
+				Handle Type = 2
+				Input Handle = 0x8c4ef48
+	[ODBC][22493][1341209787.575536][SQLAllocHandle.c][493]
+			Exit:[SQL_SUCCESS]
+				Output Handle = 0x8c4f6c8
+	[ODBC][22493][1341209787.575555][SQLConnect.c][3654]
+			Entry:
+				Connection = 0x8c4f6c8
+				Server Name = [DSNDB][length = 5 (SQL_NTS)]
+				User Name = [sa][length = 2 (SQL_NTS)]
+				Authentication = [*******][length = 7 (SQL_NTS)]
+			UNICODE Using encoding ASCII 'ISO8859-1' and UNICODE 'UCS-2LE'
+
+			DIAG [01000] [FreeTDS][SQL Server]Unexpected EOF from the server
+
+			DIAG [01000] [FreeTDS][SQL Server]Adaptive Server connection failed
+
+			DIAG [S1000] [FreeTDS][SQL Server]Unable to connect to data source
+
+	[ODBC][22493][1341209787.578827][SQLConnect.c][4021]
+			Exit:[SQL_ERROR]
+	[ODBC][22493][1341209787.578845][SQLError.c][434]
+			Entry:
+				Connection = 0x8c4f6c8
+				SQLState = 0xbf857b5a
+				Native = 0xbf857b64
+				Message Text = 0xbf857965
+				Buffer Length = 500
+				Text Len Ptr = 0xbf857b6a
+	[ODBC][22493][1341209787.578867][SQLError.c][471]
+			Exit:[SQL_SUCCESS]
+				SQLState = S1000
+				Native = 0xbf857b64 -> 0
+				Message Text = [[unixODBC][FreeTDS][SQL Server]Unable to connect to data source]
+	[ODBC][22493][1341209787.578989][SQLError.c][434]
+			Entry:
+				Connection = 0x8c4f6c8
+				SQLState = 0xbf857b5a
+				Native = 0xbf857b64
+				Message Text = 0xbf857965
+				Buffer Length = 500
+				Text Len Ptr = 0xbf857b6a
+	[ODBC][22493][1341209787.579047][SQLError.c][471]
+			Exit:[SQL_SUCCESS]
+				SQLState = 01000
+				Native = 0xbf857b64 -> 20002
+				Message Text = [[unixODBC][FreeTDS][SQL Server]Adaptive Server connection failed]
+	[ODBC][22493][1341209787.579126][SQLError.c][434]
+			Entry:
+				Connection = 0x8c4f6c8
+				SQLState = 0xbf857b5a
+				Native = 0xbf857b64
+				Message Text = 0xbf857965
+				Buffer Length = 500
+				Text Len Ptr = 0xbf857b6a
+	[ODBC][22493][1341209787.579144][SQLError.c][471]
+			Exit:[SQL_SUCCESS]
+				SQLState = 01000
+				Native = 0xbf857b64 -> 20017
+				Message Text = [[unixODBC][FreeTDS][SQL Server]Unexpected EOF from the server]
+	[ODBC][22493][1341209787.579237][SQLError.c][434]
+			Entry:
+				Connection = 0x8c4f6c8
+				SQLState = 0xbf857b5a
+				Native = 0xbf857b64
+				Message Text = 0xbf857965
+				Buffer Length = 500
+				Text Len Ptr = 0xbf857b6a
+	[ODBC][22493][1341209787.579251][SQLError.c][471]
+			Exit:[SQL_NO_DATA]
+	[ODBC][22493][1341209787.579263][SQLError.c][514]
+			Entry:
+				Environment = 0x8c4ef48
+				SQLState = 0xbf857b5a
+				Native = 0xbf857b64
+				Message Text = 0xbf857965
+				Buffer Length = 500
+				Text Len Ptr = 0xbf857b6a
+	[ODBC][22493][1341209787.579274][SQLError.c][551]
+			Exit:[SQL_NO_DATA]
+	[ODBC][22493][1341209787.579348][SQLFreeHandle.c][286]
+			Entry:
+				Handle Type = 2
+				Input Handle = 0x8c4f6c8
+	[ODBC][22493][1341209787.579362][SQLFreeHandle.c][337]
+			Exit:[SQL_SUCCESS]
+	[ODBC][22493][1341209787.579377][SQLFreeHandle.c][219]
+			Entry:
+				Handle Type = 1
+				Input Handle = 0x8c4ef48

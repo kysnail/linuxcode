@@ -61,3 +61,10 @@ Usage...
  * 若 a 小于 b，在排序后的数组中 a 应该出现在 b 之前，则返回一个小于 0 的值。
  * 若 a 等于 b，则返回 0。
  * 若 a 大于 b，则返回一个大于 0 的值。
+
+### #2 - Formatting Numbers
+Formatting a number with commas is an all-too-often needed ability which is not a part of core language. Here's short and sweet tool that will correct that deficiency and another function to revert the formatted string back into a usuable number. Simply supply a number and an optional prefix ('$' for example) and get back a formatted (or unformatted) string.
+
+	function formatNumber(num, prefix) {
+		prefix = prefix || '';
+	}
