@@ -67,4 +67,23 @@ Formatting a number with commas is an all-too-often needed ability which is not 
 
 	function formatNumber(num, prefix) {
 		prefix = prefix || '';
+		num += '';
+		// 数字以 . 号分隔
+		var splitStr = num.split('.');
+		var splitLeft = splitStr[0];
+		var splitRight = splitStr.length > 1 ? '.' + splitStr[1] : '';
+		// 正则表达式中的圆括号除了能将多个元素组合成一个可统一操作的组合项外，它所括起来的
+		// 表达式部分还成为了一个子匹配（也叫子表达式），也就是说，我们可以用圆括号在一个
+		// 长的正则表达式中划分出子表达式。这样，除了可以得到整个正则表达式的匹配结果外，还可以
+		// 单独得到每个子表达式部分所匹配的结果。
+		http://developer.51cto.com/art/201106/266703.htm
+		var regx = /(\d+)(\d{3})/;
+		while (regx.test(splitLeft)) {
+			splitLeft = splitLeft.replace(regx, '$1' + ',' + '$2');
+		}
+		return prefix + splitLeft + splitRight;
+	}
+
+	function unformatNumber(num) {
+		return num.replace(/([^0-9\.\-])/g, '') * 1;
 	}
