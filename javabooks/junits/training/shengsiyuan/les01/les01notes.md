@@ -64,3 +64,6 @@ JUnit 本身是一个非常小巧的框架，类和方法都比较少，但是�
 ## 我的名言：
 
     No reflection, no most frameworks.
+
+## src
+第一节课演示了在不使用 JUnit 的情况下，如何测试方法是否正确。
