@@ -24,4 +24,23 @@ If you prefer to leave the right Control key alone and use the right "Windows" k
 
 Needless to say, this will only work if your keyboard has a "Windows" key (a distant relative of the infamous "any" key) :)
 
-Note that none of the changes above is permanent. The method to make them permanent will vary according to your distribution of Linux 
+Note that none of the changes above is permanent. The method to make them permanent will vary according to your distribution of Linux and how you invoke X11. In Ubuntu, for instance, all you have to do is to use "pico", "nano", "vi", or your editor of choice to add the lines below to a file called `.profile` under your home directory (create the file, if necessary):
+
+	if [ $DISPLAY ]
+	then
+		# Add the 3 lines below to Convert caps-locks into Control
+		xmodmap -e 'remove Lock = Caps_Lock'
+		xmodmap -e 'keysym Caps_Lock = Control_L'
+		xmodmap -e 'add Control = Control_L'
+
+		# Add the 3 lines below to use the Right-Control as Caps-Lock
+		xmodmap -e 'remove Control = Control_R'
+		xmodmap -e 'keysym Control_R = Caps_Lock'
+		xmodmap -e 'add Lock = Caps_Lock'
+
+		# Or add the 3 lines below to use the right Windows key as Caps-Lock
+		xmodmap -e 'keysym Super_R = Caps_Lock'
+		xmodmap -e 'add Lock = Caps_Lock'
+	fi
+
+Log out of your session and log back in. You should now be able to enjoy your new keyboard layout.
