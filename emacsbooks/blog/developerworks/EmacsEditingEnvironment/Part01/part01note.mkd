@@ -1,0 +1,47 @@
+##Emacs 编辑环境，第 1 部分: 学习 Emacs 的基础知识
+
+### 关于本教程
+本教程的第一部分将重点介绍 Emacs 的历史和起源，并在稍后的部分中阐明如何：
+
+ * 启动和停止 Emacs
+ * 操作并读文件，以便编辑它们
+ * 使用基本的编辑键
+ * 在文档间移动
+ * 使用强大的 Emacs 文件标识例程
+ * 用鼠标进行编辑和选择
+
+### 先决条件
+如果要从本教程中受益，您不一定要了解先前所介绍的那些关于 Emacs 的知识；不过，您应当对文本编辑器和字处理器能做的工作有一个初步的认识。虽然本教程是针对所有程度的 UNIX 专业知识而编写的，但是如果您了解 UNIX 文件系统，会很有帮助，这包括：
+
+ * 文件
+ * 目录
+ * 权限
+ * 文件系统层次结构
+
+### 系统要求
+
+    $ emacs --version
+    GNU Emacs 23.4.1
+    Copyright (C) 2012 Free Software Foundation, Inc.
+    GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+    You may redistribute copies of Emacs
+    under the terms of the GNU General Public License.
+    For more information about these matters, see the file named COPYING.
+
+### 介绍 Emacs 的编辑环境
+Emacs 这个名字已经成为专有名词，但它最初是一个首字母缩写词，代表 Editing MACros；Stallman 最初实现的是用 TECO 语言写成的一组宏。Emacs 现在是用 Emacs Lisp 编写的，后者是一种优雅的高级编程语言。
+
+Emacs 被称为一个编辑环境，因为它不仅仅是一个普通意义上的、用于纯文本编辑的编辑器。许多管理员和开发人员在各种平台上用它来编译和调试程序、管理电子邮件、在系统中操作文件、运行 shell 命令，以及完成很多其他工作。人们甚至用它在 Usenet 新闻组中进行交流，还用它来浏览网页。扩展包和内置插件可以处理从 Internet 中继聊天 (Internet Relay Chat, IRC) 和发送消息到网络通信的各种情况。一个流传很久的 UNIX 笑话是这样说的：“如果 Emacs 环境里有一个好的编辑器的话，它就不至于这么糟糕了。”
+
+因为很多任务都可以用 Emacs 来完成，所以它也有自己的词汇表，当您在这一部分中深入了解典型的 Emacs 窗口时，您将学到这些词汇。这一部分还介绍了如何启动和停止 Emacs，以及如何键入各种命令。
+
+#### 启动 Emacs
+
+    $ emacs
+
+您还可以指定让它在某个终端窗口打开（如图 1 所示），方法是使用 -nw 选项。乍一看，Emacs 的这两个视图似乎是不同的应用程序，但两者只有表面的差别。它们仅有的真正不同之处在于缺省的颜色、X 客户端显示的图形徽标，以及 X 客户端顶部附近的图标组（包含某些最常用命令的快捷方式）。两者的文本功能和 X 版本是一模一样的。
+
+    $ emacs -nw
+
+#### Emacs 窗口剖析
+
