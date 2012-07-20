@@ -270,4 +270,76 @@ reset
 
     PS1="[\u@\h:\W\[\033[0;32m\]\$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')\033[0m]\$ "
 
+有趣的 \\ 文件
+--------------
+查看我的笔记目录
+
+::
+
+        [kangyushi@fedora16 linuxcode]$ ll
+        total 112
+        -rw-r--r--  1 kangyushi ie2  921 Jul 17 16:28 \
+        drwxr-xr-x  4 kangyushi ie2 4096 Jul 10 15:10 algorithmbooks
+        drwxr-xr-x  3 kangyushi ie2 4096 Jun 11 16:25 assemblybooks
+        .....
+
+第一个居然是名为 \ 的文件夹。查看其内容：
+
+::
+
+        $ vim \\
+        --------
+        1 开启 KVM 支持。
+        2 # Please enter the commit message for your changes. Lines starting
+        3 # with '#' will be ignored, and an empty message aborts the commit.
+        4 # On branch master
+        5 # Changes to be committed:
+        6 #   (use "git reset HEAD <file>..." to unstage)
+        7 #
+        8 #       new file:   qemu-kvm-support.md
+        9 #
+        10 diff --git a/kernelbooks/qemu/qemu-kvm-support.md b/kernelbooks/qemu/qemu-kvm-support.md
+        11 new file mode 100644
+        12 index 0000000..e2df2a8
+        13 --- /dev/null
+        14 +++ b/kernelbooks/qemu/qemu-kvm-support.md
+        15 @@ -0,0 +1,15 @@
+        16 +## 开启 KVM 支持
+        17 +
+        18 +### 编译时，添加如下选项：
+        19 +
+        20 +       $ tar zxvf qemu-1.0.1.tar.gz &&
+        21 +       cd qemu-1.0.1 &&
+        22 +       mkdir mybin &&
+        23 +       ./configure --prefix=`pwd`/mybin --enable-kvm &&   <== --enable-kvm 开启 kvm 支持。
+        24 +       make && make install
+        25 +
+        26 +### 启动时，添加下列选项：
+        27 +
+        28 +       # ./qemu-system-x86_64 
+        29 +       -hda /media/a7bea563-2e18-46c4-8701-cd2209737bf1/share/qemu-img/debian.img
+        30 +       -machine accel=kvm
+
+显示为上一次的 commit 消息，具体怎么来的不知道，但文件名，内容却都很有意思。
+
+使用 `git st` 命令查看时，也会提示为 untracked 文件：
+
+::
+
+        [kangyushi@fedora16 linuxcode]$ git status
+        # On branch master
+        # Your branch is ahead of 'origin/master' by 1 commit.
+        #
+        # Changes not staged for commit:
+        #   (use "git add <file>..." to update what will be committed)
+        #   (use "git checkout -- <file>..." to discard changes in working directory)
+        #
+        #       modified:   gitbooks/GIT/mygitnotes/mygitnotes.rst
+        #
+        # Untracked files:
+        #   (use "git add <file>..." to include in what will be committed)
+        #
+        #       "\\"
+        #       linuxbooks/Debian/debian-apt-get-notes.md
+        no changes added to commit (use "git add" and/or "git commit -a")
 
