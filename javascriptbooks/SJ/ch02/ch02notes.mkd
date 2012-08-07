@@ -1,7 +1,7 @@
 ## Chapter 2 - Programming with JavaScript
 
 ### 2.1 Running a JavaScript Program
-To include some JavaScript on an HTML page, we have to include a <script> tag inside the head of the document. A script doesn't necessarily have to be JavaScript, so we need to tell the browser what type of script we're including by adding **type attribute** with a value of **text/javascript**:
+To include some JavaScript on an HTML page, we have to include a `<script>` tag inside the head of the document. A script doesn't necessarily have to be JavaScript, so we need to tell the browser what type of script we're including by adding **type attribute** with a value of **text/javascript**:
 
 	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN""
 	"http://www.w3.org/TR/html4/strict.dtd">
@@ -110,18 +110,4 @@ In object literal syntax, we represent a new object with curly braces; inside th
 Object literal syntax can be a little difficult to read once you've been using the standard assignment syntax for a while, but it is slightly more succinct.
 
 We're going to use this object literal syntax throught this book to create neatly self-contained packages of functionality that you can easily transport from page to page.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
