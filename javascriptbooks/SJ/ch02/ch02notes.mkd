@@ -57,8 +57,22 @@ If you need to write a more sizable comment, you can use a multi-line comment, s
 ### Variables: Sorting Data for you Program
 The approach you use to name variables really comes down to personal preference, and which name style you find more readable. I use camel casing because some long-forgotten lecturer beat it into me with a big plank.
 
+#### Variable Types: Different Types for Different Data
+A lot of programming languages feature **strictly typed** variables. With these, you have to tell the program what type of data the variable is goint to hold when it's declared, and you can't change a variable's type once it has been created.
 
+JavaScript, however, is **loosely typed** - the language doesn't care _what_ your variables hold. A variable could start off holding a number, then change to holding a character, a word, or anything else you want it to hold.
 
+Even thought you don't have to declare the data type up front, it's still vital to know what type of data a variable can store, so that you can use and manipulate them properly inside your own programs. In JavaScript, you can work with numbers, strings, Booleans, arrays and objects. We'll take a look at the first four of these types now, but you'll have to wait till the end of the chapter to read about objects, because  they're a bit trickier.
+
+#### Numbers
+
+#### Strings
+
+#### Booleans
+
+#### Arrays
+
+#### Associative Arrays
 
 
 
