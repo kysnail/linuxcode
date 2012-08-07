@@ -54,7 +54,8 @@ If you need to write a more sizable comment, you can use a multi-line comment, s
     Statement one;	// I'm especially proud of thie one
     Statement 2.0;
 
-
+### Variables: Sorting Data for you Program
+The approach you use to name variables really comes down to personal preference, and which name style you find more readable. I use camel casing because some long-forgotten lecturer beat it into me with a big plank.
 
 
 
