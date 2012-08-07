@@ -41,6 +41,18 @@ It is generally considered best practice, however, to do both - separate stateme
 
 This way, each of your statements will be easy to read, and you'll have removed the potential for any ambiguity that might occur if two statements accidentally run together.
 
+### Comments: Bite-sized Chunks Just for You
+JavaScript supports two types of comments. The first is a single-line comment, which begins with two slashes (//) and runs to the end of thel ine:
+
+    Statement one;	// I'm especially proud of thie one
+    Statement 2.0;
+
+If you need to write a more sizable comment, you can use a multi-line comment, starting with `/*` and ending with `*/`:
+
+    /* This is my first JavaScript program. Please forgive any mistakes you might find here.
+       If you have any suggestions, wirte to n00b@example.com. */
+    Statement one;	// I'm especially proud of thie one
+    Statement 2.0;
 
 
 
