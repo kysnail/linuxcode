@@ -74,9 +74,42 @@ Even thought you don't have to declare the data type up front, it's still vital 
 
 #### Associative Arrays
 
+### Objects
+可以说这是本章最重要的知识点了。对象创建方式有两种，分别为:
 
+ * Standard Assignment Syntax
+ * Object Literal Syntax
 
+#### Standard Assignment Syntax
 
+    var Robot = new Object();
+    
+    Robot.metal = "Titanium";
+    Robot.killAllHumans = function()
+    {
+        alert("Exterminate!");
+    };
+    
+    Robotl.killAllHumans();
+
+#### Object Literal Syntax
+
+    var Robot = 
+    {
+        metal: "Titanium",
+        killAllHumans: function()
+        {
+            alert("Exterminate!");
+        }
+    };
+    
+Rather than first creating an empty object and then populating it with properties and methods using a series of assignment statements, **object literal syntax** lets you create the object and its conents with a single statement.
+
+In object literal syntax, we represent a new object with curly braces; inside those braces, we list the properties and methods of the object, separated by commas. For each property and method, we assign a value using a colon (:) instead of the assignment operator.
+
+Object literal syntax can be a little difficult to read once you've been using the standard assignment syntax for a while, but it is slightly more succinct.
+
+We're going to use this object literal syntax throught this book to create neatly self-contained packages of functionality that you can easily transport from page to page.
 
 
 
