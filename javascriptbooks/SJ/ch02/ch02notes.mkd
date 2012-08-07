@@ -22,4 +22,46 @@ To include some JavaScript on an HTML page, we have to include a <script> tag in
  * It makes it easier to maintain your web pages.
  * It allows you to easily reuse the same JavaScript programs on different pages of your site.
 
+### Statements: Bite-sized Chunks for your Browser
+语句 给浏览器看的最小程序块
+
+In JavaScript each statement has to be separated by a new line or a semicolon. So two statements could be written like this:
+
+    Statement one
+    Statement 2.0
+
+Or they could be written like this:
+
+    Statement one; Statement 2.0;
+
+It is generally considered best practice, however, to do both - separate statements by a semicolon and a new line:
+
+    Statement one;
+    Statement 2.0;
+
+This way, each of your statements will be easy to read, and you'll have removed the potential for any ambiguity that might occur if two statements accidentally run together.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
