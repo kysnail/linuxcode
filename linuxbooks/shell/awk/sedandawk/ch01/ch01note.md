@@ -40,3 +40,12 @@ awk 实际上就是 **模式匹配的程序设计语言** 。它相对于 sed �
  * Process command-line arguments more gracefully.
  * Work more easily with multiple input streams.
 
+### Four Hurdles to Mastering sed and awk
+掌握 sed 和 awk 需要注意下面的 4 点内容：
+
+ 1. How to use sed and awk.
+ 2. To apply UNIX regular expression syntax.
+ 3. How to interact with the shell.
+ 4. The knack of script writing.
+
+
