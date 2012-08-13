@@ -24,4 +24,19 @@ sed 的功能很强大，本小节讲述了 sed 在很多方面的强大功能�
     2. To Simply the task of performing the same edits on multiple files.
     3. To write conversion programs.
 
+### A Pattern-Matching Programming Language
+awk 实际上就是 **模式匹配的程序设计语言** 。它相对于 sed 来说，提供了一种更加通用的计算模型，怎么理解呢？sed 所做的操作与在编辑器中引用编辑命令是类似的，但 sed 将你限制在了文本编辑器所能应用的命令这个范文内。而 awk 则没有这种要求。
+
+简单写一些 awk 能够完成的功能：
+
+ * View a text file as a textual databse made of records and fileds.
+ * Use variables to manipulate the database.
+ * Use arithmetic and string operators.
+ * Use common programming constructs such as loops and conditionals.
+ * Generate formated reports.
+ * Define functions.
+ * Execute UNIX commands from a script.
+ * Process the result of UNIX commands.
+ * Process command-line arguments more gracefully.
+ * Work more easily with multiple input streams.
 
