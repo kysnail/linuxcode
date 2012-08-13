@@ -107,7 +107,11 @@ ex 是 ed 特征的扩展集。
 
     输出当前行的内容。
 
+之前就了解过，`grep` 命令源于 `ed` 命令，通过这里的练习，才有了一个直观、实际的操作体验。才理解了：
 
+    The familiar UNIX utility grep is derived from the following global command in ed:
 
+        g/re/p
 
+它表示 **全局正则表达式打印 - global regular expression print**。
 
