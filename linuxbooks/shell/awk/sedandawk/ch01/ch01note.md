@@ -14,3 +14,14 @@ sed & awk 对于进行文本处理工作的人，可谓一把利器啊。
         (c) 查找列表中的名字并用其定义代替它。
 
 当然，实际中到底使用 sed 还是 awk ，还要依据具体情况而定。
+
+### A Stream Editor
+sed 的功能很强大，本小节讲述了 sed 在很多方面的强大功能，但由于对这些功能还未有相应的实际操作体验，所以这里就不技术可以应用的地方，否则就成了抄书了。
+
+稍微总结一下 sed 的功能：
+
+    1. To automate editing actions to be performed on one or more files.
+    2. To Simply the task of performing the same edits on multiple files.
+    3. To write conversion programs.
+
+
