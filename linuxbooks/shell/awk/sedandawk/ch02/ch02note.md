@@ -130,5 +130,25 @@ ex 是 ed 特征的扩展集。
 
     A procedure specifies one or more actions to be performed.
 
+#### Sample Mailing List
 
+    John Daggett, 341 King Road, Plymouth MA
+    Alice Ford, 22 East Broadway, Richmond VA
+    Orville Thomas, 11345 Oak Bridge Road, Tulsa OK
+    Terry Kalkas, 402 Lans Road, Beaver Falls PA
+    Eric Adams, 20 Post Road, Sudbury MA
+    Hubert Sims, 328A Brook Road, Roanoke VA
+    Amy Wilde, 334 Bayshore Pkwy, Mountain View CA
+    Sal Carpenter, 73 6th Street, Boston MA
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
