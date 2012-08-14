@@ -115,3 +115,20 @@ ex 是 ed 特征的扩展集。
 
 它表示 **全局正则表达式打印 - global regular expression print**。
 
+### Command-Line Syntax
+
+    command [options] script filename
+
+#### Scripting
+在 sed 和 awk 中，每个指令都有两个部分所组成：
+
+**pattern**
+
+    The pattern is a regular expression delimited with slashes (/).
+
+**procedure**
+
+    A procedure specifies one or more actions to be performed.
+
+
+
