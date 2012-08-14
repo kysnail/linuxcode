@@ -235,8 +235,27 @@ Press RETURN after entering a single quote and a secondary prompt (>) will be di
     
 需要注意的是，上面的这种方式在 C shell 中不能使用。并且上面的操作并不会对源文件产生影响。    
     
+#### Command garbled
+对于错误的命令 sed 并没有错误提示信息，而仅仅是将有问题的行原样输出。而 GNU sed 就会给出更清晰的提示：
+
+    [08/14/12-20:20:38][jobs:0][kangyushi@fedora16:~/sedawk2progs/ch02]
+    ==$ sed --version
+    GNU sed version 4.2.1
+    Copyright (C) 2009 Free Software Foundation, Inc.
+    This is free software; see the source for copying conditions.  There is NO
+    warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE,
+    to the extent permitted by law.
     
+    GNU sed home page: <http://www.gnu.org/software/sed/>.
+    General help using GNU software: <http://www.gnu.org/gethelp/>.
+    E-mail bug reports to: <bug-gnu-utils@gnu.org>.
+    Be sure to include the word ``sed'' somewhere in the ``Subject:'' field.
     
+    [08/14/12-20:20:38][jobs:0][kangyushi@fedora16:~/sedawk2progs/ch02]
+    ==$ sed -e 's/MA/Massachusetts' list
+    sed: -e expression #1, char 18: unterminated `s' command    
+    
+
     
     
 
