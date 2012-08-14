@@ -141,11 +141,99 @@ ex 是 ed 特征的扩展集。
     Amy Wilde, 334 Bayshore Pkwy, Mountain View CA
     Sal Carpenter, 73 6th Street, Boston MA
 
+### Using sed
+使用 sed 有两种方式：
 
+ 1. Specify your editing instructions on the command line;
+ 2. You put them in a file and supply the name of the file.
+
+#### Specifying Simple Instructions
+对于简单的替换操作，可以使用这种方式：
+
+    sed [-e] 'instruction' file
+
+    -e - this option is necessary only when you supply more than one instruction on the command line.
+
+**Demo**
+
+    [08/14/12-20:20:38][jobs:0][kangyushi@fedora16:~/sedawk2progs/ch02]
+    ==$ sed 's/MA/Massachusetts/' list 
+    John Daggett, 341 King Road, Plymouth Massachusetts
+    Alice Ford, 22 East Broadway, Richmond VA
+    Orville Thomas, 11345 Oak Bridge Road, Tulsa OK
+    Terry Kalkas, 402 Lans Road, Beaver Falls PA
+    Eric Adams, 20 Post Road, Sudbury Massachusetts
+    Hubert Sims, 328A Brook Road, Roanoke VA
+    Amy Wilde, 334 Bayshore Pkwy, Mountain View CA
+    Sal Carpenter, 73 6th Street, Boston Massachusetts
+
+上面这条指令，修改了三行内容，但显示了所有的文本行。
+
+命令用单引号引起来，这是一个好习惯，要保持。
+
+**Demo**
+
+上面的命令可以不使用 `单引号 分隔，但下面的这条指令必须使用单引号。
+
+    [08/14/12-20:20:38][jobs:0][kangyushi@fedora16:~/sedawk2progs/ch02]
+    ==$ sed 's/ MA/, Massachusetts/' list 
+    John Daggett, 341 King Road, Plymouth, Massachusetts
+    Alice Ford, 22 East Broadway, Richmond VA
+    Orville Thomas, 11345 Oak Bridge Road, Tulsa OK
+    Terry Kalkas, 402 Lans Road, Beaver Falls PA
+    Eric Adams, 20 Post Road, Sudbury, Massachusetts
+    Hubert Sims, 328A Brook Road, Roanoke VA
+    Amy Wilde, 334 Bayshore Pkwy, Mountain View CA
+    Sal Carpenter, 73 6th Street, Boston, Massachusetts
+
+如果我们想在命令行方式上指定多重指令，有三种方式可以选择：
+
+**1. Seperate instructions with a semicolon.**
+
+    [08/14/12-20:20:38][jobs:0][kangyushi@fedora16:~/sedawk2progs/ch02]
+    ==$ sed 's/ MA/, Massachusetts/;s/ PA/, Pennsylvania/' list 
+    John Daggett, 341 King Road, Plymouth, Massachusetts
+    Alice Ford, 22 East Broadway, Richmond VA
+    Orville Thomas, 11345 Oak Bridge Road, Tulsa OK
+    Terry Kalkas, 402 Lans Road, Beaver Falls, Pennsylvania
+    Eric Adams, 20 Post Road, Sudbury, Massachusetts
+    Hubert Sims, 328A Brook Road, Roanoke VA
+    Amy Wilde, 334 Bayshore Pkwy, Mountain View CA
+    Sal Carpenter, 73 6th Street, Boston, Massachusetts
+
+**2. Precede each instruction by -e.**
+
+    [08/14/12-20:20:38][jobs:0][kangyushi@fedora16:~/sedawk2progs/ch02]
+    ==$ sed -e 's/ MA/, Massachusetts/' -e 's/ PA/, Pennsylvania/' list
+    John Daggett, 341 King Road, Plymouth, Massachusetts
+    Alice Ford, 22 East Broadway, Richmond VA
+    Orville Thomas, 11345 Oak Bridge Road, Tulsa OK
+    Terry Kalkas, 402 Lans Road, Beaver Falls, Pennsylvania
+    Eric Adams, 20 Post Road, Sudbury, Massachusetts
+    Hubert Sims, 328A Brook Road, Roanoke VA
+    Amy Wilde, 334 Bayshore Pkwy, Mountain View CA
+    Sal Carpenter, 73 6th Street, Boston, Massachusetts
     
+**3. Use the multiline entry capability of the Bourne shell.** 
+
+Press RETURN after entering a single quote and a secondary prompt (>) will be displayed for multiline input.
+
+    Sal Carpenter, 73 6th Street, Boston, Massachusetts
     
+    [08/14/12-20:20:38][jobs:0][kangyushi@fedora16:~/sedawk2progs/ch02]
+    ==$ sed '
+    > s/ MA/, Massachusetts/
+    > s/ PA/, Pennsylvania/
+    > s/ CA/, California/' list
+    John Daggett, 341 King Road, Plymouth, Massachusetts
+    Alice Ford, 22 East Broadway, Richmond VA
+    Orville Thomas, 11345 Oak Bridge Road, Tulsa OK
+    Terry Kalkas, 402 Lans Road, Beaver Falls, Pennsylvania
+    Eric Adams, 20 Post Road, Sudbury, Massachusetts
+    Hubert Sims, 328A Brook Road, Roanoke VA
+    Amy Wilde, 334 Bayshore Pkwy, Mountain View, California
     
-    
+需要注意的是，上面的这种方式在 C shell 中不能使用。并且上面的操作并不会对源文件产生影响。    
     
     
     
