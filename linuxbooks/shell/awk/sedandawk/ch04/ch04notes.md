@@ -2,6 +2,8 @@
 
 ### Applying Commands in a Script
 
+**src/01**
+
 	==$ tree
 	.
 	├── out
@@ -43,3 +45,6 @@
 **Execute following:**
 
 	$ sed -f replace-sed sampletext.txt > out
+
+#### The Pattern Space
+
