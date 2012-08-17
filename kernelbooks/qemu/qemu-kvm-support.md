@@ -13,3 +13,5 @@
 	# ./qemu-system-x86_64 
 	-hda /media/a7bea563-2e18-46c4-8701-cd2209737bf1/share/qemu-img/debian.img 
 	-machine accel=kvm     
+
+`-machine accel=kvm` 作为一个整体出现。
