@@ -29,5 +29,11 @@
 
 	#endif
 
+#### 3.6 lseek Function
+How to determine the current *offset*.
 
+	off_t 	currpos;
+	currpos = lseek(fd, 0, SEEK_CUR);
+
+This technique can also be used to determine if a file is capable of seeking.
 	
