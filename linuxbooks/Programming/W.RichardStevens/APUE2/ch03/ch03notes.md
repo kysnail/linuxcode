@@ -36,4 +36,49 @@ How to determine the current *offset*.
 	currpos = lseek(fd, 0, SEEK_CUR);
 
 This technique can also be used to determine if a file is capable of seeking.
+
+**Demo - Test whether standard input is capable of seeking.**
+
+	src/fig3.1.c
+
+**Execution**
+
+	==$ ./a.out 
+	cannot seek
+
+	==$ ./a.out < /etc/mo
+	modprobe.d/     modules-load.d/ mono/           motd
+
+	==$ ./a.out < /etc/motd 
+	seek OK
+
+	==$ cat < /etc/motd | ./a.out 
+	cannot seek
+
+	==$ ./a.out < /var/spool/cron/FIFO
+	-bash: /var/spool/cron/FIFO: Permission denied
 	
+##### Figure 3.2 Create a file with a hole in it 
+
+**Demo**
+
+	src/fig3.2.c
+	src/err.c
+
+**Execution**
+
+	==$ od -c file.hole   
+	0000000   a   b   c   d   e   f   g   h   i   j  \0  \0  \0  \0  \0  \0
+	0000020  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0  \0
+	*
+	0040000   A   B   C   D   E   F   G   H   I   J
+	0040012
+
+**od** command look at the contents of the file. The **-c** flag tells it to print the constents as characters.
+
+compare the file we've just create with a file of the same size, but without holes.
+
+	==$ ll -s file.hole file.nohole 
+	 8 -rw-r--r-- 1 kangyushi ie2 16394 Aug 17 21:23 file.hole
+	20 -rw-r--r-- 1 kangyushi ie2 16394 Aug 17 21:28 file.nohole
+
