@@ -92,3 +92,20 @@ compare the file we've just create with a file of the same size, but without hol
 
 1. In ISO C: the type `void *` is used for generic pointers.
 2. `ssize_t` -> signed integer & `size_t` -> unsigned integer.
+
+#### 3.10 File Sharing
+
+ * process table -> process table entry
+ * file table -> file table entry
+ * file descriptor -> file table entry
+ * file status flags
+ * v-node vs i-node
+ * lseek & `O_APPEND`
+
+上面几个概念是本节需要注意区分的。
+
+还有一句，不太好理解，估计需要后续的知识补充。
+
+	Note the difference in scope between the file descriptor flags and the file status flags.
+	The formor apply only to a single descriptor in a single process, whereas the latter apply to
+	all descriptors in any process that point to the given file table entry.
