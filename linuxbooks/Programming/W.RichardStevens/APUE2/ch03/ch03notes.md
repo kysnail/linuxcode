@@ -109,3 +109,19 @@ compare the file we've just create with a file of the same size, but without hol
 	Note the difference in scope between the file descriptor flags and the file status flags.
 	The formor apply only to a single descriptor in a single process, whereas the latter apply to
 	all descriptors in any process that point to the given file table entry.
+
+#### 3.11 Atomic Operations
+
+##### Appending to a File
+为什么需要 Atomic Operations ？
+
+	任何一个需要多个函数调用的操作都不可能是原子操作，因为在两个函数调用之间，内核有可能
+	会临时挂起该进程。正是由于这种逻辑上的问题，才需要针对这种多函数调用的情况进行原子化处理。
+
+对于 `O_APPEND` 模式写文件的操作，UNIX 系统提供了一种机制，帮助实现原子操作，即在 open 文件时，指定 `O_APPEND` 模式。
+
+##### Creating a File
+调用 open 函数的 `O_CREAT` 和 `O_EXCL` 创建文件时，实际上系统是将其作为一个原子操作存在的。
+
+##### Atomic Operation
+In general, the term *atomic* operation refers to an operation that might be composed of multiple steps. If the operation perfomed atomically, either all the steps are performed, or none are performed. It must not be possible for a subset of the steps to be performed. 
