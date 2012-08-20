@@ -133,3 +133,17 @@ In general, the term *atomic* operation refers to an operation that might be com
 	the same file table entry as the filedes argument.
 
 `dup` & `dup 所做的工作也可以由 `fcntl` 函数完 他们之间的区别也在于是否能够保证 Atomic 。
+
+#### 3.13 sync, fsync, and fdatasync Functions
+传统的 UNIX 系统上，Linux 的 I/O 操作分为三个阶段：
+
+ 1. 将文件写入 kernel 中的 buffer cache 或 page cache；
+ 2. 将 cache 中的文件写入输出队列 - `delayed write`；
+ 3. 当满足一定规则时， 才真正写入磁盘。
+
+既然分为了三部分进行操作，那必然也会遇到 Atomic Operation 的问题。为了解决实际文件系统与高速缓存的一致性问题，引入了上面三个函数。
+
+ 1. sync -> 强制完成第二步，将文件写入输出队列；
+ 2. fsync -> 强制完成第二、三步，将文件写入磁盘；
+ 3. fdatasync -> 与 fsync 的功能类似，但是不会同步更新文件属性。
+
