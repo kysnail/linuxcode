@@ -147,3 +147,32 @@ In general, the term *atomic* operation refers to an operation that might be com
  2. fsync -> 强制完成第二、三步，将文件写入磁盘；
  3. fdatasync -> 与 fsync 的功能类似，但是不会同步更新文件属性。
 
+#### 3.14 fcntl Function
+
+##### Figure 3.10. Print the file flags for specified descriptor
+**Execution**
+
+    src/fig3.10.c 
+    gcc fig3.10.c err.c
+    -------------------------------------------------
+    ==$ ./a.out 0 < /dev/tty
+    read only
+    
+    ==$ ./a.out 1 > temp.foo
+    ==$ cat temp.foo 
+    write only
+    
+    ==$ ./a.out 2 2>>temp.foo 
+    write only, append
+    
+    ==$ ./a.out 5 5<>temp.foo 
+    read write
+    
+这里需要注意最后一条指令：
+
+	The clause 5<>temp.foo opens the file temp.foo for reading and writing on the file descriptor 5.
+
+##### Figure 3.11. Turn on one or more of the file status flags for a descriptor
+本节相对比较难理解，需要后面在返回来看。
+
+	src/fig3.11.c
