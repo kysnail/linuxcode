@@ -125,3 +125,11 @@ compare the file we've just create with a file of the same size, but without hol
 
 ##### Atomic Operation
 In general, the term *atomic* operation refers to an operation that might be composed of multiple steps. If the operation perfomed atomically, either all the steps are performed, or none are performed. It must not be possible for a subset of the steps to be performed. 
+
+#### 3.12 dup and dup2 Functions
+`dup` & `dup2` 
+
+	The new file descriptor that is returned as the value of the functions shares 
+	the same file table entry as the filedes argument.
+
+`dup` & `dup 所做的工作也可以由 `fcntl` 函数完 他们之间的区别也在于是否能够保证 Atomic 。
