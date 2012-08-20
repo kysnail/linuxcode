@@ -82,3 +82,13 @@ compare the file we've just create with a file of the same size, but without hol
 	 8 -rw-r--r-- 1 kangyushi ie2 16394 Aug 17 21:23 file.hole
 	20 -rw-r--r-- 1 kangyushi ie2 16394 Aug 17 21:28 file.nohole
 
+#### 3.7 read Function
+
+	#inlcude <unistd.h>
+	
+	ssize_t read(int filedes, void *buf, size_t nbytes)
+
+本节有两点需要注意：
+
+1. In ISO C: the type `void *` is used for generic pointers.
+2. `ssize_t` -> signed integer & `size_t` -> unsigned integer.
