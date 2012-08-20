@@ -83,3 +83,10 @@ UNIX 系统的文件类型有：
     #define S_IXOTH 00001
     
     #endif
+
+## 4.4. Set-User-ID and Set-Group-ID
+本节需要注意下面这点内容：
+
+	Because a process that is running set-user-ID to some other user usually assumes extra
+	permissions, it must be written carefully.
+
