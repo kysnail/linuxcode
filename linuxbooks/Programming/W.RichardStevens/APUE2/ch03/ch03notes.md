@@ -176,3 +176,6 @@ In general, the term *atomic* operation refers to an operation that might be com
 本节相对比较难理解，需要后面在返回来看。
 
 	src/fig3.11.c
+
+#### 3.15 ioctl Function
+之前做项目时，遇到过 ioctl 的使用。除了 ioctl 函数所必需的头文件之外，通常还需要定义另外设备的专用头文件。
