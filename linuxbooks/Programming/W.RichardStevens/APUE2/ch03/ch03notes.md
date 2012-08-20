@@ -179,3 +179,25 @@ In general, the term *atomic* operation refers to an operation that might be com
 
 #### 3.15 ioctl Function
 之前做项目时，遇到过 ioctl 的使用。除了 ioctl 函数所必需的头文件之外，通常还需要定义另外设备的专用头文件。
+
+#### 3.16 /dev/fd
+这里学到了第三种创建文件的方式：
+
+	we can also call creat with a /dev/fd pathname argument, as well as specifying O_CREAT in 
+	a call to open.
+
+实际上这种方式与我们通常见到的 /dev/stdin 是一致的。
+
+	/dev/stdin         -> /dev/fd/0
+	/dev/stdout        -> /dev/fd/1
+	/dev/stderr        -> /dev/fd/2
+
+这种方式主要用在 shell 中，它可以将 **standard input** 和 **standard output** 以 **路径名参数** 的方式使用。比如下面的例子：
+
+	filter file2 | cat file1 - file3 | lpr
+	<==>
+	filter file2 | cat file1 /dev/fd/0 file3 | lpr
+
+这种方式的好处是提供了操作上的一致性。
+
+	Using /dev/fd is a step toward uniformity and cleanliness.
