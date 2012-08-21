@@ -105,3 +105,16 @@ UNIX 系统的文件类型有：
 	effective group ID), and the supplementary group IDs of the process, if supported. The owner IDs are 
 	properties of the file, whereas the two effective IDs and the supplementary group IDs are properties of 
 	the process. 
+
+## 4.6. Ownership of new Files and Directories
+直观理解，那个进程创建了文件/目录，当然相应的权限模式就应该与创建进行相同了。但是对于文件的组 ID 则有不同的实现方式：
+
+ 1. The group ID of a new file can be the effective group ID of the process.
+ 2. The group ID of a new file can be the group ID of the directory in which the file is being created.
+
+在 Linux 中，两种方式都可以，只需要设置相应的标志位即可。一个使用了第二种模式的例子便是：
+
+	/var/spool/mail
+
+
+
