@@ -96,3 +96,12 @@ UNIX 系统的文件类型有：
 	/etc/shadow
 
 类文件而存在的。
+
+## 4.5 File Access Permissions
+进程每次打开、创建或删除一个文件时，内核就会进行文件访问权限测试，这一点需要注意。
+
+	The file access tests that the kernel performs each time a process open, creates, or deletes a file depend
+	on the owners of the file (st_uid and st_gid), the effective IDs of the process (effective user ID and 
+	effective group ID), and the supplementary group IDs of the process, if supported. The owner IDs are 
+	properties of the file, whereas the two effective IDs and the supplementary group IDs are properties of 
+	the process. 
