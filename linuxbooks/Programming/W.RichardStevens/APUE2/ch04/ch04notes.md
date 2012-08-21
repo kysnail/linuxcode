@@ -90,3 +90,9 @@ UNIX 系统的文件类型有：
 	Because a process that is running set-user-ID to some other user usually assumes extra
 	permissions, it must be written carefully.
 
+它的意思简单来说就是，当设置了正确的标志位后，普通用户就有可能获取超越其规定权限的可能。这是为了应对诸如
+
+	/etc/passwd
+	/etc/shadow
+
+类文件而存在的。
