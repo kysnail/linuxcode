@@ -116,5 +116,64 @@ UNIX 系统的文件类型有：
 
 	/var/spool/mail
 
+## 4.7. access Function
+access 函数也进行访问权限测试，但与 4.5 节所讲的 File Access Permissions 稍有不同。
 
+access 函数是按实际用户 ID 和实际组 ID 进行访问权限测试的，相应的测试也分为 4 步。
 
+**Execution**
+
+	src/fig4.8.c
+	gcc fig4.8.c err.c 
+	--------------------------------------------------------------------------------------------------
+	==$ ls -l a.out 
+	-rwxr-xr-x 1 kangyushi ie2 10151 Aug 22 09:31 a.out
+
+	==$ ./a.out a.out 
+	read access OK
+	open for reading OK
+
+	==$ ls -l /etc/shadow
+	---------- 1 root root 2031 Aug  2 15:51 /etc/shadow
+
+	==$ ./a.out /etc/shadow
+	access error for /etc/shadow: Permission denied
+	open error for /etc/shadow: Permission denied
+
+	==$ su                                               <-- become superuser
+	Password:                                            <-- enter superuser password
+	[root@fedora16 src]# ls -l a.out
+	-rwxr-xr-x 1 kangyushi ie2 10151 Aug 22 09:31 a.out
+	[root@fedora16 src]# ./a.out /etc/shadow             <-- 默认情况下，对于 /etc/shadow 可读
+	read access OK                                       <-- 因为按照实际用户ID=进程有效用户ID来进行
+	open for reading OK                                  <-- 测试的话，当前用户 ID 为 root。
+	[root@fedora16 src]# chown root a.out                <-- change file's user ID to root
+	[root@fedora16 src]# ls -l a.out 
+	-rwxr-xr-x 1 root ie2 10151 Aug 22 09:31 a.out
+	[root@fedora16 src]# chmod u+s a.out                 <-- and turn on set-user-ID bit
+	[root@fedora16 src]# ls -l a.out                     <-- check owner and SUID bit
+	-rwsr-xr-x 1 root ie2 10151 Aug 22 09:31 a.out       <-- 这里的 a.out 显红色背景。
+	[root@fedora16 src]# exit                            <-- go back to normal user
+	exit
+
+	==$ ls -l a.out 
+	-rwsr-xr-x 1 root ie2 10151 Aug 22 09:31 a.out
+
+	==$ ./a.out /etc/shadow                              <-- 由于 set-user-ID 的作用是
+	access error for /etc/shadow: Permission denied      <-- 当执行此文件时，将进程的有效用户ID设置为
+	open for reading OK                                  <-- 文件所有者的用户ID(st_uid)。
+	                                                     <-- 那么当前进程的实际用户ID就为root，但access
+	                                                     <-- 函数会测试实际用户的访问权限，也就是 kang 
+	                                                     <-- 的访问权限，那么必然 access error 。
+	==$ ll
+	total 24
+	-rwsr-xr-x 1 root      ie2 10151 Aug 22 09:31 a.out
+	-rw-r--r-- 1 kangyushi ie2  2038 Aug 20 19:34 err.c
+	-rw-r--r-- 1 kangyushi ie2  1182 Aug 20 19:39 fig4.3.c
+	-rw-r--r-- 1 kangyushi ie2   824 Aug 22 09:29 fig4.8.c
+
+现实中可能会出现这种状况：
+
+	一个进程可能已经因设置用户 ID 以超级用户权限进行，它仍可能想验证其实际用户能否访问一个给定的文件。
+
+这时 access 就派上用场了。access 函数是按 **实际用户 ID** 和 **实际组 ID** 进行访问权限测试的。
