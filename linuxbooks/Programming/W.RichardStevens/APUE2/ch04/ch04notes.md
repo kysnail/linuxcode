@@ -282,3 +282,25 @@ umask 刚开始接触还是比较饶人的，相关的概念很多，这个模�
 这两个函数的作用就是用来修改文件权限位的。
 
 	These two functions allow us to change the file access permissions for an existing file.
+
+**Execution**
+
+	src/fig4.12.c
+	gcc fig4.12.c err.c
+	-------------------
+	==$ ll bar foo
+	-rw------- 1 kangyushi ie2 0 Aug 24 21:25 bar
+	-rw-rw-rw- 1 kangyushi ie2 0 Aug 24 21:25 foo
+
+	==$ ll bar foo
+	-rw-r--r-- 1 kangyushi ie2 0 Aug 24 21:25 bar
+	-rw-rwSrw- 1 kangyushi ie2 0 Aug 24 21:25 foo	<== 这里由于 S 的设置，在终端中带有背景色
+
+同样建议查看源码，其中有详细的解释。
+
+这里还有一点需要注意的是， **chmod** 函数更新的只是 i 节点最近一次被更改的时间。而 **ls -l** 列出的是最后修改文件内容的时间。
+
+	The chmod function updates only the time that the i-node was last changed.
+	By default, ls -l lists the time when the contents of the file were last modified.
+
+还留有一些疑问的内容是关于 **sticky bit** 的，带后面更深入的学习后，再返到这里来理解吧。
