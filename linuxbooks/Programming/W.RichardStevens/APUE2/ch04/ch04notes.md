@@ -267,6 +267,17 @@ umask 刚开始接触还是比较饶人的，相关的概念很多，这个模�
 	==$ umask -S
 	u=rwx,g=rx,o=
 
+**Execution**
+
+	src/fig4.9.c
+	gcc fig4.9.c err.c
+	------------------
+	==$ ll
+	-rw------- 1 kangyushi ie2    0 Aug 24 21:14 bar
+	-rw-rw-rw- 1 kangyushi ie2    0 Aug 24 21:14 foo
+
+至于如何计算出这个结果的，强烈建议参看源代码。
+
 ## 4.9. chmod and fchmod Functions
 这两个函数的作用就是用来修改文件权限位的。
 
