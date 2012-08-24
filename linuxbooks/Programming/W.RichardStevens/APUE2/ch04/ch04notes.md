@@ -266,3 +266,8 @@ umask 刚开始接触还是比较饶人的，相关的概念很多，这个模�
 
 	==$ umask -S
 	u=rwx,g=rx,o=
+
+## 4.9. chmod and fchmod Functions
+这两个函数的作用就是用来修改文件权限位的。
+
+	These two functions allow us to change the file access permissions for an existing file.
