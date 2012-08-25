@@ -110,3 +110,14 @@ PHP 一个很大的特色就是与 HTML 标签语言进行混编，当然后面�
 
 这里输出 COLOR 常量不需要 `$` 符号。
 
+### 演示
+现在又变得习惯于使用 IDE 工具了，不想折腾了。
+
+视频中使用的是 php100 自己整合的一个 IDE ，基于 eclipse 开发。
+
+    EclipsePHP Studio - EPP
+
+还可以使用 zend 组织发布的一款 IDE。
+
+    Eclipse PDT 3.0.x
+
