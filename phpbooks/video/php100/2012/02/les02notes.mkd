@@ -1,0 +1,40 @@
+# php 配置文件
+php 默认提供了两种配置模式，在生产模式中，都选择 production 版本。
+
+    php.ini-production   -> php.ini 
+    php.ini-development
+
+# httpd.conf 配置文件
+主要配置三个地方：
+
+ 1. LoadModule php5_module "c:/www/php54/php5apache2_2.dll"
+ 2. AddType application/x-httpd-php .php
+ 3. PHPIniDir "c:/www/php54"
+
+
+## 505 error
+系统脚本错误
+
+    The server made a boo boo.
+
+## virtual host
+
+
+## Cannot load php5apache2_2.dll into server.
+报此错误是由于缺少了一个 VC2008 的组件包，此版本的 php 在编译时，可能使用了此包，但我的机器上并没有装这个组件，从而会发生这样的错误。
+
+    VC2008 可再发行组件 / VC2008 运行库
+    -----------------------------------
+    Microsoft Visual C++ 2008 Redistributable Package (x86)
+
+    >>>>> vcredist_x86.exe
+
+## phpinfo() 中输出的 Loaded Configuratoin File 地址
+修改 Loaded Configuration File 的值，开始搞了半天，总也不生效，原来是自己未将
+
+    php.ini-production   -> php.ini 
+
+修改为对应的值，造成了系统无法加载 php.ini 的位置。解决过程中了解到，还可以通过配置环境变量达到此效果：
+
+    我的电脑- 右键-属性- 高级- 环境变量- 系统变量-新建->变量名：PHPRC 变量值：c:/www/php54
+
