@@ -94,3 +94,19 @@ PHP 一个很大的特色就是与 HTML 标签语言进行混编，当然后面�
  1. __FILE__          `<-`默认常量，是指PHP程序文件名及路径
  2. __LINE__          `<-`默认常量，是指PHP程序的行数
  3. __CLASS__         `<-`类的名称
+
+### 7. PHP5.4 的自定义常量
+在PHP中是通过define()函数来定义一个常量的，其语法格式为：
+
+    bool define ( string $name, mixed $value [, bool case_$insensitive] )
+    name：指定常量的名称。
+    value：指定常量的值。
+    insensitive：指定常量名称是否区分大小写。如果设置为true则不区分大小写；如果设置为false则区分大小写。如果没有设置该参数，则取默认值false。
+
+#### 自定义常量
+
+ 1.   define("COLOR","red"); //定义一个常量COLOR，值为red
+ 2.   echo COLOR."<br>";     //输出常量COLOR的值
+
+这里输出 COLOR 常量不需要 `$` 符号。
+
