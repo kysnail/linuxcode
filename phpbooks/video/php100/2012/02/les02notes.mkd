@@ -38,3 +38,24 @@ php 默认提供了两种配置模式，在生产模式中，都选择 productio
 
     我的电脑- 右键-属性- 高级- 环境变量- 系统变量-新建->变量名：PHPRC 变量值：c:/www/php54
 
+## 启用 mysql 组件
+在 php.ini 中去除
+
+    ;extension=php_mysql.dll
+
+前的注释即可。
+
+## 多站点配置
+在 httpd.conf 的 Virtual hosts 选项中进行配置。实际中，都会将多站点信息存放到一个单独的文件中。
+
+    ../extra/httpd-vhosts.conf
+
+多站点配置中要注意两点：
+
+ 1. 去掉 httpd.conf 中的注释，使得 httpd-vhosts.conf 生效；
+ 2. 一定要注意 Directory 标签所指定的目录是否有相应的权限。
+
+    <Directory "c:/www">
+        ...
+    </Directory>
+
