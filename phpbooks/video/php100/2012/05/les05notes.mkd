@@ -1,0 +1,133 @@
+# （第5讲） PHP5.4  循环结构、系统函数和自定义函数
+
+ 1. PHP5.4 的while / for / break / continue
+ 2. PHP5.4 的系统函数和自定义函数
+
+## while 
+在PHP编写代码时，我们经常需要让相同的代码块运行很多次。这时候就可以在代码中使用循环语句来完成这个任务。PHP的循环结构类似C中模式，有while、do-while、for。
+
+    while语句
+    格式：
+
+    while (expr){
+    statements
+    }
+
+### Demo
+while循环比较简单，只要指定的expr条件成立， 则循环执行代码块。
+
+     <?php
+      $i=1;           //初始一个变量i
+      while($i<=5)        //当变量i小于等于5时都执行
+        {
+        echo "The number is " . $i . "<br />";    
+        $i++;     //变量i递增运算
+        }
+     ?>
+
+## for 
+for语句仅有单纯的一种，没有其他变化，但同时它也是最复杂、功能最强大的循环，任何while循环和do…while循环都可以用for循环代替。
+
+    格式：
+    for (expr1；expr2；expr3){
+        statement
+    }
+
+### Demo
+
+     <?php
+     for ($i=1; $i<=5; $i++)      
+      //初始值1；小于等于5时；变量加1
+     {
+       echo "Hello";  //输出一次Hello
+       if($i==3){             
+        break;    //当变量值为3时跳出循环
+       }
+     }
+     ?>
+
+## break/continue
+在switch和for语句的举例中都用到了break语句，它的作用就是.跳出整个的switch或for语句体，执行循环体后面的语句。而continue经常用在for或do while循环语句中，表示跳出本次循环，继续进入下一次的循环。这也是break和continue的主要区别。
+
+ 1. break n  跳出循环或条件后将结束该循环体的操作
+ 2. continue 跳出循环或条件后将继续该循环体的操作
+
+## PHP5.4 的系统函数和自定函数
+
+ 1. 返回值  函数名（）
+ 2. 返回值  函数名（参数,参数…）
+ 3. 函数名（参数, 参数…, 返回变量）
+ 4. 返回值  函数名（……）调用符       explode("|","123|222")[0];
+
+格式：
+
+    string date ( string format [, int timestamp])
+
+### PHP自定义函数基础
+自定义函数顾名思义，就是需要我们自己来定义的函数。（某些书中叫做构造函数，就是指的自定义函数移位）在PHP中自定义函数格式如下：
+
+格式：
+
+    function funname(arg1，arg2，arg3……){
+        statement
+        return values
+    }
+
+### Demo
+
+    function fun($m,$n){        //定义了一个自定义函数fun 两个参数$m $n
+        if($m==0 || $n==0){     //判断参数是否为0
+          return 0;             //返回0
+        }else{                  //否则执行下面代码
+          $a=$m*$n;             //做平方运算
+          return $a;            //返回平方值
+        }                       //结束if
+    }                           //结束function
+
+      $p=2;
+      $h=3;
+      echo fun($p,$h);
+
+### Demo - 传递可变参数
+
+    function fun($m,$n=1,$x=2){ //定义了三个参数，但后面两个参数给了初始值
+        $a=$m*$n*$x;
+        return $a;
+    }
+      $p=2;
+      echo fun($p);         //当给一个参数时：2乘1乘2 使用了初始值
+      echo fun($p,3);       //当给两个参数时：2乘3乘2 $n的初始值被替换为3
+      echo fun($p,3,3);     //当参数与函数相等时全部初始值被替换：2乘3乘3
+
+### Demo - 递归
+
+    function fun(&$n){      //在参数前加&
+        $n=$n*$n;           //$n运算后重新赋值给$n，$n的值被改变
+    }
+      $p=2;                 //原$p为2
+      fun($p);              //参数$p的值被改变
+      echo $p;              //现$p为4
+
+### Demo - 定义常量
+
+    function cl($n,$v){       //简化常量为cl
+        define($n,$v);
+    }
+    cl("NA","PHP100");
+    echo NA;
+
+### Demo - 阶乘
+
+    function fun1($n){      
+        if($n==1){
+            return 1;
+        }else{
+            return $n*fun1($n-1);
+        }
+    }
+      echo fun1(1)."<br>";      //没有递归
+      echo fun1(2)."<br>";      //递归1次，调用本身1次
+      echo fun1(3)."<br>";      //递归2次，调用本身2次
+      echo fun1(4)."<br>";      //递归3次，调用本身3次
+      echo fun1(5)."<br>";      //递归4次，调用本身4次
+
