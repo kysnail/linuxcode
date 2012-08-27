@@ -107,3 +107,64 @@
 	drwxrwxrwt  2 root root  4096 Aug 27 17:38 tmp
 	drwxr-xr-x 10 root root  4096 Aug 27 17:32 usr
 	drwxr-xr-x 13 root root  4096 Aug 27 17:32 var
+
+## Base System Configuration
+使用 chroot 进入 Base System，然后进行必要的基本设定。
+
+	[root@fedora16 minisys]# chroot /root/minisys/ env -i HOME=/root /bin/bash --login
+	fedora16:/# ls -al
+	total 104
+	drwxr-xr-x 21 root root  4096 Aug 27 09:38 .
+	drwxr-xr-x 21 root root  4096 Aug 27 09:38 ..
+	drwxr-xr-x  2 root root  4096 Aug 27 09:38 bin
+	drwxr-xr-x  2 root root  4096 Mar  4 20:52 boot
+	drwxr-xr-x  4 root root 12288 Aug 27 09:38 dev
+	drwxr-xr-x 39 root root  4096 Aug 27 09:38 etc
+	drwxr-xr-x  2 root root  4096 Mar  4 20:52 home
+	drwxr-xr-x 10 root root  4096 Aug 27 09:37 lib
+	drwx------  2 root root 16384 Aug 27 08:33 lost+found
+	drwxr-xr-x  2 root root  4096 Aug 27 09:32 media
+	drwxr-xr-x  2 root root  4096 Mar  4 20:52 mnt
+	drwxr-xr-x  2 root root  4096 Aug 27 09:32 opt
+	drwxr-xr-x  2 root root  4096 Mar  4 20:52 proc
+	drwxr-xr-x  2 root root  4096 Aug 27 09:32 root
+	drwxr-xr-x  2 root root  4096 Aug 27 09:38 sbin
+	drwxr-xr-x  2 root root  4096 Sep 16  2008 selinux
+	drwxr-xr-x  2 root root  4096 Aug 27 09:32 srv
+	drwxr-xr-x  2 root root  4096 Aug 12  2008 sys
+	drwxrwxrwt  2 root root  4096 Aug 27 09:38 tmp
+	drwxr-xr-x 10 root root  4096 Aug 27 09:32 usr
+	drwxr-xr-x 13 root root  4096 Aug 27 09:32 var
+	fedora16:/#
+
+基本系统大约 147M 左右，但不同的系统可能会有所差别。	
+
+	--------------------------------------------------------------------------------------
+	fedora16:/# du -sh
+	190M    .
+	fedora16:/# apt-get clean
+	fedora16:/# du -sh
+	147M    .
+	
+	--------------------------------------------------------------------------------------
+	
+如果希望在基本系统中执行一些与系统相关的命令，应该现在该基本系统中加载 `proc` 文件系统，并且其反映的一些信息都是当前系统的信息。
+
+	fedora16:/# ps
+	Cannot find /proc/version - is /proc mounted?
+	fedora16:/# ps -aef
+	Cannot find /proc/version - is /proc mounted?
+	fedora16:/# mount -t proc proc /proc/
+	fedora16:/# ps -aef
+	UID        PID  PPID  C STIME TTY          TIME CMD
+	root         1     0  0 04:19 ?        00:00:00 /sbin/init
+	root         2     0  0 04:19 ?        00:00:00 [kthreadd]
+	root         3     2  0 04:19 ?        00:00:00 [ksoftirqd/0]
+	root         6     2  0 04:19 ?        00:00:00 [migration/0]
+	......
+	1003     25964 25962  0 10:53 ?        00:00:00 sshd: kangyushi@pts/3
+	1003     25965 25964  0 10:53 ?        00:00:00 -bash
+	1003     26093 25965  0 10:54 ?        00:00:00 vim makeabasesystem01.md
+	root     26100   884  0 10:54 ?        00:00:00 sleep 60
+	root     26103 25947  0 10:55 ?        00:00:00 ps -aef
+
