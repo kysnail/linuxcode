@@ -168,3 +168,9 @@
 	root     26100   884  0 10:54 ?        00:00:00 sleep 60
 	root     26103 25947  0 10:55 ?        00:00:00 ps -aef
 
+## 将编译好的 Kernel 安装到 Debian Base System 中
+
+	[root@fedora16 kangyushi]# cp /home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/System.map /root/minisys/boot/System.map-3.5.2
+	[root@fedora16 kangyushi]# cp /home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/.config /root/minisys/boot/config-3.5.2
+	[root@fedora16 kangyushi]# cp /home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/arch/x86_64/boot/bzImage /root/minisys/boot/vmlinuz-3.5.2
+
