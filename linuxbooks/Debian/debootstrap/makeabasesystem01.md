@@ -174,3 +174,110 @@
 	[root@fedora16 kangyushi]# cp /home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/.config /root/minisys/boot/config-3.5.2
 	[root@fedora16 kangyushi]# cp /home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/arch/x86_64/boot/bzImage /root/minisys/boot/vmlinuz-3.5.2
 
+## Making initrd.img file
+
+	=====> 登录基本系统
+	[root@fedora16 kangyushi]# sudo chroot /root/minisys/ env -i HOME=/root /bin/bash --login
+	
+	=====> 保证这两个目录是非挂载状态
+	fedora16:/# umount /proc/
+	fedora16:/# umount /proc/
+	umount: /proc/: not mounted
+	fedora16:/# umount /sys/
+	umount: /sys/: not mounted
+
+	=====> 挂载目录
+	fedora16:/# mount -t proc proc /proc
+	fedora16:/# mount -t sysfs sys /sys
+	fedora16:/# mount -t devpts devpts /dev/pts
+
+	=====> 需要安装 mkinitramfs 工具
+	fedora16:/# mkinitramfs -o /boot/initrd.img-3.5.2
+	bash: mkinitramfs: command not found
+
+	initrd-tools 这个名称可能有问题
+	fedora16:/# apt-get install initrd-tools
+	Reading package lists... Done
+	Building dependency tree... Done
+	E: Couldn't find package initrd-tools
+
+	=====> 需要使用 bootcd-mkinitramfs 工具制作文件系统
+	fedora16:/# apt-get install bootcd-mkinitramfs
+	Reading package lists... Done
+	Building dependency tree... Done
+	The following extra packages will be installed:
+	  bootcd bootcd-i386 busybox dosfstools fdutils file genisoimage initramfs-tools klibc-utils libcap2 libklibc libmagic1 libvolume-id0 mtools realpath syslinux syslinux-common udev wodim
+	Suggested packages:
+	  ssh discover discover1 cdrkit-doc floppyd
+	The following NEW packages will be installed:
+	  bootcd bootcd-i386 bootcd-mkinitramfs busybox dosfstools fdutils file genisoimage initramfs-tools klibc-utils libcap2 libklibc libmagic1 libvolume-id0 mtools realpath syslinux syslinux-common udev
+	  wodim
+	0 upgraded, 20 newly installed, 0 to remove and 0 not upgraded.
+	Need to get 3601kB of archives.
+	After this operation, 10.6MB of additional disk space will be used.
+	Do you want to continue [Y/n]? y
+	WARNING: The following packages cannot be authenticated!
+	  libvolume-id0 udev libmagic1 file libcap2 busybox dosfstools fdutils genisoimage libklibc klibc-utils initramfs-tools mtools realpath syslinux-common syslinux wodim bootcd-i386 bootcd
+	  bootcd-mkinitramfs
+	Install these packages without verification [y/N]? y
+	Get:1 http://mirrors.163.com lenny/main libvolume-id0 0.125-7+lenny3 [77.0kB]
+	Get:2 http://mirrors.163.com lenny/main udev 0.125-7+lenny3 [255kB]
+	Get:3 http://mirrors.163.com lenny/main libmagic1 4.26-1 [369kB]
+	Get:4 http://mirrors.163.com lenny/main file 4.26-1 [44.1kB]
+	........
+	Setting up syslinux (2:3.71+dfsg-5) ...
+	Setting up wodim (9:1.1.9-1) ...
+	Setting up bootcd-i386 (3.10+nmu1) ...
+	Setting up bootcd (3.10+nmu1) ...
+	Setting up bootcd-mkinitramfs (3.10+nmu1) ...
+	update-initramfs: deferring update (trigger activated)
+	Processing triggers for initramfs-tools ...
+	fedora16:/#
+
+	=====> 这里提示找不到模块信息，这是由于没有做内核模块安装的步骤
+	fedora16:/# mkinitramfs -o /boot/initrd.img-3.5.2
+	Cannot find /lib/modules/3.4.7-1.fc16.x86_64
+
+	=====> 内核模块安装的步骤
+	[root@fedora16 linux-3.5.2]# make O=/home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/ modules_install INSTALL_MOD_PATH=/root/minisys
+	  INSTALL Documentation/connector/cn_test.ko
+	  INSTALL Documentation/filesystems/configfs/configfs_example_explicit.ko
+	  INSTALL Documentation/filesystems/configfs/configfs_example_macros.ko
+	  INSTALL arch/x86/crypto/blowfish-x86_64.ko
+	  INSTALL arch/x86/crypto/camellia-x86_64.ko
+	  INSTALL arch/x86/crypto/crc32c-intel.ko
+	  INSTALL arch/x86/crypto/ghash-clmulni-intel.ko
+	  INSTALL arch/x86/crypto/salsa20-x86_64.ko
+	  INSTALL arch/x86/crypto/serpent-sse2-x86_64.ko
+	  INSTALL arch/x86/crypto/sha1-ssse3.ko
+	  INSTALL arch/x86/crypto/twofish-x86_64-3way.ko
+	  INSTALL arch/x86/crypto/twofish-x86_64.ko
+	  INSTALL arch/x86/kernel/microcode.ko
+	  INSTALL arch/x86/kernel/test_nx.ko
+	  INSTALL arch/x86/kvm/kvm-amd.ko
+	  INSTALL arch/x86/kvm/kvm-intel.ko
+	  INSTALL arch/x86/kvm/kvm.ko
+	  INSTALL arch/x86/oprofile/oprofile.ko
+	......
+	  INSTALL /root/minisys/lib/firmware/keyspan_pda/keyspan_pda.fw
+	  INSTALL /root/minisys/lib/firmware/keyspan_pda/xircom_pgs.fw
+	  MKDIR   /root/minisys/lib/firmware/cpia2/
+	  INSTALL /root/minisys/lib/firmware/cpia2/stv0672_vp4.bin
+	  MKDIR   /root/minisys/lib/firmware/yam/
+	  INSTALL /root/minisys/lib/firmware/yam/1200.bin
+	  INSTALL /root/minisys/lib/firmware/yam/9600.bin
+	  DEPMOD  3.5.2
+
+这里需要注意，不要将模块安装命令写成了
+
+	[root@fedora16 linux-3.5.2]# make O=/home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/ modules_install INSTALL_MOD_PATH=/root/minisys/ install
+
+最后的 `install` 选项会将内核安装进去，但实际操作中往往会报错。错误大概的意思是说 
+
+	/lib/modules
+
+目录不存在这样的信息。从错误信息可以看到 `O` 选项对于 `install` 并不起作用。
+
+	
+
+	
