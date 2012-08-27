@@ -294,5 +294,77 @@
 	-rw-r--r-- 1 root root 4183283 Aug 27 11:54 /boot/initrd.img-3.5.2
 	fedora16:/#
 
+## 制作 QEMU 镜像文件
 
+	=====> 创建磁盘镜像
+	[root@fedora16 os]# qemu-img create debian-lenny.raw 2G
+	Formatting 'debian-lenny.raw', fmt=raw size=2147483648
 	
+	=====> 格式化镜像文件
+	[root@fedora16 os]# mkfs.ext2 -F debian-lenny.raw
+	mke2fs 1.41.14 (22-Dec-2010)
+	Filesystem label=
+	OS type: Linux
+	Block size=4096 (log=2)
+	Fragment size=4096 (log=2)
+	Stride=0 blocks, Stripe width=0 blocks
+	131072 inodes, 524288 blocks
+	26214 blocks (5.00%) reserved for the super user
+	First data block=0
+	Maximum filesystem blocks=536870912
+	16 block groups
+	32768 blocks per group, 32768 fragments per group
+	8192 inodes per group
+	Superblock backups stored on blocks:
+		32768, 98304, 163840, 229376, 294912
+
+	Writing inode tables: done
+	Writing superblocks and filesystem accounting information: done
+
+	This filesystem will be automatically checked every 21 mounts or
+	180 days, whichever comes first.  Use tune2fs -c or -i to override.
+
+	=====> 将前面制作好的基础系统同步到磁盘中
+	[root@fedora16 os]# mkdir my-mnt
+	[root@fedora16 os]# mount -o loop debian-lenny.raw ./my-mnt/
+	[root@fedora16 os]# rsync -rvl /root/minisys/ ./my-mnt/
+	......
+	var/spool/cron/
+	var/spool/cron/crontabs/
+	var/tmp/
+
+	sent 1845275958 bytes  received 208063 bytes  69640906.45 bytes/sec
+	total size is 1844347920  speedup is 1.00
+
+在这个过程中，必须保证没有用户登录到基础系统中，也没有将其中的文件系统进行挂载的行为，否则会发生下面的错误。
+
+	rsync: writefd_unbuffered failed to write 4 bytes to socket [sender]: Broken pipe (32)
+	rsync: write failed on "/home/kangyushi/work/makekernel/3.5.2/ver01/os/my-mnt/proc/kcore": No space left on device (28)
+	rsync error: error in file IO (code 11) at receiver.c(322) [receiver=3.0.8]
+	rsync: recv_generator: mkdir "/home/kangyushi/work/makekernel/3.5.2/ver01/os/my-mnt/proc/10/task/10" failed: No space left on device (28)
+	*** Skipping any contents from this failed directory ***
+	rsync: connection unexpectedly closed (61166 bytes received so far) [sender]
+	rsync error: error in rsync protocol data stream (code 12) at io.c(601) [sender=3.0.8]
+
+提示你磁盘空间不够，实际上，通过
+
+	[root@fedora16 os]# df -h
+	Filesystem                        Size  Used Avail Use% Mounted on
+	rootfs                             50G  7.4G   43G  15% /
+	devtmpfs                          3.9G     0  3.9G   0% /dev
+	tmpfs                             3.9G  1.2M  3.9G   1% /dev/shm
+	/dev/sda2                          50G  7.4G   43G  15% /
+	tmpfs                             3.9G   53M  3.9G   2% /run
+	tmpfs                             3.9G     0  3.9G   0% /sys/fs/cgroup
+	tmpfs                             3.9G     0  3.9G   0% /media
+	/dev/sda6                         406G  216G  171G  56% /home
+	/dev/sda5                        1021M   47M  923M   5% /tmp
+	/dev/sda1                         497M  112M  360M  24% /boot
+	/dev/mapper/vg_ie2server-lv_home  410G  350G   40G  90% /media/a7bea563-2e18-46c4-8701-cd2209737bf1
+	/dev/sdc1                         3.7G  1.9G  1.7G  53% /root/minisys
+	/dev/loop0                        3.0G  1.8G  1.1G  63% /home/kangyushi/work/makekernel/3.5.2/ver01/os/my-mnt
+	[root@fedora16 os]# du -hs my-mnt/
+	1.8G    my-mnt/
+
+可以看到，并不是磁盘空间不足。
+
