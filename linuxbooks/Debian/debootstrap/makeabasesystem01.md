@@ -278,6 +278,21 @@
 
 目录不存在这样的信息。从错误信息可以看到 `O` 选项对于 `install` 并不起作用。
 
-	
+	[root@fedora16 linux-3.5.2]# sudo chroot /root/minisys/ env -i HOME=/root /bin/bash --login
+	fedora16:/# mkinitramfs -o /boot/initrd.img-3.5.2
+	Cannot find /lib/modules/3.4.7-1.fc16.x86_64
+	fedora16:/# ll /lib/modules/3.5.2/
+	build                modules.alias.bin    modules.ccwmap       modules.devname      modules.isapnpmap    modules.pcimap       modules.symbols      source
+	kernel/              modules.builtin      modules.dep          modules.ieee1394map  modules.ofmap        modules.seriomap     modules.symbols.bin
+	modules.alias        modules.builtin.bin  modules.dep.bin      modules.inputmap     modules.order        modules.softdep      modules.usbmap
+
+	=====> 上面执行的那条命令之所以错误，在于没有加 3.5.2 这个选项，这样系统会使用默认的选项 3.4.7-1.fc16.x86_64 进行编译。
+	fedora16:/# mkinitramfs -o /boot/initrd.img-3.5.2 3.5.2
+	fedora16:/# ll /boot/initrd.img-3.5.2
+	bash: ll: command not found
+	fedora16:/# ls -al /boot/initrd.img-3.5.2
+	-rw-r--r-- 1 root root 4183283 Aug 27 11:54 /boot/initrd.img-3.5.2
+	fedora16:/#
+
 
 	
