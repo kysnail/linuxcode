@@ -368,3 +368,41 @@
 
 可以看到，并不是磁盘空间不足。
 
+## 验证 QEMU 镜像文件
+
+	[root@fedora16 kangyushi]# /home/kangyushi/work/qemu/uefi/qemu-uefi/qemu-1.0.1/mybin/bin/./qemu-system-x86_64  \
+			-hda /home/kangyushi/work/makekernel/3.5.2/ver01/os/debian-lenny.raw -append "root=/dev/sda rw" \
+			-kernel /home/kangyushi/work/makekernel/3.5.2/ver01/build/kernel/arch/x86_64/boot/bzImage \
+			-initrd /root/minisys/boot/initrd.img-3.5.2 
+
+注意，这里需要添加 `-append` 选项，否则就会卡在文件系统加载阶段。
+
+	Begin: Mounting root file system ... 
+	Begin: Running /scripts/local-top ... done.
+	Begin: Waiting for root file system ...
+
+待实在无法加载后，便进入 initramfs 配置模式。
+
+	Begin: Waiting for root file system ... done.
+	Gave up wating for root device. Common problems:
+		- Boot args (cat /proc/cmdline)
+			- Check rootdelay= (did the system wait long enough?)
+			- Check root= (did the system wait for the right device?)
+		- Missing modules (cat /proc/modules; ls /dev)
+	ALERT! does not exist. Dropping to a shell!
+
+	BusyBox v1.10.2 (Debian 1:1.102-2) built-in shell (ash)
+	Enter 'help' for a list of built-in commands.
+
+	/bin/sh: can't access tty; job control turned off
+	(initramfs) 
+
+提醒一下，如果正常启动后，效果如下：
+
+	INIT: Entering runlevel: 2
+	Starting enhanced syslogd: rsyslogd.
+	Starting periodic command scheduler: crond.
+
+	Debian GNU/Linux 5.0 (none) tty1
+
+	(none) login:
