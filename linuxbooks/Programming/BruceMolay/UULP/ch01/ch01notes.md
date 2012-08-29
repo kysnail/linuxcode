@@ -51,5 +51,93 @@ bc 的另一个重要特点是，从严格意义上讲，bc 并不做任何计�
 
 ### 逆波兰式 - 后缀表达式
 
+	TODO
 
+## 1.6 动手实践
+
+### more 的三种用法
+
+	$ more filename
+	$ command | more
+	$ more < filename
+
+我还未分析过 more 程序的工作流程，这里作者的分析比较好，而且通过很简洁的方式将此流程表达出来了。
+
+	+----> show 24 lines from input
+	| +--> print [more?] message
+	| |    Input Enter, SPACE, or q
+	| +--> if Enter, advance one line
+	|----> if SPACE
+	       if q --> exit
+
+### version 0.1 of more
+此版本先写出一个 more 工具的初始版本，这个版本还有很多问题，但正是这遗留下的问题，对于我们深入的理解很有好处。
+
+对于此版本的程序有几点比较有趣：
+
+ 1. 使用了 `FILE` 结构体
+ 2. `main` 函数本身的写法与自己以往所看到的都不相同，相对比较简化
+ 3. 它的循环处理比较有趣，也是第一次看到这种处理方式
+
+	while (--ac)                                    <-- ac 代表所有参数的个数
+		if ((fp = fopen(*++av, "r")) != NULL)   <-- av 代表具体哪个参数
+
+ 4. 还有就是处理问题的思路，比如在开始写代码之前，先画出了上面的流程图。
+
+更详细的内容，可以参看代码：
+
+	src/more01.c
+
+#### warning: incompatible implicit declaration of built-in function ‘exit’ [enabled by default]
+编译过程中报了下面的错误
+
+	==$ gcc more01.c -o more01
+	more01.c: In function ‘main’:
+	more01.c:38:4: warning: incompatible implicit declaration of built-in function ‘exit’ [enabled by default]
+	more01.c: In function ‘do_more’:
+	more01.c:58:4: warning: incompatible implicit declaration of built-in function ‘exit’ [enabled by default]
+
+	source code:
+	------------
+	
+	int main(int ac, char *av[])
+	{
+		FILE *fp;
+		if (ac == 1)
+			do_more(stdin);
+		else
+			while(--ac)
+			if((fp = fopen(*++av, "r")) != NULL)
+			{
+				do_more(fp);
+				fclose(fp);
+			}
+			else
+				exit(1);	<--- line 38
+		return 0;
+	}
+
+
+	void do_more(FILE *fp)
+	/* 
+	 * read PAGELEN lines, then call see_more() for further instructions
+	 */
+	{
+		char line[LINELEN];
+		int  num_of_lines = 0;
+		int  see_more(), reply;
+		while (fgets(line, LINELEN, fp)) {				/* more input */
+			if (num_of_lines == PAGELEN) {				/* full screen? */
+				reply = see_more();				/* y: ask user */
+				if (reply == 0)					/* n: done */
+					break;
+				num_of_lines -= reply;				/* reset count */
+			}
+			if (fputs(line, stdout) == EOF)				/* show line */
+				exit(1);					/* or die */		<--- line 58
+			num_of_lines++;						/* count it */
+		}
+	}
+
+解决这个问题可以加入 `stdlib.h` 头文件。因为 `exit()` 函数是一个库函数，需要引入对应的头文件。
 
