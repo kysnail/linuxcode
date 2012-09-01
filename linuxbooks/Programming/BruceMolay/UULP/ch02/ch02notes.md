@@ -396,4 +396,89 @@ Unix 的联机帮助分为很多节。
 
 `close` 这个系统调用会关闭进程和文件 fd 之间的连接，如果关闭的过程中出现错误，close 返回 -1 。
 
+### who1.c
+在我的测试机（Fedora16）上，`utmp.h` 文件存放在
 
+	/usr/include/bits/utmp.h
+	-----------------------
+	/* The structure describing an entry in the user accounting database.  */
+	struct utmp
+	{
+	  short int ut_type;		/* Type of login.  */
+	  pid_t ut_pid;			/* Process ID of login process.  */
+	  char ut_line[UT_LINESIZE];	/* Devicename.  */
+	  char ut_id[4];		/* Inittab ID.  */
+	  char ut_user[UT_NAMESIZE];	/* Username.  */
+	  char ut_host[UT_HOSTSIZE];	/* Hostname for remote login.  */
+	  struct exit_status ut_exit;	/* Exit status of a process marked
+					   as DEAD_PROCESS.  */
+	/* The ut_session and ut_tv fields must be the same size when compiled
+	   32- and 64-bit.  This allows data files and shared memory to be
+	   shared between 32- and 64-bit applications.  */
+	#if __WORDSIZE == 64 && defined __WORDSIZE_COMPAT32
+	  int32_t ut_session;		/* Session ID, used for windowing.  */
+	  struct
+	  {
+	    int32_t tv_sec;		/* Seconds.  */
+	    int32_t tv_usec;		/* Microseconds.  */
+	  } ut_tv;			/* Time entry was made.  */
+	#else
+	  long int ut_session;		/* Session ID, used for windowing.  */
+	  struct timeval ut_tv;		/* Time entry was made.  */
+	#endif
+
+	  int32_t ut_addr_v6[4];	/* Internet address of remote host.  */
+	  char __unused[20];		/* Reserved for future use.  */
+	};
+
+	/* Backwards compatibility hacks.  */
+	#define ut_name		ut_user
+	#ifndef _NO_UT_TIME
+	/* We have a problem here: `ut_time' is also used otherwise.  Define
+	   _NO_UT_TIME if the compiler complains.  */
+	# define ut_time	ut_tv.tv_sec
+	#endif
+	#define ut_xtime	ut_tv.tv_sec
+	#define ut_addr		ut_addr_v6[0]
+
+执行的结果，查看源代码：
+
+	src/who1.c
+	----------
+	==$ ./who1
+	reboot   ~        1346041151 (3.4.7-1.fc16.x86_64)
+	runlevel ~        1346041169 (3.4.7-1.fc16.x86_64)
+	sunxuebi tty1     1346041185 (:0)
+	sunxuebi pts/0    1346320491 ()
+	sunxuebi pts/1    1346379541 (:0.0)
+	kangyush pts/2    1346497537 (kangyushi-pc.xause.com)
+		 pts/3    1346304391 ()
+		 pts/4    1346069090 ()
+		 pts/5    1346068862 ()
+		 pts/6    1346069174 ()
+		 pts/7    1346080626 ()
+	kangyush pts/4    1346116324 (:12.0)
+		 pts/1    1346305086 ()
+	kangyush pts/7    1346119624 (:12.0)
+		 pts/8    1346217940 ()
+	kangyush pts/8    1346223667 (:12.0)
+	kangyush pts/9    1346143668 ()
+	lipeng   pts/3    1346304395 (:11.0)
+		 pts/9    1346306427 ()
+		 pts/10   1346322577 ()
+		 pts/11   1346246264 ()
+		 pts/12   1346390743 ()
+	lipeng   pts/11   1346304354 (:11.0)
+	liurui   pts/13   1346379896 (:14.0)
+	liurui   pts/14   1346305938 ()
+		 pts/14   1346394415 ()
+	kangyush pts/0    1346488648 (kangyushi-pc.xause.com)
+	liurui   pts/10   1346375337 (:14.0)
+	sunxuebi pts/12   1346400318 (:0.0)
+
+遗留的问题有：
+
+	1. 如何消除空白记录
+	2. 正确显示登录时间
+		ut_time 这个字段在头文件中被定义为 time_t 类型，但还不知道 time_t 类型的数据如何处理。
+	
