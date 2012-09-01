@@ -482,3 +482,157 @@ Unix 的联机帮助分为很多节。
 	2. 正确显示登录时间
 		ut_time 这个字段在头文件中被定义为 time_t 类型，但还不知道 time_t 类型的数据如何处理。
 	
+### who2.c
+针对 `who1.c` 的两个问题，继续编写 `who` 的第 2 个版本，解决问题的方法还是通过阅读联机帮助和头文件。
+
+#### 1. 消除空白记录
+系统自带的 who 命令仅列出已登录用户的信息，而刚才编写的 `who1.c` 除了列出已登录的，还会显示其他的信息，而这些都来自于 `utmp` 文件。
+
+	实际上 utmp 包含所有终端的信息，甚至那些尚未被用到的终端的嘻嘻你也会存放在 utmp 中。
+
+所以要修改刚才的程序，做到能够区分出哪些终端对应活动的用户。一种简单的思路是：
+
+	过滤掉那些用户名为空的记录，但这样做是有问题的，如刚才的输出中，用户名为 LOGIN 的那一行对应的是控制台，而不是一个真正的用户。
+	----------------------------------------------------------------------------------------------------------------------------
+	我的测试机上没有这一项！
+
+最好的办法是能够指出某一条记录确实对应着已登录的用户。
+
+	而这 Unix 系统也早就考虑到了。
+
+在 `/usr/inlcude/bits/utmp.h` 中，有以下内容：
+
+	/* Values for the `ut_type' field of a `struct utmp'.  */
+	#define EMPTY		0	/* No valid user accounting information.  */
+
+	#define RUN_LVL		1	/* The system's runlevel.  */
+	#define BOOT_TIME	2	/* Time of system boot.  */
+	#define NEW_TIME	3	/* Time after system clock changed.  */
+	#define OLD_TIME	4	/* Time when system clock changed.  */
+
+	#define INIT_PROCESS	5	/* Process spawned by the init process.  */
+	#define LOGIN_PROCESS	6	/* Session leader of a logged in user.  */
+	#define USER_PROCESS	7	/* Normal process.  */
+	#define DEAD_PROCESS	8	/* Terminated process.  */
+
+	#define ACCOUNTING	9
+
+utmp 结构中有一个成员 `ut_type`，当它的值为 7(`USER_PROCESS`) 时，表示这是一个已经登录的用户。根据这一点，对原来的程序做以下修改，就可以消除空白行：
+
+	show_inf(struct utmp *utbufp)
+	{
+		if (utbufp->ut_type != USER_PROCESS)		/* users only */
+			return;
+		printf("%-8.8s", utbufp->ut-name);		/* the username */
+	}
+
+#### 2. 以可读的方式显示登录时间
+首先还是要寻求男人帮忙了：
+
+	==$ man -k time | grep transform
+	asctime (3)          - transform date and time to broken-down time or ASCII
+	asctime_r (3)        - transform date and time to broken-down time or ASCII
+	ctime (3)            - transform date and time to broken-down time or ASCII
+	ctime_r (3)          - transform date and time to broken-down time or ASCII
+	gmtime (3)           - transform date and time to broken-down time or ASCII
+	gmtime_r (3)         - transform date and time to broken-down time or ASCII
+	localtime (3)        - transform date and time to broken-down time or ASCII
+	localtime_r (3)      - transform date and time to broken-down time or ASCII
+	mktime (3)           - transform date and time to broken-down time or ASCII
+
+	==$ man -k time | grep -i convert
+	asctime (3p)         - convert date and time to a string
+	asctime_r (3p)       - convert date and time to a string
+	ctime (3p)           - convert a time value to a date and time string
+	ctime_r (3p)         - convert a time value to a date and time string
+	function::ctime (3stap) - Convert seconds since epoch into human readable date/time string
+	function::tz_ctime (3stap) - Convert seconds since epoch into human readable date/time string, with local time zone
+	getdate (3)          - convert a date-plus-time string to broken-down time
+	getdate (3p)         - convert user format date and time
+	getdate_err (3)      - convert a date-plus-time string to broken-down time
+	getdate_err (3p)     - convert user format date and time
+	getdate_r (3)        - convert a date-plus-time string to broken-down time
+	globaltime (1)       - International multiclock timeconverter for the Xfce Desktop Environment. It is part of Orage
+	gmtime (3p)          - convert a time value to a broken-down UTC time
+	gmtime_r (3p)        - convert a time value to a broken-down UTC time
+	localtime (3p)       - convert a time value to a broken-down local time
+	localtime_r (3p)     - convert a time value to a broken-down local time
+	mktime (3p)          - convert broken-down time into time since the Epoch
+	strftime (3p)        - convert date and time to a string
+	strptime (3)         - convert a string representation of time to a time tm structure
+	tz_convert (1)       - Timezone converter from operating system tz format into libical format used by Orage and several other calander tools.
+	wcsftime (3p)        - convert date and time to a wide-character string
+
+很多记录都涉及到 `/usr/include/time.h` 这个头文件，这里面有很多有用的信息。
+
+	注：
+	---
+	在我的测试机上，情况要复杂的多！
+
+##### (1) Unix 存储时间的方式：`time_t` 数据类型
+Unix 中时间是用一个整数来表示的，它的数值是从 1970 年 1 月 1 日 0 时开始所经过的秒数，在头文件 `time.h` 中有以下内容：
+
+	typedef long int time_t;
+
+存储时间的结构 `time_t` 实际上就是 `long int` 。
+
+##### (2) 将 `time_t` 显示出来：`ctime`
+`ctime` 将表示时间的整数值转换成人们日常所使用的时间形式。在联机帮助的第 3 节有 `ctime` 的详细说明：
+
+`ctime(3)` 函数要输入一个指向 `time_t` 的指针，返回的时间字符串类似于以下格式：
+
+	Wed Jun 30 21:49:08 1993'n
+	    ^^^^^^^^^^^^^^^
+	--------------------------
+	看到这里的时间了吧，1993 啊！
+
+注意：并不是所有的字符串内容都需要，需要的是用 `^` 标识出来的部分，接下来就很容易处理了，将 `ctime` 返回的字符串从第 4 个字符看是，输出 12 个字符：
+
+	printf("%12.12s", ctime(&t) +4)
+	-------------------------------
+	这是我第一次见 printf 中的参数可以这样用，可能也正好符合 ctime 函数的含义吧，它返回
+
+		 char *ctime(const time_t *timep);
+
+	字符指针，作为指针当然可以进行 +4 的偏移操作了。
+
+##### (3) 把刚才学的两点综合起来
+现在明白了如何消除空白记录和如何正确地显示 `ut_time` 中的时间值，可以着手重新编写 `who2.c` 如下：
+
+	Notes:
+	------
+	鉴于这本书实在是有些年头了，很多文件位置的指向也都不对了。
+
+	/etc/utmp	->	/var/run/utmp or /var/log/wtmp or /var/log/btmp
+
+	man -k file | grep utmp    ->     man utmp    -> FILES
+							       /var/run/utmp
+							       /var/log/wtmp
+
+这里为了与系统 who 命令进行对比，先将 `SHOWHOST` 选项关闭：
+
+	/*#define SHOWHOST*/
+
+输出结果：
+
+	sunxuebi tty1     1346041185
+	sunxuebi pts/1    1346379541
+	kangyush pts/2    1346497537
+	kangyush pts/4    1346116324
+	kangyush pts/7    1346119624
+	kangyush pts/8    1346223667
+	lipeng   pts/3    1346304395
+	lipeng   pts/11   1346304354
+	liurui   pts/13   1346379896
+	kangyush pts/0    1346488648
+	liurui   pts/10   1346375337
+	sunxuebi pts/12   1346400318
+
+这里的 who 只列出了 3 个字段：
+
+ * 用户名
+ * 终端类型
+ * 登录时间
+
+有些版本的 who 还会列出用户所在主机的信息，这个功能在 who2 中通过与编译选项 SHOWHOST 控制。
+
