@@ -24,3 +24,7 @@ The Unix manual consists of eight sections, and each man page has its command na
 	6			游戏
 	7			其它杂项，例如 bash-builtins(7) 描述了 bash 的各种内建命令
 	8			系统管理命令，例如 ifconfig(8)
+
+**Refs**
+
+ * [Man Page](http://en.wikipedia.org/wiki/Man_page)
