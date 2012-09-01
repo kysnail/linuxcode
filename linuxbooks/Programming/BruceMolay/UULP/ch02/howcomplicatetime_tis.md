@@ -10,11 +10,17 @@
 
 1. 定位 `time_t`
 
+-
+
 	/usr/include/time.h
 	-------------------
 	typedef __time_t time_t;
 
+-
+
 2. 定位 `__time_t`
+
+-
 
 	/usr/include/bits/types.h
 	-------------------------
@@ -22,17 +28,26 @@
 	...
 	__STD_TYPE __TIME_T_TYPE __time_t;	/* Seconds since the Epoch */
 
+-
+
 3. 定位 `_TIME_T_TYPE`
+
+-
 
 	/usr/include/bits/typesizes.h
 	-----------------------------
 	#define __TIME_T_TYPE	__SLONGWORD_TYPE
 
+-
+
 4. 定位 `__SLONGWORD_TYPE`
 
+-
 	/usr/include/bits/types.h
 	-------------------------
 	#define __SLONGWORD_TYPE  long int
+
+-
 
 这里实际上 `types.h` 与 `typesizes.h` 是如下的关系：
 
@@ -40,7 +55,7 @@
 	|types.h                |
 	|        *--------------*
 	|        |typesizes.h   |
-        *--------*--------------*
+	*--------*--------------*
 
 	/usr/include/types.h
 	--------------------
