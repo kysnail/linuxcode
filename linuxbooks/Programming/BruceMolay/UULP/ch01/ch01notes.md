@@ -66,8 +66,8 @@ bc 的另一个重要特点是，从严格意义上讲，bc 并不做任何计�
 	+----> show 24 lines from input
 	| +--> print [more?] message
 	| |    Input Enter, SPACE, or q
-	| +--> if Enter, advance one line
-	|----> if SPACE
+	| +--- if Enter, advance one line
+	+----- if SPACE
 	       if q --> exit
 
 ### version 0.1 of more
