@@ -1,0 +1,141 @@
+# （第8讲） PHP5.4 数据库MySQL基础之增删改查
+
+ * 数据库的数据类型与配置
+ * 常用增删改查SQL语句的语法格式
+
+## 数据库的数据类型与配置
+
+### 什么是数据库？
+什么是数据库？我们可以理解为就是为了存储数据的一个库，以表和单元的形式存储。
+
+ * SQL Server
+ * Oracle
+ * IBM DB2
+ * MySQL
+ * PostgreSQL
+ * SQLite
+
+### MySQL Logic Structure
+                        
+                                                        +--------+
+                                                        | type   |
+    --------   -----------   --------   --------   ---->|字段类型|
+    |MySQL |   |databases|   |tables|   |fields|   |    +--------+ 
+    |      |-->|         |-->|      |-->|      |-->|     
+    |数据库|   |   库    |   |  表  |   | 字段 |   |    +--------+
+    --------   -----------   --------   --------   ---->| content|
+                                                        |字段内容|
+                                                        +--------+ 
+
+PHP 管理工具
+
+ 1. [phpMyAdmin](http://www.phpmyadmin.net/)
+ 2. [Navicat](http://www.navicat.com/)
+ 3. [MySQL GUI Tools](http://dev.mysql.com/downloads/gui-tools/)
+
+### 数据库的数据类型与配置
+
+    数据类型            描述                                                应用范围
+    --------------------------------------------------------------------------------------
+    int, smallint   整型，常用 int 型，取值最大 11 位               点击量，编号，真假
+    char, varchar   字符串型，char最大取值 255 字节，varchar        标题，姓名，关键字
+                    更长并伸缩
+    Date, datetime  日期型，固定格式： 0000-00-00 00:00:00          
+    float, double   小数类型，一般设置类型为（总长度，小数位长度）  价格，科学数值等
+    Text, longtext  备注型：没有长度限制，但取决于服务器和 mysql    新闻内容，长内容
+                    性能
+
+### 常用增删改查SQL语句的语法格式
+
+#### 增
+
+    Insert into 表 （字段1，字段2…）values (值1，值2)
+    Insert into 表  values (值1，值2)       <--- 简化型
+    Insert into 表  set 字段1=值1，字段2=值2，......
+
+#### 查
+
+    Select 字段，字段，... from   表 
+    Select   *  或  函数（字段） from  表
+                     ^
+                     |
+                count(*)    // 统计条数
+                sum(field)  // 求和
+                avg(field)  // 求平均值
+                max(field)  // 求最大值
+                min(field)  // 求最小值
+    
+##### 条件运算符
+
+    Select 字段，字段，…… from   表 where   条件 
+
+字段【条件运算符】值如：
+
+    =
+    >
+    <
+    <>
+    and
+    or
+    function: i.e, replace()
+
+##### 模糊查询
+    
+    Select 字段，字段，…… from   表  where  字段  like ‘%值%’  
+    Select 字段，字段，…… from   表  where  字段  not like ‘%值%’  
+
+模糊查询,  % 表示匹配任意字符和任意次数。
+
+##### 归类
+
+    Select 字段，字段，…… from   表  where  字段  in  （值，值）
+    Select 字段，字段，…… from   表  where  字段  not  in （值，值）
+    Select 字段，字段，…… from   表  group by 字段 
+
+`group by` - 归组/归类（查询不重复项）
+
+##### 排序
+
+    Select 字段，字段，…… from   表  order by 字段 [asc / desc ]
+
+    example:
+    --------
+    ... order by id asc, name desc
+
+##### limit
+
+    Select 字段，字段，…… from   表    limit    起始位   ，条数
+
+    example:
+    --------
+    …… limit  0，5    //从第1位开始取5条
+    …… limit  5，5    //从第6位开始取5条
+    …… limit  9，5    //从第10位开始取5条
+    …… limit  5          //从第1位开始取5条，简化写法
+
+##### WGOL specs
+当出现多个情况组合时，应遵循：
+
+    WGOL 规范
+
+示例：
+
+    查询表user，id 倒序，age小于30岁，不重复职业job，取前10条
+    ---------------------------------------------------------
+    Select * from user where age<30 group by job order by id desc limit 10
+
+#### 改
+
+    Update 表 set 字段=值 ， 字段=值  [where] [group] [order] [limit] 
+
+#### 删
+
+    delete from 表 [where] [group] [order] [limit] 
+
+#### 重音符/抑音符 - Grave Accent
+MySQL 中会在三种情况下使用到 `grave accent`：
+
+ 1. 数据库名
+ 2. 表名
+ 3. 字段名
+
