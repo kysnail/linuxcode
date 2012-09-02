@@ -1,0 +1,16 @@
+# enable php debug
+默认不向页面输出调试信息，开发起来还是比较麻烦的，需要使用下面的步骤开启调试功能。
+
+## display_errors & error_reporting
+开启 php 的错误报告，需要修改 php.ini 文件，将下面的内容修改为：
+
+    error_reporting = E_ALL
+    display_errors = On
+
+其中 `E_ALL` 选项会显示从不良编码实践到无害提示到出错的所有信息。`E_ALL` 对于开发过程来说有点太细，因为它在屏幕上为一些小事（例如变量为初始化）也显示提示，会搞糟浏览器到输出。对于只想看到错误和不良编码实践，而不考虑无害提示的情况，可以修改为如下内容：
+
+    error_reporting = E_ALL & ~E_NOTICE
+
+**Refs**
+
+ * [开PHP调试](http://yinbiao.blog.51cto.com/2765456/656216)
