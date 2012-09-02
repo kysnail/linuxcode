@@ -1,0 +1,25 @@
+# mysqli extension missing
+Running phpMyAdmin gives the message
+
+    The mysqli extension is missing. Please check your PHP configuration.
+    <a href="Documentation.html#faqmysql" target="documentation"><img src="themes/dot.gif" title="Documentation" alt="Documentation" class="icon ic_b_help" /></a>
+
+配置一个 php 的扩展模块有 4 点需要注意：
+
+## 1. module file
+在 php 目录下的 extension 目录中必须有对应的模块文件：
+    
+    ext/php_mysqli.dll
+
+## 2. enable module
+在 php.ini 中启用扩展模块，就是简单的去掉扩展前面的分号，需要自己指定：
+
+    extension=php_mysqli.dll
+
+## 3. configure extension_dir
+在 php.ini 中指定扩展文件夹的目录地址，一般默认没有指定，需要自己指定：
+
+    extension="c:/www/php54/ext/"
+
+## 4. restart apache server
+以上所有配置完成后，保存php.ini后一定要重启Web服务器以加载最新的配置。
