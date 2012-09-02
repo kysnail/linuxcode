@@ -1,0 +1,17 @@
+# semicolon as a file name
+
+    $ ll
+    total 20
+    drwxr-xr-x 1 Administrator None    0 Sep  2 13:31 .
+    drwxr-xr-x 1 Administrator None    0 Sep  2 13:15 ..
+    -rw-r--r-- 1 Administrator None  934 Sep  2 13:24 ;
+    -rw-r--r-- 1 Administrator None 4522 Sep  2 12:24 les08notes.mkd
+
+可能是操作 vim 时不小心写入的，使用 rm 无法删除，因为默认 `;` 表示语句结束。只能使用下面转义的方式删除。
+
+    $ rm \;
+    $ ll
+    total 16
+    drwxr-xr-x 1 Administrator None    0 Sep  2 13:36 .
+    drwxr-xr-x 1 Administrator None    0 Sep  2 13:15 ..
+    -rw-r--r-- 1 Administrator None 4522 Sep  2 12:24 les08notes.mkd
