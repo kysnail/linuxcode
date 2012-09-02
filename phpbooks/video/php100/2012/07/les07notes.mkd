@@ -1,0 +1,106 @@
+# （第7讲） PHP5.4 文件操作函数 之 图片计数器的实例
+
+ * PHP访问文件或文件夹相关函数
+ * PHP文件的操作函数（计数器案例）
+
+## PHP访问文件或文件夹相关函数
+
+### filetype()
+
+    filetype()    //可以输出相关文件类型，如：dir / file /link
+
+例如：
+
+    echo filetype('C:\WINDOWS').'<br />'; 
+    输出结果：dir
+
+    echo filetype('C:\WINDOWS\regedit.exe').'<br />'; 
+    输出结果：file
+
+### stat()
+
+    stat()    //函数获得指定文件名参数目标文件基本属性
+
+例如：
+
+    $stt = stat('test.txt');        => print_r 以数组形式打印
+    print_r ($stt); 
+
+### clearstatcache()
+
+    clearstatcache() 来清除缓存
+
+### is_executable()
+
+    is_executable() 判断文件是否可执行
+
+### is_dir()
+
+    is_dir() 判断是否存在或是文件夹
+
+### is_file()
+
+    is_file() 判断是否是文件
+
+### scandir()
+
+    scandir() 遍历文件夹 / 返回一个数组
+
+## PHP文件的操作函数
+
+    fopen(filename,mode)     //打开或创建一个文件
+
+允许的打开模式：
+
+    打开模式                描述
+    -------------------------------------------------------------------------------------------
+    r               只读方式打开，将文件指针指向文件头
+    r+              读写方式打开，将文件指针指向文件头
+    w               写入方式，将文件指针指向文件头，清除内容，如果文件不存在则尝试创建
+    w+              读写方式，将文件指针指向文件头，清除内容，如果文件不存在则尝试创建
+    a               写入方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建
+    a+              读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建
+
+### fwrite()
+
+    fwirte(资源，内容)     //写入文件内容
+
+### fgets()
+
+    fgets(资源，长度)     //获取文件内容。长度=当前获取值+1（结尾长度字节）
+
+### fclose()
+
+    fclose(资源)     //关闭一个打开的文件资源
+
+### unlink()
+
+    unlink(文件)     //删除一个文件
+
+## PHP文件的操作函数（计数器案例）
+
+    if(!@$f=fopen("a.txt","r")){  
+        echo "文件不存在";  
+        $num=0;
+    }else{  
+        $num=fgets($f,10);  
+        fclose($f);
+    }
+
+    $num++;
+    $ff = fopen("a.txt","w");
+    fwrite($ff,$num);
+    fclose($ff);
+    echo $num;
+
+## Notes:
+
+### 两种目录路径写法
+
+    1. scandir("c:/");
+    2. scandir("c:\\");
+    or
+    3. scandir("c://");
+
+## Homework
+无限遍历目录
