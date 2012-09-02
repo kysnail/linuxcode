@@ -1,0 +1,31 @@
+# mysql_connect error 500
+我用 mysqlMyAdmin 工具连接数据库都没有任何问题，但一个简单的页面测试却总也无法通过。
+
+    <?php
+        // 调试使用，打印当前 php 环境信息。
+        // phpinfo(); 
+        mysql_connect("localhost:3306", "root", "angel") or die("CCCCC");
+    ?>
+
+总报下面的错误：
+
+    Error Summary
+    HTTP Error 500.0 - Internal Server Error
+    The page cannot be displayed because an internal server error has occurred.
+    ...
+        
+原因在于未在 `php.ini` 中启用如下选项：
+
+    extension=php_mysql.dll
+
+## php5.4 版本需要注意的地方
+之前的版本，对于
+
+    mysql_connect();
+
+这类函数，如果出错的话，会报出很详细的错误信息，安全漏洞很大，一般需要在前加 `@` suppress 错误信息。
+
+    @mysql_connect();
+
+而新版本默认情况下，也不会报出很详细的错误信息。但为了兼容性，推荐加上 `@` 符号。
+
