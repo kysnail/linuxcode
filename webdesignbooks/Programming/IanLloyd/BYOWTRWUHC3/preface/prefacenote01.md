@@ -81,3 +81,29 @@ Unlearn the bad habits.
  * shop - 商店； 工厂； 办事处； 购物
  * crack on - The ship is cracking on speed.	
 
+## Where to Find Help
+
+ * thriving - 兴旺的，旺盛的，繁荣的
+ * help you out -  帮助你脱离困境
+
+**The SitePoint Forums**
+
+ * blast - 爆炸； 吼叫； 枯萎：枯萎； 攻击：严厉批评或猛烈攻击
+
+### The Books's Website
+
+ * [HomePage](http://www.sitepoint.com/books/html3/)
+
+#### The Code Archive
+
+ * carpal tunnel syndrome - 腕管综合征
+
+#### Updates and Errata
+
+ * watchful - 注意的，留心的； 小心提防的，警戒的； <古>不眠的； 惕 
+ * typographical - 印刷上的，排字上的
+
+作者自己维护的一个站点：
+
+ * [Beginning Web Design](http://beginningwebdesign.com)
+
