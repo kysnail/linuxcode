@@ -76,7 +76,7 @@ Unlearn the bad habits.
 
 ## What's In This Book
 
-**Chapter 1: Setting Up Shop
+**Chapter 1: Setting Up Shop**
  
  * shop - 商店； 工厂； 办事处； 购物
  * crack on - The ship is cracking on speed.	
