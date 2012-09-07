@@ -7,7 +7,8 @@
  * [FILO](http://www.coreboot.org/FILO)
 
 ## Start QEMU with -pflash option
- /home/sunxuebin/myWorks/qemu-hardware-test/qemu-bin/bin/qemu-system-i386 -pflash /home/kangyushi/work/qemu/pflash/coreboot/corebootfilo.rom -hda /media/a7bea563-2e18-46c48701-cd2209737bf1/share/qemu-img/debian.img -boot menu=on
+ 	
+	/home/aoteman/myWorks/qemu-hardware-test/qemu-bin/bin/qemu-system-i386 -pflash /home/kangyushi/work/qemu/pflash/coreboot/corebootfilo.rom -hda /media/a7bea563-2e18-46c48701-cd2209737bf1/share/qemu-img/debian.img -boot menu=on
 
 ## FILO 0.6.0
 

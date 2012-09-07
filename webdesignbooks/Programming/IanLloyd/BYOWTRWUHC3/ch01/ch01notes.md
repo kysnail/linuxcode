@@ -75,8 +75,12 @@
 ##### Firefox
 
  * bolted on - The gate was bolted on the inside,on account of these dear children.	 
- * 
- * 
+ * tinker with - 胡乱地修补； 鼓捣 
+ * tinker - 粗修； 修补； （尤指不起作用地）修修补补； 小修理
+ * predictability - 可预测性； 可预言性
+ * bad old days - 糟糕的日子
+ * The best fish smell bad whtn they are three days old.
 
+### Not Just Text, Text, Text
 
 
