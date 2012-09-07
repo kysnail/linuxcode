@@ -1,11 +1,18 @@
 # How to build and install initramfs-tools in debian lenny?
 初步调查， `v2.6.28.10` 不能安装的原因是 `initramfs-tools` 的版本有问题，这里需要更换其版本。
 
+	Debian Bug report logs - #593276
+	initramfstools >=0.94 not compatible with lenny?
+
 Debian Lenny 版本比较老，版本号范围
 
 	5.0.1 -> 5.0.10
 
-左右。很多地方都已不再提供镜像下载，想找一个合适的源也比较困难。
+左右。很多地方都已不再提供镜像下载，想找一个合适的源也比较困难。下面是官方提供的地址，但都只有 live 版的。
+
+ * [Debian CDs/DVDs archive](http://cdimage.debian.org/cdimage/archive/)	
+
+也可以选择通过 bt 方式下载。
 
 ## get initramfs-tools source code
 开始的想法是，直接下载编译好的二进制版本，有几个下载地址符合要求，比如：
