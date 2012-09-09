@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<head> 
+<meta charset=utf-8> 
+<title>PHP100 HTML5视频教程-视频播放功能</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){	
+	var video = $('#php100100');
+	
+	$("#play").click(function(){  video[0].play();  }); 
+	$("#pause").click(function(){ video[0].pause(); });
+	$("#go10").click(function(){  video[0].currentTime+=10;  });
+	$("#back10").click(function(){  video[0].currentTime-=10;  });
+	$("#rate1").click(function(){  video[0].playbackRate+=2;  });
+	$("#rate0").click(function(){  video[0].playbackRate-=2;  });
+	$("#volume1").click(function(){  video[0].volume+=0.1;  });
+	$("#volume0").click(function(){  video[0].volume-=0.1;  });
+	$("#muted1").click(function(){  video[0].muted=true;  });
+	$("#muted0").click(function(){  video[0].muted=false;  });
+	$("#full").click(function(){  
+	  video[0].webkitEnterFullscreen(); // webkit类型的浏览器
+	  video[0].mozRequestFullScreen();  // FireFox浏览器
+	});
+});
+
+</script>
+</head> 
+<video id="php100100" width="400"  poster="load.jpg">
+<source src="video.webm" type="video/webM" />
+<source src="video.ogv" type="video/ogg" />
+<source src="php100-html5-22-1.mp4" type="video/mp4" />
+你的浏览器不支持html5
+</video>
+<hr>
+<button id="play">播放</button>
+<button id="pause">暂停</button>
+<button id="go10">快进10秒</button>
+<button id="back10">快退10秒</button>
+<button id="rate1">播放速度+</button>
+<button id="rate0">播放速度-</button>
+<button id="volume1">声音+</button>
+<button id="volume0">声音-</button>
+<button id="muted1">静音</button>
+<button id="muted0">解除静音</button>
+<button id="full">全屏</button>
+</body>
+
+</body> 
+</html> 
+
+
+
