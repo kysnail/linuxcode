@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>页面结构</title>
+    <style type="text/css">
+        header, nav, article, footer {
+            border:solid 1px #666;
+            padding:5px;
+        }
+        header {
+            width:500px;
+        }
+        nav {
+            float:left;
+            width:60px;
+            height:300px;
+        }
+        article {
+            float:left;
+            width:428px;
+            height:300px;
+        }
+        footer {
+            clear:both;
+            width:500px;
+        }
+    </style>
+    <script type="text/javascript">
+        document.createElement('article');
+        document.createElement('nav');
+        document.createElement('header');
+    </script>
+</head>
+<body>
+    <header>
+        <hgroup>导航相关数据</hgroup>
+    </header>
+
+    <nav>菜单</nav>
+
+    <article>
+        <h1>标题：PHP100 视频-HTML5专题教程</h1>
+        发布日期：<time>19:00</time>
+        <time datetime="2013-02-14">情人节</time>
+        <p>测试相关内容</p>
+    </article>
+
+    <footer>
+        <address>上海徐汇区-创恩教育-PHP100中文网</address>
+    </footer>
+</body>
+</html>
