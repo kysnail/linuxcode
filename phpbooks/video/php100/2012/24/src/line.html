@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <meta charset=utf-8>
+    <title>Draw Line</title>
+</head>
+<body>
+    <canvas id="php100" width="500" height="500" onmousemove="mousexy(event)">
+        Browser not supported!
+    </canvas>
+
+    <div id="ds"></div>
+
+    <script type="text/javascript">
+        var c=document.getElementById("php100");
+        var php100=c.getContext("2d");
+
+        php100.moveTo(10,10);           // 起始位置
+        php100.lineTo(150,50);          // 终止位置
+        php100.lineTo(10,50);           // 如果没有再次设置起始位置，则将从结束位置开始画图
+        php100.stroke();                // 结束图形
+
+        // 监视鼠标
+        function mousexy(n) {
+            x=n.clientX;
+            y=n.clientY;
+            document.getElementById("ds").innerHTML="Coordinate: x = " + x + " y = " + y;
+        }
+    </script>
+</body>
+</html>
