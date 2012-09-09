@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <meta charset=utf-8>
+    <title>Draw Rectangluar</title>
+</head>
+<body>
+    <canvas id="php100" width="500" height="500" onmousemove="mousexy(event)">
+        Browser not supported!
+    </canvas>
+
+    <div id="ds"></div>
+
+    <script type="text/javascript">
+        var c=document.getElementById("php100");
+        var php100=c.getContext("2d");
+
+        php100.fillStyle="#FF0000";             // 定义颜色
+        php100.fillRect(100,100,300,300);       // 定义矩形的大小
+        php100.fillStyle="rgba(0,0,255,0.5)";   // 定义颜色，支持透明
+        php100.fillRect(200,200,500,500);       // 定义矩形大小
+
+        // 监视鼠标
+        function mousexy(n) {
+            x=n.clientX;
+            y=n.clientY;
+            document.getElementById("ds").innerHTML="Coordinate: x = " + x + " y = " + y;
+        }
+    </script>
+</body>
+</html>
