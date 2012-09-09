@@ -1,0 +1,77 @@
+# （第23讲） HTML5 视频播放事件属性与API控件
+
+ * 视频格式的简单介绍
+ * HTML5视频标签<video>属性
+ * HTML5视频API控件
+ * 制作一个HTML5视频播放器
+
+## 1、视频格式的简单介绍
+
+    视频格式：avi、rmb、wmv、mpeg4、ogg、webm
+    视频主要有三部分组成：视频、音频、编码格式
+
+在过去，我们如果想在Web上播放视频，也是都是通过Flash来播放，同样并不是所有的浏览器都安装了Flash播放器插件，而现在我们在HTML5中，就能完全脱离Flash或其他的插件来播放视频了 
+
+### HTML5支持的格式：
+
+    Ogg = 带有 Theora 视频编码和 Vorbis 音频编码的 Ogg 文件
+    MPEG4   = 带有 H.264 视频编码和 AAC 音频编码的 MPEG 4 文件
+    WebM    = 带有 VP8 视频编码和 Vorbis 音频编码的 WebM 文件
+
+## 2、HTML5视频标签<video>属性
+
+    1.
+    --
+    <video src="movie.mp4" controls="controls"> </video> 
+
+    2.
+    --
+    <video src="movie.mp4" controls="controls">
+       浏览器不支持HTML5的视频播放功能      <--- 作用是，当浏览器不支持时，提示此文本！
+    </video> 
+
+    3.
+    --
+    <video  width="300"  controls="controls"  …>
+        <source src="movie.ogg" type="video/ogg">   <--- 这样可以避免某些浏览器对于特定格式的不支持。
+        <source src="movie.mp4" type="video/mp4"> 
+    </video> 
+
+    ----------------------------------------------------------------------------
+    
+    4. video 属性
+    ----------------------------------------------------------------------------
+    属性            值              描述
+    autoplay    autoplay        如果出现该属性，则视频在就绪后马上播放。
+    controls    controls        如果出现该属性，则向用户显示控件，比如播放按钮。
+    height      pixels          设置视频播放器的高度。
+    loop        loop            如果出现该属性，则当媒介文件完成播放后再次开始播放。
+    preload     preload         如果出现该属性，则视频在页面加载时进行加载，并预备播放。如果使用 "autoplay"，则忽略该属性。
+    src         url             要播放的视频的 URL。
+    width       pixels          设置视频播放器的宽度。
+    ----------------------------------------------------------------------------
+    
+## 3、HTML5视频API控件
+获得video标签，这里是DOM对象
+
+    var video = document.getElementById('videoID');
+
+可以通过jQuery的方法，如下：
+
+    var video = $('#videoID').get(0); 
+
+然后可以使用下面的属性：
+
+    载入视频：load() ，
+    播放视频：play() ，
+    暂停：pause() ，
+    快进10秒：currentTime+=10 
+    播放速度增加：playbackRate++ 
+    播放速度增加0.1：playbackRate+=0.1 
+    音量增加：volume+=0.1 
+    静音：muted=true 
+
+## 作业
+写一个播放器！
+
+
