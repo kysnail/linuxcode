@@ -1,0 +1,53 @@
+#（第22讲） HTML5 标签语法变化和使用概念（2）
+
+ * HTML5标签与HTML4标签区别
+ * HTML5标签语法介绍及新增标记
+ * 解读一个HTML5页面的案例及兼容
+
+## HTML5标签与HTML4标签区别
+
+ * HTML5专注内容与结构，而不专注的表现
+ * 声明与标签 - HTML5在更多的声明和标签上面做了简化，也对兼容做了详细的规定，废除了部分元素，增加了部分元素
+
+## HTML5标签语法介绍及新增标记
+
+### 1、语法标签：
+
+    （1） 不允许写的结束符的标签：area、basebr、col、command
+    Embed、hr、img、input、keygen、link、meta、param、source、
+    Track、wbr
+
+    （2）可以省略结束符的标签：li、dt、dd、p、rt、optgroup、option
+    Colgroup、thread、tbody、tr、td、th
+
+    （3）可以完全省略的标签：html、head、body、colgroup、tbody
+
+### 2、新增标签：
+
+    <article>    标记定义一篇文章
+    <aside>      标记定义页面内容部分的侧边栏
+    <audio>      标记定义音频内容
+    <canvas>     标记定义图片
+    <command>    标记定义一个命令按钮
+    <datalist>   标记定义一个下拉列表
+    <details>    标记定义一个元素的详细内容
+    <dialog>     标记定义一个对话框(会话框)
+    <embed>      标记定义外部的可交互的内容或插件
+    <figure>     标记定义一组媒体内容以及它们的标题
+    <footer>     标记定义一个页面或一个区域的底部
+    <header>     标记定义一个页面或一个区域的头部
+    <hgroup>     标记定义文件中一个区块的相关信息
+    <keygen>     标记定义表单里一个生成的键值
+    <mark>       标记定义有标记的文本
+    <meter>      标记定义 measurement within apredefined range
+    <nav>        标记定义导航链接
+    <output>     标记定义一些输出类型
+    <progress>   标记定义任务的过程
+    <rp>         标记是用在Ruby annotations 告诉那些不支持 Ruby元素的浏览器如何去显示
+    <rt>         标记定义对rubyannotations的解释
+    <ruby>       标记定义 ruby annotations
+    <section>    标记定义一个区域
+    <source>     标记定义媒体资源
+    <time>       标记定义一个日期/时间
+    <video>      标记定义一个视频 
+
