@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <meta charset=utf-8>
+    <title>Draw Linear Gradient</title>
+</head>
+<body>
+    <canvas id="php100" width="500" height="500" onmousemove="mousexy(event)">
+        Browser not supported!
+    </canvas>
+
+    <div id="ds"></div>
+
+    <script type="text/javascript">
+        var c=document.getElementById("php100");
+        var php100=c.getContext("2d");
+
+        var grd=php100.createLinearGradient(100,100,175,50);        // 颜色渐变的起始坐标和终点坐标
+        grd.addColorStop(0,"yellow");                               // 0表示起点..0.1 0.2 ...1表示终点，配置颜色
+        grd.addColorStop(0.3,"red");
+        grd.addColorStop(0.7,"green");
+        grd.addColorStop(1,"blue"); 
+        php100.fillStyle=grd;                                       // 生成的颜色块赋值给样式
+        php100.fillRect(100,100,175,50);                            // 设置色块
+
+        // 监视鼠标
+        function mousexy(n) {
+            x=n.clientX;
+            y=n.clientY;
+            document.getElementById("ds").innerHTML="Coordinate: x = " + x + " y = " + y;
+        }
+    </script>
+</body>
+</html>
