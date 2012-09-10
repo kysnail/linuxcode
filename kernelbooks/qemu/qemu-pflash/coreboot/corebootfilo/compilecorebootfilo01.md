@@ -2,7 +2,7 @@
 编译过程相对比较简单，基本上只需要按照官网上的 `quick guide` 即可完成编译。有两种可选的方式：
 
  1. 先编译 filo.elf ，再将 filo 编译到 coreboot 中；
- 2. 再编译 coreboot 的过程中制定 filo ，系统会自动获取相应版本的源码进行编译。
+ 2. 在编译 coreboot 的过程中指定 filo ，系统会自动获取相应版本的源码进行编译。
 
 ## The first method 
 现在的项目，基本上都是用 git 进行托管。
@@ -18,7 +18,6 @@
 	# make menuconfig       <---  (or make config)
 	# make
 
-
 	3. configure the coreboot
 	-------------------------
 	# <--- 1. Add a payload -> An ELF executable payload.
@@ -31,7 +30,6 @@
 
 	5. verify the built result
 	--------------------------
-	# <--- 这里需要注意的是，一定要制定 -hda 选项，否则无法进入 filo 界面
 	# qemu -pflash coreboot.rom -hda qemu.img
 
 ## The second method
@@ -158,7 +156,7 @@
 		-pflash /home/kangyushi/work/qemu/pflash/coreboot/coreboot/build/coreboot.rom \
 		-boot menu=on
 
-上面的命令并没有制定 `-hda` 选项，启动后，进入 `filo>` 提示符，输入如下内容：
+上面的命令并没有指定 `-hda` 选项，启动后，进入 `filo>` 提示符，输入如下内容：
 
 					FILO 0.6.0
 				     root_dev = unset
@@ -210,7 +208,7 @@
 
 	1. 需要使用 pc-1.1 的版本。
 	--------------------------
-	官方文档中犹如下文字：
+	官方文档中有如下文字：
 	
 		PC System Flash emulation was added for QEMU in pc-1.1.
 
