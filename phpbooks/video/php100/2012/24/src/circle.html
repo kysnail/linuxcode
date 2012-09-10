@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <meta charset=utf-8>
+    <title>Draw Line</title>
+</head>
+<body>
+    <canvas id="php100" width="500" height="500" onmousemove="mousexy(event)">
+        Browser not supported!
+    </canvas>
+
+    <div id="ds"></div>
+
+    <script type="text/javascript">
+        var c=document.getElementById("php100");
+        var php100=c.getContext("2d");
+
+        php100.fillStyle="blue";            // 定义颜色
+        php100.beginPath();                 // 从新开始画，防止冲突重叠
+        php100.arc(200,200,30,0,Math.PI*2,true);    // x坐标，y坐标，半径，Math.PI是圆周率
+        php100.closePath();                 // 结束画布，防止冲突重叠
+        php100.fill();
+
+        // 监视鼠标
+        function mousexy(n) {
+            x=n.clientX;
+            y=n.clientY;
+            document.getElementById("ds").innerHTML="Coordinate: x = " + x + " y = " + y;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+# （第24讲） HTML5 Canvas 画图标签 & 画线，圆，渐变色
+
+ * Canvas标签定义，并获得坐标
+ * 画矩形，定义颜色，透明度
+ * 画直线，定义连接，节点
+ * 画圆，定义弧度，节点
+ * 画渐变色，定义节点渐变效果
+ * 读入一张图片
+
+## 1、Canvas标签定义，并获得坐标
+代码写法：
+
+    <canvas id="php100" width="500" height="500“ onmousemove="mousexy(event)"></canvas>
+    <div id="ds"></div>
+
+书写事件：
+
+    //监视鼠标
+    function mousexy(n)
+    {
+    x=n.clientX;
+    y=n.clientY;
+    document.getElementById("ds").innerHTML="坐标: x轴"+x+" y轴"+y;
+    }
+
+## 2、画矩形，定义颜色，透明度
+canvas code:
+
+    <canvas id="php100" width="500" height="500></canvas>
+
+javascript code:
+
+    var c=document.getElementById("php100");
+    var p100=c.getContext("2d");   <--- 等于开启了图形库（GD库）
+
+    ------
+    p100.fillStyle="#FF0000"; //定义颜色
+    p100.fillRect(0,0,300,300); //定义矩形的大小
+    p100.fillStyle="rgba(0,0,255,0.5)"; //定义颜色，支持透明
+    p100.fillRect(200,200,500,500); //定义矩形大小
+
+## 3、画直线，定义连接，节点
+canvas code:
+
+    <canvas id="php100" width="500" height="500></canvas>
+
+javascript code:
+
+    var c=document.getElementById("php100");
+    var p100=c.getContext("2d");
+
+    ------
+    p100.moveTo(10,10); //起始位置
+    p100.lineTo(150,50); //终止位置
+    p100.lineTo(10,50); //如果没有再次设置起始位置将从结束位置开始画
+    p100.stroke(); //结束图形
+
+## 4、画圆，定义弧度，节点
+canvas code:
+
+    <canvas id="php100" width="500" height="500></canvas>
+
+javascript code:
+
+    var c=document.getElementById("php100");
+    var p100=c.getContext("2d");
+
+    ------
+    p100.fillStyle="blue"; //定义演示
+    p100.beginPath(); //从新开始画，防止冲突重叠
+    p100.arc(200,200,30,0,Math.PI*2,true); //x坐标，y坐标，半径，始，终，时针
+    p100.closePath(); //结束画布，防止冲突重叠
+    p100.fill(); //结束渲染
+
+## 5、画渐变色，定义节点渐变效果
+canvas code:
+
+    <canvas id="php100" width="500" height="500></canvas>
+
+javascript code:
+
+    var c=document.getElementById("php100");
+    var p100=c.getContext("2d");
+
+    ------
+    var grd=p100.createLinearGradient(100,100,175,50); \颜色渐变的起始坐标和终点坐标
+    grd.addColorStop(0,"yellow"); //0表示起点..0.1 0.2 ...1表示终点，配置颜色
+    grd.addColorStop(1,"blue");
+
+    p100.fillStyle=grd; //生成的颜色块赋值给样式
+    p100.fillRect(100,100,175,50); //设置色块
+
+## 6、画直线，定义连接，节点
+canvas code:
+
+    <canvas id="php100" width="500" height="500></canvas>
+
+javascript code:
+
+    var c=document.getElementById("php100");
+    var p100=c.getContext("2d");
+
+    ------
+    var img=new Image()
+    img.src="logo.png"
+    p100.drawImage(img,220,30);
+
+
