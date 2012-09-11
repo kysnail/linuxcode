@@ -95,6 +95,137 @@ Simple text editors, also called plain-text editors.
 
 ## Understanding HTML5 Syntax
 
- * 
- * 
- * 
+ * not at all - 别客气； 没什么，哪儿的话； 并不； 不谢
+
+### Writing HTML5
+ 
+### Tag Structure
+
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<title>M and B Adventure Travel</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+	</head>
+	<body>
+
+### Text Styling 
+One of the key changes in HTML5 is the removal of many style-related instructions from HTML tags. In HTML5, tags are meant to tell a browser what text on a page means rather than how it looks. For example, an `<h1>` tag defines text as an important heading but does not specify what color or font it is, or how it is aligned on a page. When using HTML5, you provide style instructions for your text by including Cascading Style Sheets, or CSS. CSS works in connect with HTML to specify colors, alignment information, and other details about how content look on the page. CSS is introduced in Chapter 4.	
+
+### Other Tags
+
+### Attributes and Values
+
+	<p style="color: red">My colorful text.</p>
+
+tags can be devided into 
+
+ * opening tag
+ * closing tag
+
+Atributes always go inside the opening HTML5 tag, and enclosing attribute values in quotation marks is good form.
+
+### Entities
+
+ * entities - 实体对像； 实体，独立存在体，实际存在物（ entity的名词复数 ）实体对像； 
+
+What's the real meaning of entities in html5?
+
+	You can add special characters to a page, such as a copyright symbol or a fraction, by using 
+	special codes called entities.
+-
+
+ * readily - 乐意地； 快捷地； 轻而易举地； 便利地
+
+-
+
+	Entities represent characters not readily available on the keyboard.
+
+All entities are preceded by an ampersand (&) and followed by a semicolon (;);.
+
+	&copy;
+	&lt;
+
+### Avoiding Syntax Errors
+
+ * reverse order - 倒序
+ * leniency - 宽大，仁慈
+
+-
+
+	Testing your web pages in multple web browsers can also be a good way to discover syntax
+	erros because browsers can vary in their leniency to certain types of errors.
+
+## New Features in HTML5
+
+ * roll out - 铺开； 起床； 滚了出来； 滔滔不绝地讲出来
+ * average - 平常的； 平均的； 典型的； （价值、比率等的）平均数的
+ * integral - 完整的； 积分的； 必须的
+
+### Semantic Tags
+
+ * Semantic - <语>语义的，语义学的  
+
+Demo: 使用列表项制作导航，是现在最流行的方式。
+
+	<nav class="horiz">
+		<ul>
+			<li><a href="index.html"></a></li>
+			<li><a href="adventures.html"></a></li>
+			<li><a href="blog.html"></a></li>
+			<li><a href="contact.html"></a></li>
+		</ul>
+	</nav>
+
+	<aside class="right-side">
+		<h1>Related Photos</h1>
+		<img src="bungee.jpg"><br>
+		<img src="bungee2.jpg">
+	</aside>
+
+-
+
+ * boilerplate - 样板文件； 公式化，陈词滥调
+ * prominently - 显著地，重要地
+
+### Richer Multimedia
+
+ * extreme skiing - 极速滑雪
+
+-
+
+	HTML5 offers a new `<video>` tag for embedding video clips into your pages and an `<audio>` tag for integrating
+	sound. In the past, developers used the nonstandard `<embed>` tag and the generic <object> tag for adding
+	multimedia. The <embed> and <object> tags passed the duities for playing the video or sound to third-party plugins.
+	Web browsers that support the new <video> and <audio> tags include native support for certain video and audio files,
+	which means the browsers play the content directly. With the tags, web developers can create custom player controls,
+	style the media with CSS, and more.
+
+-
+
+### Drawing on Canvases
+
+ * canvas - 帆布； 油画（布）
+
+### Fancier Forms
+
+ * fancier - 发烧友； 对莫事物有特别爱好的人； 空想家
+
+### Moving Styles to CSS
+In addition to adding new features, the standards groups that designd HTML5 has also taken some features away. Most of these deprecated features are tags and attributes that previously enabled you to apply formatting to content on your page.
+
+	<p align="right">My old aligned paragraph.</p>    <--- Invalid in HTML5
+	<p aligh="aligh-right">My new alighed paragraph.</p>   <--- Valid in HTML5
+
+## View HTML5 Code in a Browser
+
+ * tag highlighted in color
+
+### View HTML5 Code in a Browser
+
+#### View the Source Code
+
+## TIPS
+
+ * How else can I...? - How else can I apologize for her? - 我还能有别的方法可以向她道歉吗？
+
