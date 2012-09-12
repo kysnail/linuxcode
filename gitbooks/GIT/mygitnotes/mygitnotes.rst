@@ -343,3 +343,15 @@ reset
         #       linuxbooks/Debian/debian-apt-get-notes.md
         no changes added to commit (use "git add" and/or "git commit -a")
 
+git rm \\
+---------
+
+::
+
+        ==$ git rm \\
+        fatal: pathspec 'webdesignbooks/Programming/WILEY/MikeWooldridge/TYVH5/ch02/\' did not match any files
+
+        [09/12/12-19:19:59 -> /dev/pts/7][jobs:0][kangyushi@fedora16:~/work/repo/gh/linuxcode/webdesignbooks/Programming/WILEY/MikeWooldridge/TYVH5/ch02(master)]
+        ==$ rm \\
+        ==$ 
+
