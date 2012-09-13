@@ -46,4 +46,8 @@ Green -> \033[32m & Normal -> \033[0m
 [0m              Normal		<-- display normal
 
 "[32m" and "[0m" are automatically generate by program which can not be seen under shell environment.
+
+Ref:
+
+	http://stackoverflow.com/questions/3723429/how-to-stop-ansi-colour-codes-messing-up-printf-alignment
 */
