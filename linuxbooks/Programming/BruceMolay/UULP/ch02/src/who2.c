@@ -9,7 +9,7 @@
  *
  *        Version:  2.0
  *        Created:  09/01/2012 08:09:00 PM
- *       Revision:  none
+ *       Revision:  09/13/2012 by kysnail
  *       Compiler:  gcc
  *
  *         Author:  kysnail
@@ -59,7 +59,7 @@ void show_info(struct utmp *utbufp)
 	printf(" ");					/* a space */
 	printf("%-8.8s", utbufp->ut_line);		/* the tty */
 	printf(" ");					/* a space */
-	printf("%10ld", utbufp->ut_time);		/* logtime */	
+	showtime(utbufp->ut_time);			/* display time */
 #ifdef SHOWHOST
 	if(utbufp->ut_host[0] != '\0')
 		printf("(%s)", utbufp->ut_host);	/* the host */
@@ -87,16 +87,16 @@ void showtime(long timeval)
 execute result
 --------------
 $ ./who2
-sunxuebi tty1     1346041185
-sunxuebi pts/1    1346379541
-kangyush pts/2    1346497537
-kangyush pts/4    1346116324
-kangyush pts/7    1346119624
-kangyush pts/8    1346223667
-lipeng   pts/3    1346304395
-lipeng   pts/11   1346304354
-liurui   pts/13   1346379896
-kangyush pts/0    1346488648
-liurui   pts/10   1346375337
-sunxuebi pts/12   1346400318
+sunxuebi tty1     Sep  5 16:18
+sunxuebi pts/0    Sep  5 16:18
+lipeng   pts/2    Sep 11 19:04
+kangyush pts/3    Sep  5 16:19
+kangyush pts/4    Sep  5 16:20
+liurui   pts/5    Sep  6 09:35
+sunxuebi pts/1    Sep  6 14:50
+kangyush pts/7    Sep 13 16:56
+kangyush pts/8    Sep  7 09:44
+kangyush pts/10   Sep 13 15:41
+kangyush pts/6    Sep 11 14:25
+sunxuebi pts/9    Sep 13 14:55
 */
