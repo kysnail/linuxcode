@@ -488,7 +488,7 @@ Unix 的联机帮助分为很多节。
 #### 1. 消除空白记录
 系统自带的 who 命令仅列出已登录用户的信息，而刚才编写的 `who1.c` 除了列出已登录的，还会显示其他的信息，而这些都来自于 `utmp` 文件。
 
-	实际上 utmp 包含所有终端的信息，甚至那些尚未被用到的终端的嘻嘻你也会存放在 utmp 中。
+	实际上 utmp 包含所有终端的信息，甚至那些尚未被用到的终端的信息也会存放在 utmp 中。
 
 所以要修改刚才的程序，做到能够区分出哪些终端对应活动的用户。一种简单的思路是：
 
@@ -583,19 +583,50 @@ Unix 中时间是用一个整数来表示的，它的数值是从 1970 年 1 月
 
 	Wed Jun 30 21:49:08 1993'n
 	    ^^^^^^^^^^^^^^^
-	--------------------------
+	----------------------------
 	看到这里的时间了吧，1993 啊！
+	----------------------------
+	测试程序的 format string 为 "%12.12s" 仅显示 12 个字符，也就是
+	----------------------------
+	Jun 30 21:49
 
 注意：并不是所有的字符串内容都需要，需要的是用 `^` 标识出来的部分，接下来就很容易处理了，将 `ctime` 返回的字符串从第 4 个字符看是，输出 12 个字符：
 
-	printf("%12.12s", ctime(&t) +4)
-	-------------------------------
+	printf("%12.12s", ctime(&t) + 4)
+	---------------------------------
 	这是我第一次见 printf 中的参数可以这样用，可能也正好符合 ctime 函数的含义吧，它返回
 
 		 char *ctime(const time_t *timep);
 
 	字符指针，作为指针当然可以进行 +4 的偏移操作了。
+	-----------------------------------------------
+	另一个需要注意的问题是， %12.12.s 的写法。
 
+	1. 先看一下 placeholder 的含义：
+
+		Format placeholder
+		------------------
+		Formatting takes place via placeholders within the format string.
+
+		Syntax
+		------
+		The syntax for a format placeholder is 
+
+			%[parameter][flags][width][.precision][length]type
+
+		more accurate one.
+
+			%[flag][min width][precision][length modifier][conversion specifier]
+
+	2. 分析两个 12 的含义：
+	
+		第一个 12 表示最小宽度，也就是说，无论后面的字符串有多短，输出的结果最少要占用 12 个字符位。
+		第二个 12 表示精度，即如果字符串的长度超过了 12 个，则需要做截取处理。
+
+	3. Refs
+
+		http://www.cprogramming.com/tutorial/printf-format-strings.html
+	
 ##### (3) 把刚才学的两点综合起来
 现在明白了如何消除空白记录和如何正确地显示 `ut_time` 中的时间值，可以着手重新编写 `who2.c` 如下：
 
@@ -615,18 +646,18 @@ Unix 中时间是用一个整数来表示的，它的数值是从 1970 年 1 月
 
 输出结果：
 
-	sunxuebi tty1     1346041185
-	sunxuebi pts/1    1346379541
-	kangyush pts/2    1346497537
-	kangyush pts/4    1346116324
-	kangyush pts/7    1346119624
-	kangyush pts/8    1346223667
-	lipeng   pts/3    1346304395
-	lipeng   pts/11   1346304354
-	liurui   pts/13   1346379896
-	kangyush pts/0    1346488648
-	liurui   pts/10   1346375337
-	sunxuebi pts/12   1346400318
+	sunxuebi tty1     Sep  5 16:18
+	sunxuebi pts/0    Sep  5 16:18
+	lipeng   pts/2    Sep 11 19:04
+	kangyush pts/3    Sep  5 16:19
+	kangyush pts/4    Sep  5 16:20
+	liurui   pts/5    Sep  6 09:35
+	sunxuebi pts/1    Sep  6 14:50
+	kangyush pts/7    Sep 13 16:56
+	kangyush pts/8    Sep  7 09:44
+	kangyush pts/10   Sep 13 15:41
+	kangyush pts/6    Sep 11 14:25
+	sunxuebi pts/9    Sep 13 14:55
 
 这里的 who 只列出了 3 个字段：
 
