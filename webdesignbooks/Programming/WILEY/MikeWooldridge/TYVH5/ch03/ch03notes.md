@@ -280,3 +280,111 @@ Note:
 
 	To create bold text using the font-style property in CSS, see Chapter 5.
 
+## Italicize Text
+
+	set it off
+	----------
+	这个词还是比较难解释的。
+	
+	作为专业词汇，他悲愤译为电影名 
+
+		set it off - 辣姊妹
+
+	但这里解释为衬托比较好：
+
+		For all its beauty the lotus needs its green leaves to set it off.
+
+-
+
+ * set apart - 分开放；  隔离开； 留出； 突出
+ * italicize - vt. 用斜体字排字，在字下划横线
+
+-
+
+	You add italicized text to a page by surrounding the text with <i> and </i> tags.
+	In most browsers, the <em> tag has the same effect as the <i> tag.
+
+### Italicize Text
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+			<p><b>M and B Adventure Travel</b></p>
+
+			<p><i>Extreme vacations are our specialty</i></p>
+			<-- When displayed in a Web browser, the text appears in italics.
+			<p>For more than 10 years, M and B Adventure Travel has 
+			helped customers fulfill their dreams and conquer their fears. We specialize in 
+			one-of-a-kind vacation packages to the most exciting destinations in the world.
+			Let us help you with your hotel bookings, helicopter tours, and shark-cage 
+			rentals, either onlie or in person.</p>
+		</body>
+	</html>
+
+Note:
+
+	To italicize text using the font-style property in CSS, see Chapter 5.
+
+## Insert Preformatted Text
+
+ * `<pre>` - preformatted tag
+
+Web browsers ignore
+
+ * hard returns
+ * line breaks
+ * extra spaces between words
+
+unless you surround the content with preformatted tags.
+
+	hard return vs soft return
+	--------------------------	
+	A hard return is a paragraph break in a word processor. It differs from a soft return in that it starts a new paragraph.
+	Besides affecting the document statistics, this mean that:
+
+	   * Often, extra space and a first line indent will be inserted.
+	   * The next line cannot become an orphan, nor the previous line a widow, if the word processor is set to control for this.
+
+	In most word processors, word wrap is handled automatically, neaning that manual soft returns are rarely if never needed,
+	so pressing Enter starts a new paragraph.
+
+	widow - 寡妇； 遗孀； [牌]放在一边的几张牌； [印]未排足的行
+	orphan - n. 孤儿
+
+Preformatted text is also useful for displaying computer code on a web page because the exact spacing of such code can be important.
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+			<p>Don't Forget</p>
+			<pre>
+		Fannypack		Passport, wallet, shark repellant
+		Suitcase		Clothes, toiletries
+		Briefcase		Business documents, files, pens
+		Laptop bag		Computer, power cable, mouse
+		Duffel bag		Camping equipment, tent
+		Backpack		Parachute
+			</pre>
+		<--- When displayed in a Web browser, the text retains all your original line breaks and spacing.
+		</body>
+	</html>
+
+Note:
+
+	Browsers display preformatted text in a monospace font by default. All characters in a monospace font
+	have equal width. This can help align words within the text into columns.
+
+
+
+
+
