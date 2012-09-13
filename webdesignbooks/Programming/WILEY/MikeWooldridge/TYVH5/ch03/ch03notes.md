@@ -193,3 +193,90 @@ Note:
 
 	You do not need a closing tag for the <br> tag.
 
+## Insert a Blank Space
+
+ * blank space - 空白（区） - a blank area
+ * graphic - adj.  图解的，用图表示的； 用文字表示的； 形象的，生动的
+ * `&nbsp;` - nonbreaking space
+
+-
+	Adding a nonbreaking space is an alternative to inserting a line break tag, <br>, which add
+	space between lines of text. You can also add space around elements on your page with CSS styles.
+-
+
+### Insert a Blank Space
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+			<p>M and B Adventure Travel</p>
+
+			<--- The browser displays blank spaces in the line
+			<--- In this example, the blank spaces indent a paragraph
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;For more than 10 years, M and B Adventure Travel has 
+			helped customers fulfill their dreams and conquer their fears. We specialize in 
+			one-of-a-kind vacation packages to the most exciting destinations in the world.
+			Let us help you with your hotel bookings, helicopter tours, and shark-cage 
+			rentals, either onlie or in person.
+		</body>
+	</html>
+
+The code stands for *nonbreaking space*. Web browsers do not create a line break where you insert these characters. For more about special characters, see "Insert Special Characters."
+
+Note:
+
+	You can also indent a paragraph using the text-indent CSS declaration. See Chapter 5 for details.	
+
+## Make Text Bold
+
+ * emphasize - vt. 强调，着重； 加强语气； 使突出 
+ * passage - n. （文章的）一段； 经过； 通路，通道； 旅程，行程
+
+-
+
+	set them off 
+	------------
+	1.Insurgents had put them in bins around the city and set them off by mobile phones to terrify voters.
+	暴动者将这些水瓶放在城市各处的垃圾箱中，用手机将它们引爆，威吓选民。
+	2.“Someone who is unhinged, someone who is mentally unstable, we don't know – the slightest thing could set them off,” she said.
+	“那些没有被暗示的，是思想上不坚定的，我们并不知道是谁——见微知著即可将其排除在外，”她说道。
+	3.This is the same animal, Cricetomys gambianus, that has been trained to sniff out land mines.(It is light enough not to set them off.)
+	同一种老鼠还被训练用于嗅出地雷的位置，它们的体重比较轻不能触发地雷。
+
+-
+
+另外需要注意的是：
+
+	In most browsers, the <strong> tag has the same effect as the <b> tag.
+
+### Make Text Bold
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+			<p><b>M and B Adventure Travel</b></p>
+			<-- When displayed in a Web browser, the text appears as bold.
+
+			<p>Extreme vacations are our specialty</p>
+			<p>For more than 10 years, M and B Adventure Travel has 
+			helped customers fulfill their dreams and conquer their fears. We specialize in 
+			one-of-a-kind vacation packages to the most exciting destinations in the world.
+			Let us help you with your hotel bookings, helicopter tours, and shark-cage 
+			rentals, either onlie or in person.</p>
+		</body>
+	</html>
+
+Note:
+
+	To create bold text using the font-style property in CSS, see Chapter 5.
+
