@@ -358,6 +358,8 @@ unless you surround the content with preformatted tags.
 
 Preformatted text is also useful for displaying computer code on a web page because the exact spacing of such code can be important.
 
+### Insert Performatted Text
+
 Demo:
 
 	<!DOCTYPE html>
@@ -384,6 +386,41 @@ Note:
 	Browsers display preformatted text in a monospace font by default. All characters in a monospace font
 	have equal width. This can help align words within the text into columns.
 
+## Insert a Heading
+既然 html - 内容表示层与 css - 样式表现层两者是分离的，又为什么会出现诸如 `<h1>` - `<h6>` 这样的标签呢？
+
+对于那些不能够借鞋 CSS 的设备，如果不设置上面的这类标签，则文档结构很难表现出来。
+
+	You can use headings to help clarify information on a page, organize text and create virtual structure.
+
+### Insert a Heading
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+			<-- The heading appears in bold text in the web browser.
+			<-- This figure shows an example of each heading size in descending order.
+			<h1>Hang Glider</h1>
+			<h2>Bicycle</h2>
+			<h3>Snow Skis</h3>
+			<h4>Bungee Cord</h4>
+			<h5>Underwater Camera</h5>
+			<h6>Water Bottle</h6>
+		</body>
+	</html>
+
+-
+
+ * Hang Glider - ①悬挂式滑翔机②从事悬挂式滑翔机运动的人
+ * Snow Skis - ski 滑雪板（ ski的名词复数 ）
+ * Bungee Cord - I love bungee cord jumping.
+ * Underwater Camera - 1. 水下相照机 2. 防水照相机
+ * Water Bottle - A water bottle is a vessel used to hold water or other beverages for consumption. 
 
 
 
