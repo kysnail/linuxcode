@@ -462,3 +462,36 @@ Note:
 	You can mark text within a passage as quoted using the <q> and </q> tags. The
 	web browser adds quotation marks to the surronded text.
 
+## Add Small Print
+You can add small print to your page by surrounding text with `<small>` and `</small>` tags. Small print typically includes 
+
+ * disclaimers - n.否认声明； 放弃； 放弃者
+ * legal restrictions - legal obligation and restriction 法定义务及限制
+ * copyright information
+ * and other subordinate comments - adj.级别或职位较低的； 下级的； 次要的； 附属的
+
+Not surprisingly, web browsers display this type of text in a smaller sized font.
+
+### Add Small Print
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+			<p><b>M and B Adventure Travel</b></p>
+
+			<p>For more than 10 years, M and B Adventure Travel has helped customers fulfill their 
+			dreams and conquer their fears. We specialize in one-of-a-kind vacation packages to the 
+			most exciting destinations in the world. Let us help you with your hotel bookings, 
+			helicopter tours, and shark-cage rentals, either onlie or in person.</p>
+
+			<-- The web browser displays the text smaller than the regular text on the page.
+			<small>Copyright 2011 M and B Adventure Travel</small>
+		</body>
+	</html>
+
+
