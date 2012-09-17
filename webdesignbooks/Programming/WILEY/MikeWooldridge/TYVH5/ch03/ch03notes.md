@@ -422,6 +422,43 @@ Demo:
  * Underwater Camera - 1. 水下相照机 2. 防水照相机
  * Water Bottle - A water bottle is a vessel used to hold water or other beverages for consumption. 
 
+## Add a Bolck Quote
 
+ * set off - 出发； （使）开始； 引起； 点燃
 
+### Add a Block Quote
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+		<-- The web browser displays the block quote as insert text on the ducument page.
+		<blockquote>It was to late to take risk now. I asked Tenzing to belay me strongly, and I 
+		started cutting a curious line of steps up the ridge. Peering from side to side and
+		thrusting with my ice axe, I tried to discover a possible cornice, but everything seemed
+		solid and firm. I waved Tenzing up to me. A few more whacks of the ice-ax, a few very 
+		weary steps, and we were on the summit of Everest.</blockquote>
+
+		Sir Edmund Hilary
+		</body>
+	</html>
+
+-
+
+ * belay - v.把绳索拴在系绳栓上
+ * thrusting - v.猛推（ thrust的现在分词 ）； 猛塞； 刺； 戳
+ * cornice - n.檐口 
+ * whack - n.重击； 一份儿； 尝试； 状况
+ * weary - adj.疲倦的； 困乏的； 令人厌倦[生厌，发腻]的； 感到厌倦的
+ * Everest - n.珠穆朗玛峰（世界最高峰）[人名] [英格兰人姓氏] 埃弗里斯特住所名称，来源于凯尔特语，含义是“紫杉树”（yew tree）
+ * yew - n.紫杉； 紫杉木
+
+Note:
+
+	You can mark text within a passage as quoted using the <q> and </q> tags. The
+	web browser adds quotation marks to the surronded text.
 
