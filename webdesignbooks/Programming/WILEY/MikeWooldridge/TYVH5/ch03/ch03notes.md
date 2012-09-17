@@ -494,4 +494,38 @@ Demo:
 		</body>
 	</html>
 
+## Insert a Comment
+Comments can also be useful for highlighting important sections of HTML code, such as where the 
+ 
+ * header
+ * footer
+ * navigation 
+
+section on a page starts and ends.
+
+	You can also place comments around HTML code to turn that code off. The browser does not interpret 
+	HTML tags inside comments.
+
+### Insert a Comment
+
+Demo:
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>M and B Adventure Travel</title>
+		</head>
+		<body>
+			<h1>Machu Picchu</h1>
+			
+			<p>Located in the Peruvian Andes, the ancient Inca city of Machu Picchu was constructed in
+			the 1400s at the height of the Inca Empire.</p>
+
+			<!-- Add photo of Machu Picchu here-->
+			<-- The comment does not appear on the page when viewed in a web browser.
+
+			<p>It was abandoned less than 100 years later when the Inca empire collapsed under Spanish
+			conquest. Today Machu Picchu is the most visited tourist attaction in Peru.
+		</body>
+	</html>
 
