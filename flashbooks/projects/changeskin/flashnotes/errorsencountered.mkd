@@ -1,0 +1,122 @@
+# error encountered
+离第一次摸 flash 已有 9 年了，这玩意变化很大，越来越成熟，越来越像更完整、高级的平台发展，但不幸的是，随着 HTML5 这类请 RIA 的发展，flash 实际上已经是在走下坡路了。
+
+搞这个项目的过程中遇到了 N 多问题，都是由于不熟。这里记录下来：
+
+## 安全沙箱冲突
+
+    *** 安全沙箱冲突 ***
+    到 fla/LinkedClass.swf 的连接已停止 - 不允许从 file:///E:/DemoCode/source/bin-debug/LearnAS3.swf 进行连接
+    Unable to load URL: SecurityError: Error #2148: SWF 文件 file:///E:/DemoCode/source/bin-debug/LearnAS3.swf 不能访问本地资源 fla/LinkedClass.swf。只有仅限于文件系统的 SWF 文件和可信的本地 SWF 文件可以访问本地资源。
+
+    ********* Security Sandbox Violation ***** Connection to file:///C|/Documents%20and%20Settings/Kevin.PC885314341208/Desktop/Import%20.txt/StockData/1.txt halted - not permitted from file:///C|/Documents%20and%20Settings/Kevin.PC885314341208/Desktop/Import%20.txt/import.swf
+
+搜到的中文文章大部分是使用 Flex 开发，解决的环境也是基于 Flex ，所以很多对不上。比如有篇文章提到了可以修改 `ActionScript compiler` 的方式解决：
+
+    1. project properties > ActionScript compiler    AS编译器/因为我用的是FLEX工程，所以找到FLEX编译器
+    2. add this "-use-network=false" to "Additional compiler arguments" field    符加编译器参数
+    3. then recompile the swf   完成
+
+而我这里是 Flash CS6 开发环境，根本找不到对应的选项，结果还是在 StackOverflow 上找到了答案。
+
+    In Flash, the setting is under "Publish Settings", Flash tab. It's called "Local playback security" and the settings are "Access local files only" or "Access network only". It's the same setting as in FlashDevelop, just a different name.
+
+这篇文章讲的比较详细，不同的开发工具都提到了如何修改，非常不错。
+
+ * [Security Sandbox in AS3](http://stackoverflow.com/questions/304271/security-sandbox-in-as3)
+
+还有可能会在 flash 虚拟机的属性中选额安全设置
+
+    Global Security Settings Panel 
+
+中可以看到
+
+ * [Global Security Settings Panel](http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html)
+
+## crossdomain.xml
+上面的问题解决后，就遇到了跨域问题。这倒也正常，因为本身就不在一台服务器上。翻来覆去的霰弹枪式编程法，捣鼓了半天，终于找到了个可以在我的服务器上运行的配置：
+
+    <?xml version="1.0"?>
+    <!DOCTYPE cross-domain-policy SYSTEM "http://www.adobe.com/xml/dtds/cross-domain-policy.dtd">
+    <cross-domain-policy>
+        <site-control permitted-cross-domain-policies="all" />
+        <allow-access-from domain="*" />
+        <allow-http-request-headers-from domain="*" headers="*"/>
+    </cross-domain-policy>
+
+其实要说这个配置文件的内容本身也很简单。`cross-domain-policy` 是此 xml 配置文件的根节点，其中可以嵌套一个或多个 `allow-access-from` 节点，该节点的 `domain` 属性用于指定允许访问的域。
+
+ * [使用crossdomain.xml让Flash可以跨域传输数据](http://hi.baidu.com/blues_master/item/d2db1308a63eda19eafe3890)
+ * [网站控制（策略文件）](http://help.adobe.com/zh_CN/ActionScript/3.0_ProgrammingAS3/WS5b3ccc516d4fbf351e63e3d118a9b90204-7e08.html)  `<--` 官方文档
+ * [Flex解决跨域问题的策略文件的写法](http://shlei.iteye.com/blog/890204)
+
+## 没有指定元策略
+问题层出不穷，在解决上面问题的过程中，还有可能碰到下面的问题：
+
+    问题：警告: 域 192.168.10.26 没有指定元策略。将应用默认元策略 'master-only'。此配置已停用。请访问 http://www.adobe.com/go/strict_policy_files_cn 以解决此问题。 
+
+这是可以在初始化阶段添加下面的代码：
+
+    Security.loadPolicyFile("http://xxx.xxx.xxx.xxx/crossdomain.xml");  
+    Security.allowDomain("*");      <-- 可有可无
+
+ * [使用crossdomain.xml让Flash可以跨域传输数据](http://shlei.iteye.com/blog/882519)
+
+## header 中 Content-Disposition 的作用
+`Content-Disposition` 简单来说，就是当用户想把请求所得到的内容存为一个文件的时候提供一个默认的文件名。具体的定义如下：
+
+    content-disposition = “Content-Disposition” “:”
+    disposition-type *( “;” disposition-parm )
+    disposition-type = “attachment” | disp-extension-token
+    disposition-parm = filename-parm | disp-extension-parm
+    filename-parm = “filename” “=” quoted-string
+    disp-extension-token = token
+    disp-extension-parm = token “=” ( token | quoted-string )
+
+那么由上可知具体的例子：
+
+    Content-Disposition: attachment; filename=“filename.xls”
+
+当然filename参数可以包含路径信息，但User-Agnet会忽略掉这些信息，只会把路径信息的最后一部分做为文件名。当你在响应类型为application/octet- stream情况下使用了这个头信息的话，那就意味着你不想直接显示内容，而是弹出一个”文件下载”的对话框，接下来就是由你来决定“打开”还是“保存”了。 
+
+服务器向客户端浏览器发送文件时，如果是浏览器支持的文件类型，一般会默认使用浏览器打开，比如 `txt` `jpg` 等，会直接在浏览器中显示，如果需要用户选择如何处理（比如需要提示用户保存），就要利用 `Content-Disposition` 进行一下处理，方法很简单，只需要加上 `attachment` 即可：
+
+    Response.AppendHeader("Content-Disposition","attachment;filename=FileName.txt");
+
+这样浏览器会提示保存还是打开，即使选择打开，也会使用相关联的程序比如记事本打开，而不是IE直接打开了。
+
+### Content-Disposition usage
+在进行 Web 开发时，可能遇到遇到以下几种需求：
+
+ 1. 希望某类或者某已知 MIME 类型的文件（比如：`*.gif`; `*.txt`; `*.htm`）能够在访问时弹出“文件下载”对话框。
+ 2. 希望客户端下载时以指定文件名显示。
+ 3. 希望某文件直接在浏览器上显示而不是弹出文件下载对话框。
+
+对于上面的需求，使用 Content-Disposition 属性就可以解决。下面是代码示例：
+
+    response.setHeader("Content-disposition", "attachment;filename=" + fileName)
+
+-
+ * Content-disposition 为属性名。
+ * attachment 表示以附件方式下载。如果要在页面中打开，则改为 inline。
+ * filename 如果为中文，则会出现乱码。解决办法有两种：
+   * 使用 fileName = new String(fileName.getBytes(), "ISO8859-1") 语句
+   * 使用 fileName = HttpUtility.UrlEncode(filename, System.Text.Encoding.UTF8) 语句
+
+### 注意事项：
+.当代码里面使用 `Content-Disposition` 来确保浏览器弹出下载对话框的时候。 
+
+    response.addHeader("Content-Disposition","attachment");
+
+一定要确保没有做过关于禁止浏览器缓存的操作。如下：
+
+    response.setHeader("Pragma", "No-cache"); 
+    response.setHeader("Cache-Control", "No-cache"); 
+    response.setDateHeader("Expires", 0);
+
+不然会发现下载功能在opera和firefox里面好好的没问题，在IE下面就是不行，就是找不到文件。
+
+ * [Uses of content-disposition in an HTTP response header](http://stackoverflow.com/questions/1012437/uses-of-content-disposition-in-an-http-response-header)
+ * [What is the meaning of the html tag HTTP-EQUIV "CONTENT-DISPOSITION"](http://www.metatags.org/meta_http_equiv_content_disposition)
+
+
